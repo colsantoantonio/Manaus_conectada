@@ -17,19 +17,18 @@ function Noticia() {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      //.get("https://bairro-manaus.onrender.com/api/noticias")
-       .get('http://localhost:5000/api/noticias')
-      .then((res) => {
-        setNoticias(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Erro ao carregar notícias", err);
-        setLoading(false);
-      });
-  }, []);
+ useEffect(() => {
+  axios
+    .get('https://manaus-conectada.onrender.com/api/noticias')
+    .then((res) => {
+      setNoticias(res.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Erro ao carregar notícias", err);
+      setLoading(false);
+    });
+}, []);
 
   if (loading) {
     return (
