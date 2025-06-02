@@ -1,0 +1,191 @@
+[
+  {
+    "id": 1,
+    "nome": "João da Silva",
+    "servico": "Pedreiro",
+    "telefone": "9299999999",
+    "localizacao": "https://maps.google.com?q=Bairro+Central",
+    "status": "online",
+    "foto": "/uploads/profissional-1-1748483939519.png"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Oliveira",
+    "servico": "Costureira",
+    "telefone": "92999887766",
+    "localizacao": "https://maps.google.com?q=Bairro+Alvorada",
+    "status": "online",
+    "foto": "/uploads/profissional-2-1748484250659.png"
+  },
+  {
+    "id": 3,
+    "nome": "Carlos Souza",
+    "servico": "Eletricista",
+    "telefone": "92999776655",
+    "localizacao": "https://maps.google.com?q=Bairro+São+José",
+    "status": "ocupado",
+    "foto": "/uploads/profissional-3-1748560234448.png"
+  },
+  {
+    "id": 4,
+    "nome": "Ana Paula",
+    "servico": "Babá",
+    "telefone": "92999665544",
+    "localizacao": "https://maps.google.com?q=Bairro+Cidade+Nova",
+    "status": "offline",
+    "foto": "https://i.pravatar.cc/150?img=4"
+  },
+  {
+    "id": 5,
+    "nome": "José Mendes",
+    "servico": "Pintor",
+    "telefone": "92999554433",
+    "localizacao": "https://maps.google.com?q=Bairro+Zumbi",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=5"
+  },
+  {
+    "id": 6,
+    "nome": "Luciana Costa",
+    "servico": "Manicure",
+    "telefone": "92999443322",
+    "localizacao": "https://maps.google.com?q=Bairro+Compensa",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=6"
+  },
+  {
+    "id": 7,
+    "nome": "Bruno Lima",
+    "servico": "Marceneiro",
+    "telefone": "92999332211",
+    "localizacao": "https://maps.google.com?q=Bairro+Centro",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=7"
+  },
+  {
+    "id": 8,
+    "nome": "Fernanda Rocha",
+    "servico": "Diarista",
+    "telefone": "92999221100",
+    "localizacao": "https://maps.google.com?q=Bairro+Adrianópolis",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=8"
+  },
+  {
+    "id": 9,
+    "nome": "Ricardo Alves",
+    "servico": "Encanador",
+    "telefone": "92999110099",
+    "localizacao": "https://maps.google.com?q=Bairro+Flores",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=9"
+  },
+  {
+    "id": 10,
+    "nome": "Patrícia Silva",
+    "servico": "Depiladora",
+    "telefone": "92999009988",
+    "localizacao": "https://maps.google.com?q=Bairro+Aleixo",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=10"
+  },
+  {
+    "id": 11,
+    "nome": "Marcelo Braga",
+    "servico": "Jardineiro",
+    "telefone": "92998887766",
+    "localizacao": "https://maps.google.com?q=Bairro+Novo+Aleixo",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=11"
+  },
+  {
+    "id": 12,
+    "nome": "Beatriz Mota",
+    "servico": "Cozinheira",
+    "telefone": "92998776655",
+    "localizacao": "https://maps.google.com?q=Bairro+Educandos",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=12"
+  },
+  {
+    "id": 13,
+    "nome": "Eduardo Nascimento",
+    "servico": "Montador de móveis",
+    "telefone": "92998665544",
+    "localizacao": "https://maps.google.com?q=Bairro+Glória",
+    "status": "offline",
+    "foto": "https://i.pravatar.cc/150?img=13"
+  },
+  {
+    "id": 14,
+    "nome": "Larissa Teixeira",
+    "servico": "Cabeleireira",
+    "telefone": "92998554433",
+    "localizacao": "https://maps.google.com?q=Bairro+Praça+14",
+    "status": "offline",
+    "foto": "https://i.pravatar.cc/150?img=14"
+  },
+  {
+    "id": 15,
+    "nome": "Tiago Cardoso",
+    "servico": "Reparador de ar-condicionado",
+    "telefone": "92998443322",
+    "localizacao": "https://maps.google.com?q=Bairro+Japiim",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=15"
+  },
+  {
+    "id": 16,
+    "nome": "Camila Barbosa",
+    "servico": "Faxineira",
+    "telefone": "92998332211",
+    "localizacao": "https://maps.google.com?q=Bairro+Petrolina",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=16"
+  },
+  {
+    "id": 17,
+    "nome": "Gustavo Martins",
+    "servico": "Serralheiro",
+    "telefone": "92998221100",
+    "localizacao": "https://maps.google.com?q=Bairro+Planalto",
+    "status": "offline",
+    "foto": "https://i.pravatar.cc/150?img=17"
+  },
+  {
+    "id": 18,
+    "nome": "Juliana Ramos",
+    "servico": "Cuidadora de idosos",
+    "telefone": "92998110099",
+    "localizacao": "https://maps.google.com?q=Bairro+Alvorada",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=18"
+  },
+  {
+    "id": 19,
+    "nome": "André Ferreira",
+    "servico": "Motoboy",
+    "telefone": "92998009988",
+    "localizacao": "https://maps.google.com?q=Bairro+São+Francisco",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=19"
+  },
+  {
+    "id": 20,
+    "nome": "Débora Araújo",
+    "servico": "Massagista",
+    "telefone": "92997998877",
+    "localizacao": "https://maps.google.com?q=Bairro+Chapada",
+    "status": "ocupado",
+    "foto": "https://i.pravatar.cc/150?img=20"
+  },
+  {
+    "id": 21,
+    "nome": "Paulo Henrique",
+    "servico": "Técnico em informática",
+    "telefone": "92997887766",
+    "localizacao": "https://maps.google.com?q=Bairro+Ponta+Negra",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=21"
+  }
+]

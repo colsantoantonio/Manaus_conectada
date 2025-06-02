@@ -1,0 +1,15 @@
+/* src/components/Header.css */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    transition: 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: #f8f9fa !important;
+    text-decoration: underline;
+  }
+  

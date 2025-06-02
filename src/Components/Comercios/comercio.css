@@ -1,0 +1,28 @@
+/* comercio.css */
+
+.comercio-container {
+  padding: 2rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.comercio-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .comercio-container {
+    padding: 1rem;
+  }
+
+  .MuiCard-root {
+    margin-bottom: 1rem;
+  }
+
+  .MuiButton-root {
+    width: 100%;
+    justify-content: center;
+  }
+}
