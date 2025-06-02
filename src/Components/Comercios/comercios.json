@@ -1,390 +1,68 @@
 {
   "mercadinhos": [
-    {
-      "nome": "Mercadinho Ceará",
-      "numero": "+55929999999",
-      "horario": "5h30 às 9h00",
-      "entrega": "Entregamos a domicílio",
-      "imagem": "./assets/menu.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-    },
-    {
-      "nome": "Mini Box da Leste",
-      "numero": "+55929999999",
-      "horario": "6h00 às 22h00",
-      "entrega": "Delivery grátis na ZL",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-    },
-    {
-      "nome": "Mercadinho do Povo",
-      "numero": "+5592987654321",
-      "horario": "7h às 21h",
-      "entrega": "Entrega R$5,00",
-      "imagem": "./assets/mercado1.png",
-      "localizacao": "https://www.google.com/maps?q=-3.102000,-60.026"
-    },
-    {
-      "nome": "Comercial Souza",
-      "numero": "+5592976543210",
-      "horario": "6h30 às 20h",
-      "entrega": "Entregas no bairro",
-      "imagem": "./assets/mercado2.png",
-      "localizacao": "https://www.google.com/maps?q=-3.103000,-60.027"
-    },
-    {
-      "nome": "Mercantil Dois Irmãos",
-      "numero": "+5592998765432",
-      "horario": "8h às 18h",
-      "entrega": "Consultar via WhatsApp",
-      "imagem": "./assets/mercado3.png",
-      "localizacao": "https://www.google.com/maps?q=-3.104000,-60.028"
-    },
-    {
-      "nome": "Box do João",
-      "numero": "+5592912345678",
-      "horario": "6h às 22h",
-      "entrega": "Grátis acima de R$30",
-      "imagem": "./assets/mercado4.png",
-      "localizacao": "https://www.google.com/maps?q=-3.105000,-60.029"
-    },
-    {
-      "nome": "Mercado Econômico",
-      "numero": "+5592923456789",
-      "horario": "7h às 20h",
-      "entrega": "Entrega até 2km",
-      "imagem": "./assets/mercado5.png",
-      "localizacao": "https://www.google.com/maps?q=-3.106000,-60.030"
-    },
-    {
-      "nome": "Mercado Bom Preço",
-      "numero": "+5592909876543",
-      "horario": "8h às 19h",
-      "entrega": "Não entrega",
-      "imagem": "./assets/mercado6.png",
-      "localizacao": "https://www.google.com/maps?q=-3.107000,-60.031"
-    },
-    {
-      "nome": "Mercadinho Tropical",
-      "numero": "+5592934567890",
-      "horario": "5h às 23h",
-      "entrega": "Entrega rápida via moto",
-      "imagem": "./assets/mercado7.png",
-      "localizacao": "https://www.google.com/maps?q=-3.108000,-60.032"
-    },
-    {
-      "nome": "Box Manaus",
-      "numero": "+5592945678901",
-      "horario": "6h às 21h",
-      "entrega": "Entrega por R$3",
-      "imagem": "./assets/mercado8.png",
-      "localizacao": "https://www.google.com/maps?q=-3.109000,-60.033"
-    },
-    {
-      "nome": "Mini Box Vitória",
-      "numero": "+5592956789012",
-      "horario": "6h às 22h",
-      "entrega": "Grátis em compras acima de R$50",
-      "imagem": "./assets/mercado9.png",
-      "localizacao": "https://www.google.com/maps?q=-3.110000,-60.034"
-    },
-    {
-      "nome": "Mercado Avenida",
-      "numero": "+5592967890123",
-      "horario": "8h às 20h",
-      "entrega": "Sim, via app",
-      "imagem": "./assets/mercado10.png",
-      "localizacao": "https://www.google.com/maps?q=-3.111000,-60.035"
-    },
-    {
-      "nome": "Mercadinho Bom Jesus",
-      "numero": "+5592978901234",
-      "horario": "7h às 18h",
-      "entrega": "Somente até 18h",
-      "imagem": "./assets/mercado11.png",
-      "localizacao": "https://www.google.com/maps?q=-3.112000,-60.036"
-    },
-    {
-      "nome": "Armazém Central",
-      "numero": "+5592989012345",
-      "horario": "6h30 às 21h",
-      "entrega": "Entrega via telefone",
-      "imagem": "./assets/mercado12.png",
-      "localizacao": "https://www.google.com/maps?q=-3.113000,-60.037"
-    },
-    {
-      "nome": "Mercadinho da Praça",
-      "numero": "+5592990123456",
-      "horario": "7h às 20h30",
-      "entrega": "Entrega na região",
-      "imagem": "./assets/mercado13.png",
-      "localizacao": "https://www.google.com/maps?q=-3.114000,-60.038"
-    },
-    {
-      "nome": "Mercadinho Estrela",
-      "numero": "+5592901234567",
-      "horario": "8h às 22h",
-      "entrega": "Sob consulta",
-      "imagem": "./assets/mercado14.png",
-      "localizacao": "https://www.google.com/maps?q=-3.115000,-60.039"
-    },
-    {
-      "nome": "Mercado da Esquina",
-      "numero": "+5592912345670",
-      "horario": "6h às 23h",
-      "entrega": "Entrega rápida",
-      "imagem": "./assets/mercado15.png",
-      "localizacao": "https://www.google.com/maps?q=-3.116000,-60.040"
-    },
-    {
-      "nome": "Mercadinho Família",
-      "numero": "+5592923456701",
-      "horario": "5h às 22h",
-      "entrega": "Delivery grátis",
-      "imagem": "./assets/mercado16.png",
-      "localizacao": "https://www.google.com/maps?q=-3.117000,-60.041"
-    },
-    {
-      "nome": "Mercado Real",
-      "numero": "+5592934567012",
-      "horario": "6h30 às 20h30",
-      "entrega": "Via WhatsApp",
-      "imagem": "./assets/mercado17.png",
-      "localizacao": "https://www.google.com/maps?q=-3.118000,-60.042"
-    },
-    {
-      "nome": "Mercadinho do Bairro",
-      "numero": "+5592945670123",
-      "horario": "7h às 19h",
-      "entrega": "Consulte o bairro",
-      "imagem": "./assets/mercado18.png",
-      "localizacao": "https://www.google.com/maps?q=-3.119000,-60.043"
-    },
-    {
-      "nome": "Box Popular",
-      "numero": "+5592956701234",
-      "horario": "8h às 21h",
-      "entrega": "Com taxa fixa",
-      "imagem": "./assets/mercado19.png",
-      "localizacao": "https://www.google.com/maps?q=-3.120000,-60.044"
-    }
-  ],
+  {
+    "nome": "Mercadinho Ceará",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "/assets/mercadinhoceara.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+  }
+],
   "lanchonetes": [
     {
-      "nome": "Lanche do Zé",
-      "numero": "+5592999999",
-      "horario": "18h às 23h",
-      "entrega": "Entrega por WhatsApp",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-    },
-    {
-      "nome": "Mercadinho Ceará",
-      "numero": "+55929999999",
-      "horario": "5h30 às 9h00",
-      "entrega": "Entregamos a domicílio",
-      "imagem": "./assets/menu.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-    },
-    {
-      "nome": "Mini Box da Leste",
-      "numero": "+55929999999",
-      "horario": "6h00 às 22h00",
-      "entrega": "Delivery grátis na ZL",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-    },
-    {
-      "nome": "Mercadinho do Povo",
-      "numero": "+5592987654321",
-      "horario": "7h às 21h",
-      "entrega": "Entrega R$5,00",
-      "imagem": "./assets/mercado1.png",
-      "localizacao": "https://www.google.com/maps?q=-3.102000,-60.026"
-    },
-    {
-      "nome": "Comercial Souza",
-      "numero": "+5592976543210",
-      "horario": "6h30 às 20h",
-      "entrega": "Entregas no bairro",
-      "imagem": "./assets/mercado2.png",
-      "localizacao": "https://www.google.com/maps?q=-3.103000,-60.027"
-    },
-    {
-      "nome": "Mercantil Dois Irmãos",
-      "numero": "+5592998765432",
-      "horario": "8h às 18h",
-      "entrega": "Consultar via WhatsApp",
-      "imagem": "./assets/mercado3.png",
-      "localizacao": "https://www.google.com/maps?q=-3.104000,-60.028"
-    },
-    {
-      "nome": "Box do João",
-      "numero": "+5592912345678",
-      "horario": "6h às 22h",
-      "entrega": "Grátis acima de R$30",
-      "imagem": "./assets/mercado4.png",
-      "localizacao": "https://www.google.com/maps?q=-3.105000,-60.029"
-    },
-    {
-      "nome": "Mercado Econômico",
-      "numero": "+5592923456789",
-      "horario": "7h às 20h",
-      "entrega": "Entrega até 2km",
-      "imagem": "./assets/mercado5.png",
-      "localizacao": "https://www.google.com/maps?q=-3.106000,-60.030"
-    },
-    {
-      "nome": "Mercado Bom Preço",
-      "numero": "+5592909876543",
-      "horario": "8h às 19h",
-      "entrega": "Não entrega",
-      "imagem": "./assets/mercado6.png",
-      "localizacao": "https://www.google.com/maps?q=-3.107000,-60.031"
-    },
-    {
-      "nome": "Mercadinho Tropical",
-      "numero": "+5592934567890",
-      "horario": "5h às 23h",
-      "entrega": "Entrega rápida via moto",
-      "imagem": "./assets/mercado7.png",
-      "localizacao": "https://www.google.com/maps?q=-3.108000,-60.032"
-    },
-    {
-      "nome": "Box Manaus",
-      "numero": "+5592945678901",
-      "horario": "6h às 21h",
-      "entrega": "Entrega por R$3",
-      "imagem": "./assets/mercado8.png",
-      "localizacao": "https://www.google.com/maps?q=-3.109000,-60.033"
-    },
-    {
-      "nome": "Mini Box Vitória",
-      "numero": "+5592956789012",
-      "horario": "6h às 22h",
-      "entrega": "Grátis em compras acima de R$50",
-      "imagem": "./assets/mercado9.png",
-      "localizacao": "https://www.google.com/maps?q=-3.110000,-60.034"
-    },
-    {
-      "nome": "Mercado Avenida",
-      "numero": "+5592967890123",
-      "horario": "8h às 20h",
-      "entrega": "Sim, via app",
-      "imagem": "./assets/mercado10.png",
-      "localizacao": "https://www.google.com/maps?q=-3.111000,-60.035"
-    },
-    {
-      "nome": "Mercadinho Bom Jesus",
-      "numero": "+5592978901234",
-      "horario": "7h às 18h",
-      "entrega": "Somente até 18h",
-      "imagem": "./assets/mercado11.png",
-      "localizacao": "https://www.google.com/maps?q=-3.112000,-60.036"
-    },
-    {
-      "nome": "Armazém Central",
-      "numero": "+5592989012345",
-      "horario": "6h30 às 21h",
-      "entrega": "Entrega via telefone",
-      "imagem": "./assets/mercado12.png",
-      "localizacao": "https://www.google.com/maps?q=-3.113000,-60.037"
-    },
-    {
-      "nome": "Mercadinho da Praça",
-      "numero": "+5592990123456",
-      "horario": "7h às 20h30",
-      "entrega": "Entrega na região",
-      "imagem": "./assets/mercado13.png",
-      "localizacao": "https://www.google.com/maps?q=-3.114000,-60.038"
-    },
-    {
-      "nome": "Mercadinho Estrela",
-      "numero": "+5592901234567",
-      "horario": "8h às 22h",
-      "entrega": "Sob consulta",
-      "imagem": "./assets/mercado14.png",
-      "localizacao": "https://www.google.com/maps?q=-3.115000,-60.039"
-    },
-    {
-      "nome": "Mercado da Esquina",
-      "numero": "+5592912345670",
-      "horario": "6h às 23h",
-      "entrega": "Entrega rápida",
-      "imagem": "./assets/mercado15.png",
-      "localizacao": "https://www.google.com/maps?q=-3.116000,-60.040"
-    },
-    {
-      "nome": "Mercadinho Família",
-      "numero": "+5592923456701",
-      "horario": "5h às 22h",
-      "entrega": "Delivery grátis",
-      "imagem": "./assets/mercado16.png",
-      "localizacao": "https://www.google.com/maps?q=-3.117000,-60.041"
-    },
-    {
-      "nome": "Mercado Real",
-      "numero": "+5592934567012",
-      "horario": "6h30 às 20h30",
-      "entrega": "Via WhatsApp",
-      "imagem": "./assets/mercado17.png",
-      "localizacao": "https://www.google.com/maps?q=-3.118000,-60.042"
-    },
-    {
-      "nome": "Mercadinho do Bairro",
-      "numero": "+5592945670123",
-      "horario": "7h às 19h",
-      "entrega": "Consulte o bairro",
-      "imagem": "./assets/mercado18.png",
-      "localizacao": "https://www.google.com/maps?q=-3.119000,-60.043"
-    },
-    {
-      "nome": "Box Popular",
-      "numero": "+5592956701234",
-      "horario": "8h às 21h",
-      "entrega": "Com taxa fixa",
-      "imagem": "./assets/mercado19.png",
-      "localizacao": "https://www.google.com/maps?q=-3.120000,-60.044"
+      "nome": "Lanche do ZE",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "./assets/lanche.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
     }
   ],
   "farmacias": [
     {
-      "nome": "Farmácia Popular",
-      "numero": "+559299999999",
-      "horario": "8h às 20h",
-      "entrega": "Entrega gratuita acima de R$50",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+       "nome": "Farmacia",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "./assets/farmacia.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
     }
   ],
   "saloes": [
     {
-      "nome": "Salão da Cléo",
-      "numero": "+55929999999",
-      "horario": "10h às 18h",
-      "entrega": "Horário marcado",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+      "nome": "salao",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "./assets/salao.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
     }
   ],
   "igrejas": [
     {
-      "nome": "Igreja Batista Santo Antônio",
-      "numero": "+559299999999",
-      "horario": "Domingo às 19h",
-      "entrega": "Atividades semanais",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    "nome": "Igreja",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "./assets/igreja.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
     }
   ],
   "escolas": [
     {
-      "nome": "Escola Estadual J da Silva",
-      "numero": "+559299999999",
-      "horario": "7h às 17h",
-      "entrega": "Ensino fundamental e médio",
-      "imagem": "./assets/cardapio.png",
-      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+      "nome": "Escola",
+    "numero": "+55929999999",
+    "horario": "5h30 às 9h00",
+    "entrega": "Entregamos a domicílio",
+    "logo": "./assets/escola.png",
+    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
     }
   ]
 }

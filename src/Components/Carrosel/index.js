@@ -85,8 +85,6 @@ const CarouselComponent = () => {
           >
           </Box>
         </Box>
-
-
       </Carousel>
     </Box>
   );

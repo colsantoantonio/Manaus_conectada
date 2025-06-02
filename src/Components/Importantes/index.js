@@ -60,10 +60,10 @@ function Importantes() {
 
   return (
     <Box className="container-principal">
-      <Typography variant="h4" className="titulo-secao">Central de Serviços Comunitários</Typography>
+      
+     {/* <Typography variant="h4" className="titulo-secao">Central de Serviços Comunitários</Typography> */}
 
-     {/* Presidente e Comissão Juntos */}
-          <Typography variant="h5" className="titulo-secao">Presidência e Comissão do Bairro</Typography>
+          <Typography variant="h5" className="titulo-secao">Central de Serviços Comunitários</Typography>
           <Grid container justifyContent="center">
             <Grid item xs={12} sm={10} md={8}>
               <Card sx={{ borderRadius: 4, boxShadow: 6, p: 3 }}>
@@ -142,7 +142,6 @@ function Importantes() {
             </Grid>
           </Grid>
       <Divider className="divisor" sx={{ my: 4 }} />
-
     </Box>
   );
 }
