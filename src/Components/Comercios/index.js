@@ -15,6 +15,7 @@ import {
   useTheme,
   useMediaQuery,
   Collapse,
+  CardMedia
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -104,94 +105,105 @@ function Comercio() {
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card
-                sx={{
-                  width: 300,          // largura fixa
-                  height: 340,         // altura fixa
-                  borderRadius: 3,
-                  boxShadow: 3,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  p: 2,
-                  backgroundColor: "#fff",
-                  overflow: "hidden",  // evita que o card cresça além do tamanho
-                }}
-              >
-                <CardHeader
-                  avatar={
-                    <Avatar sx={{ bgcolor: "#25D366" }}>
-                      <StoreIcon />
-                    </Avatar>
-                  }
-                  title={
-                    <Typography
-                      variant="h6"
-                      noWrap
-                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                      title={item.nome}
-                    >
-                      {item.nome}
-                    </Typography>
-                  }
-                  subheader="Comércio local"
-                  sx={{ pb: 1 }}
-                />
-
-                <CardContent
+           <Card
                   sx={{
-                    flexGrow: 1,
-                    overflowY: "auto",   // faz o conteúdo rolar verticalmente se for maior que o espaço
-                    paddingRight: 1,     // espaço para scrollbar
+                    width: 300,
+                    height: 445,
+                    borderRadius: 3,
+                    boxShadow: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    p: 2,
+                    backgroundColor: "#fff",
+                    overflow: "hidden",
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    <PhoneIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.numero}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    <AccessTimeIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.horario}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    <LocalShippingIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.entrega}
-                  </Typography>
-                  {item.localizacao && (
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      gutterBottom
-                      sx={{ cursor: "pointer", textDecoration: "underline" }}
-                      onClick={() => window.open(item.localizacao, "_blank")}
-                    >
-                      <LocationOnIcon fontSize="small" sx={{ mr: 0.5 }} />
-                      Localização
-                    </Typography>
-                  )}
-                </CardContent>
+                  {/* Imagem no topo */}
+                 {item.logo && (
+                  <CardMedia
+                    component="img"
+                    height="100"
+                    image={item.logo}
+                    alt={`${item.nome} logo`}
+                    sx={{ borderRadius: 2, mb: 1 }}
+                  />
+                )}
 
-                <Stack spacing={1} mt={1}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="success"
-                    startIcon={<WhatsAppIcon />}
-                    sx={{ height: 40 }}
-                    onClick={() => openWhatsApp(item.numero, item.nome)}
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{ bgcolor: "#25D366" }}>
+                        <StoreIcon />
+                      </Avatar>
+                    }
+                    title={
+                      <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        title={item.nome}
+                      >
+                        {item.nome}
+                      </Typography>
+                    }
+                    subheader="Comércio local"
+                    sx={{ pb: 1 }}
+                  />
+
+                  <CardContent
+                    sx={{
+                      flexGrow: 1,
+                      overflowY: "auto",
+                      paddingRight: 1,
+                    }}
                   >
-                    WhatsApp
-                  </Button>
-                  {item.imagem && (
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      <PhoneIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.numero}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      <AccessTimeIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.horario}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      <LocalShippingIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.entrega}
+                    </Typography>
+                    {item.localizacao && (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                        sx={{ cursor: "pointer", textDecoration: "underline" }}
+                        onClick={() => window.open(item.localizacao, "_blank")}
+                      >
+                        <LocationOnIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        Localização
+                      </Typography>
+                    )}
+                  </CardContent>
+
+                  <Stack spacing={1} mt={1}>
                     <Button
                       fullWidth
-                      variant="outlined"
-                      color="primary"
+                      variant="contained"
+                      color="success"
+                      startIcon={<WhatsAppIcon />}
                       sx={{ height: 40 }}
-                      onClick={() => abrirModalImagem(item.imagem)}
+                      onClick={() => openWhatsApp(item.numero, item.nome)}
                     >
-                      Ver Panfleto
+                      WhatsApp
                     </Button>
-                  )}
-                </Stack>
-              </Card>
+                   {item.panfleto && (
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        color="primary"
+                        sx={{ height: 40 }}
+                        onClick={() => abrirModalImagem(item.panfleto)}
+                      >
+                        Ver Panfleto
+                      </Button>
+                    )}
+                  </Stack>
+                </Card>
             </Grid>
           ))}
         </Grid>

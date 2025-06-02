@@ -122,10 +122,11 @@ function Home() {
                   </Typography>
                 )}
 
-
+              {isDesktop && (
                 <div style={{ marginTop: "20px" }}>
                   <MarkVip />
                 </div>
+                 )}
 
                 {isDesktop && (
                   <div style={{ marginTop: "20px" }}>
@@ -151,7 +152,7 @@ function Home() {
                       marginTop:"25px"
                     }}
                   >
-                    Compartilhe aqui!!
+                    Area do morador!
                   </Typography>
 
 
