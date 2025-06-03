@@ -7,6 +7,8 @@ import Mercadao from '../Pages/Mercadao';
 import Informações from '../Pages/Noticias';
 import Serviços from '../Pages/Serviços';
 import ProducingRoute from '../Components/Produção/indexRoute';
+import ChamarEntregador from '../Pages/ChamarEntregador/ChamarEntregador.jsx';
+import EntregasDisponiveis from '../Pages/EntregasDisponiveis/EntregasDisponiveis.jsx';
 
 function RoutesApp() {
     return (
@@ -17,6 +19,8 @@ function RoutesApp() {
             <Route path='/mercadao' element={<ProducingRoute ativo={false}><Mercadao /></ProducingRoute>} />
             <Route path='/informações' element={<ProducingRoute ativo={false}><Informações /></ProducingRoute>} />
             <Route path='/serviços' element={<ProducingRoute ativo={false}><Serviços /></ProducingRoute>} />
+            <Route path='/ChamarEntregador' element={<ProducingRoute ativo={false}><ChamarEntregador /></ProducingRoute>} />
+            <Route path='/EntregasDisponiveis' element={<ProducingRoute ativo={false}><EntregasDisponiveis /></ProducingRoute>} />
         </Routes>
     );
 }
