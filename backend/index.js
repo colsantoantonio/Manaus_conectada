@@ -173,9 +173,9 @@ const entregasPath = path.join(__dirname, 'data', 'entregas.json');
 
 // Criar uma nova entrega (dono do mercado)
 app.post('/api/entregas', (req, res) => {
-  const { pedido, endereco, cliente } = req.body;
+  const { pedido, endereco, cliente, mercado, retirada } = req.body;
 
-  if (!pedido || !endereco || !cliente) {
+  if (!pedido || !endereco || !cliente || !mercado || !retirada) {
     return res.status(400).json({ message: 'Pedido, endereço e cliente são obrigatórios.' });
   }
 
@@ -184,8 +184,10 @@ app.post('/api/entregas', (req, res) => {
 
     const novaEntrega = {
       id: Date.now(), // ID único
+      mercado,
       pedido,
       endereco,
+      retirada,
       cliente,
       status: 'pendente', // ou "aceito"
       motoqueiro: null
@@ -241,6 +243,38 @@ app.put('/api/entregas/:id/aceitar', (req, res) => {
     });
   });
 });
+
+setInterval(() => {
+  fs.readFile(entregasPath, 'utf8', (readErr, data) => {
+    if (readErr) {
+      console.error('Erro ao ler entregas.json:', readErr);
+      return;
+    }
+
+    let entregas;
+    try {
+      entregas = JSON.parse(data || '[]');
+    } catch (parseErr) {
+      console.error('Erro ao parsear entregas.json:', parseErr);
+      return;
+    }
+
+    if (entregas.length > 2) {
+      entregas = entregas.slice(0, entregas.length - 2); // Remove as 2 últimas entregas
+    } else {
+      entregas = []; // Se tiver 2 ou menos, apaga tudo
+    }
+    
+    
+    fs.writeFile(entregasPath, JSON.stringify(entregas, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error('Erro ao atualizar entregas.json:', writeErr);
+      } else {
+        console.log('Removidas 2 últimas entregas automaticamente.');
+      }
+    });
+  });
+}, 2 * 60 * 1000); // 2 minutos
 
 
 app.listen(PORT, '0.0.0.0', () => {
