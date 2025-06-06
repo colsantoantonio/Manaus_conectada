@@ -26,6 +26,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import dadosComercios from "./comercios.json";
+import PanfletoModal from '../../Components/PanfletoModal/PanfletoModal';
 
 function Comercio() {
   const [busca, setBusca] = useState("");
@@ -33,6 +34,7 @@ function Comercio() {
   const [modalAberto, setModalAberto] = useState(false);
   const [filtro, setFiltro] = useState(null);
   const [abertos, setAbertos] = useState({});
+  
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -199,7 +201,7 @@ function Comercio() {
                         sx={{ height: 40 }}
                         onClick={() => abrirModalImagem(item.panfleto)}
                       >
-                        Ver Panfleto
+                        Fazer pedido
                       </Button>
                     )}
                   </Stack>
@@ -252,33 +254,11 @@ function Comercio() {
         )
       )}
 
-      {/* Modal */}
-      <Dialog open={modalAberto} onClose={fecharModalImagem} maxWidth="md" fullScreen={fullScreen}>
-        <DialogContent sx={{ position: "relative", p: 0 }}>
-          <IconButton
-            onClick={fecharModalImagem}
-            sx={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              color: "white",
-              backgroundColor: "rgba(0,0,0,0.4)",
-              "&:hover": { backgroundColor: "rgba(0,0,0,0.6)" },
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-          {imagemSelecionada && (
-            <div style={{ overflow: "auto", touchAction: "pinch-zoom" }}>
-              <img
-                src={imagemSelecionada}
-                alt="Panfleto"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/*<Button variant="contained" onClick={() => setModalAberto(true)}>
+        Ver Panfleto
+      </Button> */}
+       
+     <PanfletoModal open={modalAberto} onClose={() => setModalAberto(false)} />  
     </div>
   );
 }
