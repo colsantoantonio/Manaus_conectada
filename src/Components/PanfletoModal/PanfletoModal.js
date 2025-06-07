@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   Box,
@@ -17,70 +17,60 @@ import {
   CircularProgress,
   Badge,
   Divider,
-  TextField,  
+  TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import comerciosData from '../Comercios/comercios.json'; 
 
-const categorias = ['Hambúrguer', 'Pizza', 'Bebidas'];
-
-const produtos = [
-  {
-    id: 1,
-    nome: 'Hambúrguer Clássico',
-    preco: 25.0,
-    categoria: 'Hambúrguer',
-    imagem: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 2,
-    nome: 'Pizza Margherita',
-    preco: 40.0,
-    categoria: 'Pizza',
-    imagem: 'https://images.unsplash.com/photo-1548365328-6b14788ca710?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 3,
-    nome: 'Coca-Cola 500ml',
-    preco: 7.0,
-    categoria: 'Bebidas',
-    imagem: 'https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 4,
-    nome: 'Cheeseburguer',
-    preco: 30.0,
-    categoria: 'Hambúrguer',
-    imagem: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 5,
-    nome: 'Pizza Pepperoni',
-    preco: 45.0,
-    categoria: 'Pizza',
-    imagem: 'https://images.unsplash.com/photo-1594007657608-31f4acb2b0bc?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 6,
-    nome: 'Suco de Laranja',
-    preco: 8.0,
-    categoria: 'Bebidas',
-    imagem: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80',
-  },
-];
-
-export default function PanfletoModal({ open, onClose }) {
+export default function PanfletoModal({ open, onClose, comercio }) {
   const [cartItems, setCartItems] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState(categorias[0]);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
   const [nomeRecebedor, setNomeRecebedor] = useState('');
-const [rua, setRua] = useState('');
-const [numeroCasa, setNumeroCasa] = useState('');
+  const [rua, setRua] = useState('');
+  const [numeroCasa, setNumeroCasa] = useState('');
+  const [produtos, setProdutos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [whatsapp, setWhatsapp] = useState('');
+
+ useEffect(() => {
+  let comercioSelecionado = comercio;
+
+  if (!comercioSelecionado) {
+    const tipos = ['lanchonetes', 'mercadinhos', 'farmacias', 'saloes', 'igrejas', 'escolas'];
+    for (const tipo of tipos) {
+      const lista = comerciosData?.[tipo];
+      if (Array.isArray(lista)) {
+        const comercioComProdutos = lista.find(c => Array.isArray(c.produtos) && c.produtos.length > 0);
+        if (comercioComProdutos) {
+          comercioSelecionado = comercioComProdutos;
+          console.log("Selecionado automaticamente:", comercioComProdutos.nome);
+          break;
+        }
+      }
+    }
+  } else {
+    console.log("Comércio recebido via prop:", comercioSelecionado.nome);
+  }
+
+  if (comercioSelecionado) {
+    setWhatsapp(comercioSelecionado.numero || '');
+    const produtos = comercioSelecionado.produtos || [];
+    setProdutos(produtos);
+
+    const cats = Array.from(new Set(produtos.map((p) => p.categoria)));
+    setCategorias(cats);
+    setCategoriaSelecionada(cats[0] || '');
+  }
+}, [comercio, comerciosData]);
+
+
 
   const adicionarAoCarrinho = (produto) => {
     setSnackbarOpen(true);
@@ -117,33 +107,32 @@ const [numeroCasa, setNumeroCasa] = useState('');
   const valorTotal = cartItems.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
 
   const finalizarPedido = () => {
-  if (cartItems.length === 0) return;
+    if (cartItems.length === 0) return;
 
-  if (!nomeRecebedor || !rua || !numeroCasa) {
-    alert('Preencha todas as informações de entrega antes de finalizar o pedido.');
-    return;
-  }
+    if (!nomeRecebedor || !rua || !numeroCasa) {
+      alert('Preencha todas as informações de entrega antes de finalizar o pedido.');
+      return;
+    }
 
-  setLoading(true);
+    setLoading(true);
 
-  const mensagem = cartItems
-    .map(
-      (item) =>
-        `${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2)}`
-    )
-    .join('\n');
+    const mensagem = cartItems
+      .map(
+        (item) =>
+          `${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2)}`
+      )
+      .join('\n');
 
-  const endereco = `Endereço: Rua ${rua}, Nº ${numeroCasa}`;
-  const recebedor = `Receberá: ${nomeRecebedor}`;
+    const endereco = `Endereço: Rua ${rua}, Nº ${numeroCasa}`;
+    const recebedor = `Receberá: ${nomeRecebedor}`;
 
-  const texto = `Olá! Gostaria de fazer o pedido:\n${mensagem}\n\n${endereco}\n${recebedor}\n\nTotal: R$ ${valorTotal.toFixed(2)}`;
+    const texto = `Olá! Gostaria de fazer o pedido:\n${mensagem}\n\n${endereco}\n${recebedor}\n\nTotal: R$ ${valorTotal.toFixed(2)}`;
 
-  const telefone = '5592993847070';
-  const urlWhatsApp = `https://wa.me/${telefone}?text=${encodeURIComponent(texto)}`;
+    const urlWhatsApp = `https://wa.me/${whatsapp.replace('+', '')}?text=${encodeURIComponent(texto)}`;
 
-  setLoading(false);
-  window.open(urlWhatsApp, '_blank');
-};
+    setLoading(false);
+    window.open(urlWhatsApp, '_blank');
+  };
 
 
   return (
@@ -190,48 +179,105 @@ const [numeroCasa, setNumeroCasa] = useState('');
         </Box>
 
         {/* Menu de Categorias fixo e destacado */}
-        {!mostrarCarrinho && (
-          <Box
-            sx={{
-              position: 'sticky',
-              top: 0,
-              zIndex: 10,
-              bgcolor: 'white',
-              py: 1.5,
-              mb: 3,
-              boxShadow: '0 2px 6px rgba(234,29,44,0.3)',
-            }}
-          >
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ overflowX: 'auto', px: 1, justifyContent: 'center' }}
-            >
-              {categorias.map((cat) => (
-                <Button
-                  key={cat}
-                  variant={cat === categoriaSelecionada ? 'contained' : 'outlined'}
-                  onClick={() => setCategoriaSelecionada(cat)}
-                  sx={{
-                    borderRadius: 25,
-                    textTransform: 'none',
-                    px: 4,
-                    py: 1.2,
-                    fontWeight: 'bold',
-                    fontSize: '1rem',
-                    bgcolor: cat === categoriaSelecionada ? '#53aaf9' : 'transparent',
-                    color: cat === categoriaSelecionada ? 'white' : '#53aaf9',
-                    borderColor: '#53aaf9',
-                    flexShrink: 0,
-                    minWidth: 90,
-                  }}
+            {!mostrarCarrinho && (
+                <Box
+                sx={{
+                  width: '100%',
+                  minWidth: 600,
+                }}
+              >
+                <Box
+                   sx={{
+                      width: '100%',
+                      position: 'sticky',
+                      top: 0,
+                      zIndex: 15,
+                      bgcolor: '#f9f9f9',
+                      py: 1,
+                      mb: 3,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                      overflowX: 'auto',
+                      px: 2,
+                      pr: 4,
+                      display: 'flex',
+                      alignItems: 'center',
+                      scrollbarWidth: 'thin',
+                      scrollbarColor: '#1976d2 transparent',
+                      scrollSnapType: 'x mandatory',
+                      '&::-webkit-scrollbar': {
+                        height: 6,
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#1976d2',
+                        borderRadius: 3,
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        backgroundColor: 'transparent',
+                      },
+                    }}
                 >
-                  {cat}
-                </Button>
-              ))}
-            </Stack>
-          </Box>
-        )}
+                  <Stack
+                    direction="row"
+                    spacing={1.5}
+                    sx={{
+                      width: 'max-content',
+                      minWidth: 600,
+                      pr: 2,
+                      justifyContent: { xs: 'flex-start', sm: 'center' },
+                      alignItems: 'center',
+                      flexWrap: 'nowrap',
+                      scrollSnapAlign: 'start',
+                    }}
+                  >
+
+                    {categorias.map((cat) => (
+                      <Button
+                        key={cat}
+                        onClick={() => setCategoriaSelecionada(cat)}
+                        variant={cat === categoriaSelecionada ? 'contained' : 'outlined'}
+                        sx={{
+                          borderRadius: 50,
+                          textTransform: 'capitalize',
+                          px: 3,
+                          py: 1.2,
+                          minWidth: 100,
+                          fontWeight: 600,
+                          fontSize: { xs: '0.9rem', sm: '1rem' },
+                          bgcolor: cat === categoriaSelecionada ? '#1976d2' : 'transparent',
+                          color: cat === categoriaSelecionada ? '#fff' : '#1976d2',
+                          borderColor: '#1976d2',
+                          boxShadow: cat === categoriaSelecionada ? '0 4px 12px rgba(25, 118, 210, 0.4)' : 'none',
+                          transition: 'all 0.3s ease',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
+                          '&:hover': {
+                            bgcolor: cat === categoriaSelecionada ? '#1565c0' : 'rgba(25, 118, 210, 0.1)',
+                            borderColor: '#1565c0',
+                            color: cat === categoriaSelecionada ? '#fff' : '#1565c0',
+                            boxShadow: cat === categoriaSelecionada ? '0 6px 18px rgba(21, 101, 192, 0.6)' : '0 0 8px rgba(25, 118, 210, 0.2)',
+                            transform: 'scale(1.05)',
+                          },
+                          '&:active': {
+                            transform: 'scale(0.95)',
+                            boxShadow: 'none',
+                            bgcolor: '#0d47a1',
+                            borderColor: '#0d47a1',
+                          },
+                          '@media (max-width:480px)': {
+                            minWidth: 80,
+                            fontSize: '0.85rem',
+                            px: 2,
+                            py: 1,
+                          },
+                        }}
+                      >
+                        {cat}
+                      </Button>
+                    ))}
+                  </Stack>
+                </Box>
+                  </Box>
+              )}
 
         {/* Lista de Produtos */}
         {!mostrarCarrinho && (
