@@ -7,20 +7,201 @@
     "entrega": "Entregamos a domicílio",
     "logo": "/assets/mercadinhoceara.png",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
-    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
-  }
-],
-  "lanchonetes": [
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+    "categorias": ["Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas"],
+    "produtos": [
     {
-      "nome": "Lanche do ZE",
+      "id": 1,
+      "nome": "Arroz Tipo 1 - 5kg",
+      "preco": 22.5,
+      "categoria": "Grãos",
+      "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 2,
+      "nome": "Feijão Carioca - 1kg",
+      "preco": 8.9,
+      "categoria": "Grãos",
+      "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 3,
+      "nome": "Coca-Cola 2L",
+      "preco": 9.5,
+      "categoria": "Bebidas",
+      "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 4,
+      "nome": "Alface Crespa",
+      "preco": 3.0,
+      "categoria": "Hortifruti",
+      "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 5,
+      "nome": "Banana Prata - 1kg",
+      "preco": 5.5,
+      "categoria": "Hortifruti",
+      "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 6,
+      "nome": "Sabão em Pó OMO 800g",
+      "preco": 12.0,
+      "categoria": "Limpeza",
+      "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 7,
+      "nome": "Leite Integral - 1L",
+      "preco": 4.5,
+      "categoria": "Laticínios",
+      "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 8,
+      "nome": "Queijo Mussarela Fatiado - 100g",
+      "preco": 6.9,
+      "categoria": "Laticínios",
+      "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65?auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+  },
+
+   {
+    "nome": "Mercadinho Estrela",
     "numero": "+55929999999",
     "horario": "5h30 às 9h00",
     "entrega": "Entregamos a domicílio",
-    "logo": "./assets/lanche.png",
+    "logo": "/assets/",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
-    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+    "categorias": ["arroz", "Hortifruti", "Limpeza", "Laticínios", "Bebidas"],
+    "produtos": [
+    {
+      "id": 1,
+      "nome": "Arroz Tipo 2 - 5kg",
+      "preco": 22.5,
+      "categoria": "Grãos",
+      "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 2,
+      "nome": "Feijão preto - 1kg",
+      "preco": 8.9,
+      "categoria": "Grãos",
+      "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 3,
+      "nome": "Coca-Cola 2L",
+      "preco": 9.5,
+      "categoria": "Bebidas",
+      "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 4,
+      "nome": "Alface Crespa",
+      "preco": 3.0,
+      "categoria": "Hortifruti",
+      "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 5,
+      "nome": "Banana Prata - 1kg",
+      "preco": 5.5,
+      "categoria": "Hortifruti",
+      "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 6,
+      "nome": "Sabão em Pó OMO 800g",
+      "preco": 12.0,
+      "categoria": "Limpeza",
+      "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 7,
+      "nome": "Leite Integral - 1L",
+      "preco": 4.5,
+      "categoria": "Laticínios",
+      "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": 8,
+      "nome": "Queijo Mussarela Fatiado - 100g",
+      "preco": 6.9,
+      "categoria": "Laticínios",
+      "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65?auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+  }
+],
+ 
+  "lanchonetes": [
+    {
+      "nome": "Lanche do ZE",
+      "numero": "+55929999999",
+      "horario": "5h30 às 9h00",
+      "entrega": "Entregamos a domicílio",
+      "logo": "./assets/lanche.png",
+      "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+      "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+      "categorias": ["Hambúrguer", "Pizza", "Bebidas"],
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Hambúrguer Clássico",
+          "preco": 25.0,
+          "categoria": "Hambúrguer",
+          "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 2,
+          "nome": "Pizza Margherita",
+          "preco": 40.0,
+          "categoria": "Pizza",
+          "imagem": "https://images.unsplash.com/photo-1548365328-6b14788ca710?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 3,
+          "nome": "Coca-Cola 500ml",
+          "preco": 7.0,
+          "categoria": "Bebidas",
+          "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 4,
+          "nome": "Cheeseburguer",
+          "preco": 30.0,
+          "categoria": "Hambúrguer",
+          "imagem": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 5,
+          "nome": "Pizza Pepperoni",
+          "preco": 45.0,
+          "categoria": "Pizza",
+          "imagem": "https://images.unsplash.com/photo-1594007657608-31f4acb2b0bc?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 6,
+          "nome": "Suco de Laranja",
+          "preco": 8.0,
+          "categoria": "Bebidas",
+          "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
+        }, {
+          "id": 7,
+          "nome": "Suco de maracuja",
+          "preco": 8.0,
+          "categoria": "Bebidas",
+          "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
     }
   ],
+
   "farmacias": [
     {
        "nome": "Farmacia",
@@ -29,7 +210,52 @@
     "entrega": "Entregamos a domicílio",
     "logo": "./assets/farmacia.png",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
-    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+     "categorias": ["Medicamentos", "Higiene", "Vitaminas"],
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Paracetamol 750mg - 20 Comprimidos",
+          "preco": 12.0,
+          "categoria": "Medicamentos",
+          "imagem": "https://images.unsplash.com/photo-1588776814546-ec7e90f7be94?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 2,
+          "nome": "Dipirona Sódica 1g - 10 Comprimidos",
+          "preco": 9.5,
+          "categoria": "Medicamentos",
+          "imagem": "https://images.unsplash.com/photo-1584824486539-53bb4646bdbc?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 3,
+          "nome": "Sabonete Dove - 90g",
+          "preco": 4.5,
+          "categoria": "Higiene",
+          "imagem": "https://images.unsplash.com/photo-1611078489935-0cb964db5c57?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 4,
+          "nome": "Escova de Dente Colgate",
+          "preco": 6.0,
+          "categoria": "Higiene",
+          "imagem": "https://images.unsplash.com/photo-1629792082416-0152db0a6f13?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 5,
+          "nome": "Vitamina C Efervescente - 10 Comprimidos",
+          "preco": 14.9,
+          "categoria": "Vitaminas",
+          "imagem": "https://images.unsplash.com/photo-1632269281266-f3021e1c98bc?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 6,
+          "nome": "Centrum Homem - 30 Comprimidos",
+          "preco": 39.9,
+          "categoria": "Vitaminas",
+          "imagem": "https://images.unsplash.com/photo-1609770234511-0b8f8c75008a?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
     }
   ],
   "saloes": [
@@ -40,7 +266,58 @@
     "entrega": "Entregamos a domicílio",
     "logo": "./assets/salao.png",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
-    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025"
+    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+     "categorias": ["Cabelo", "Unhas", "Estética"],
+        "produtos": [
+        {
+          "id": 1,
+          "nome": "Corte Feminino",
+          "preco": 35.0,
+          "categoria": "Cabelo",
+          "duracao": "30 minutos",
+          "imagem": "https://images.unsplash.com/photo-1616106372224-043cb10b4fa3?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 2,
+          "nome": "Escova Progressiva",
+          "preco": 120.0,
+          "categoria": "Cabelo",
+          "duracao": "1h 30min",
+          "imagem": "https://images.unsplash.com/photo-1559599113-090dddfc1817?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 3,
+          "nome": "Manicure e Pedicure",
+          "preco": 45.0,
+          "categoria": "Unhas",
+          "duracao": "1 hora",
+          "imagem": "https://images.unsplash.com/photo-1603395845393-6b6a7585f7ba?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 4,
+          "nome": "Alongamento de Unhas Gel",
+          "preco": 90.0,
+          "categoria": "Unhas",
+          "duracao": "1h 30min",
+          "imagem": "https://images.unsplash.com/photo-1591360018387-74ee9d261b45?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 5,
+          "nome": "Limpeza de Pele",
+          "preco": 70.0,
+          "categoria": "Estética",
+          "duracao": "45 minutos",
+          "imagem": "https://images.unsplash.com/photo-1616211486685-05e6fdadb835?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": 6,
+          "nome": "Design de Sobrancelhas",
+          "preco": 25.0,
+          "categoria": "Estética",
+          "duracao": "20 minutos",
+          "imagem": "https://images.unsplash.com/photo-1604200210721-90e4011e6f87?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
     }
   ],
   "igrejas": [

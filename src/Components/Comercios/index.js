@@ -30,10 +30,10 @@ import PanfletoModal from '../../Components/PanfletoModal/PanfletoModal';
 
 function Comercio() {
   const [busca, setBusca] = useState("");
-  const [imagemSelecionada, setImagemSelecionada] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [filtro, setFiltro] = useState(null);
   const [abertos, setAbertos] = useState({});
+  const [comercioSelecionado, setComercioSelecionado] = useState(null);
   
 
   const theme = useTheme();
@@ -45,13 +45,14 @@ function Comercio() {
     window.open(url, "_blank");
   };
 
-  const abrirModalImagem = (imagem) => {
-    setImagemSelecionada(imagem);
-    setModalAberto(true);
-  };
+  const abrirModalComercio = (comercio) => {
+  setComercioSelecionado(comercio);
+  setModalAberto(true);
+};
+
 
   const fecharModalImagem = () => {
-    setImagemSelecionada(null);
+    setComercioSelecionado(null);
     setModalAberto(false);
   };
 
@@ -193,17 +194,17 @@ function Comercio() {
                     >
                       WhatsApp
                     </Button>
-                   {item.panfleto && (
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        color="primary"
-                        sx={{ height: 40 }}
-                        onClick={() => abrirModalImagem(item.panfleto)}
-                      >
-                        Fazer pedido
-                      </Button>
-                    )}
+                  {item.panfleto && (
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                      sx={{ height: 40 }}
+                      onClick={() => abrirModalComercio(item)} // <-- passar o item inteiro
+                    >
+                      Fazer pedido
+                    </Button>
+                  )}
                   </Stack>
                 </Card>
             </Grid>
@@ -258,7 +259,12 @@ function Comercio() {
         Ver Panfleto
       </Button> */}
        
-     <PanfletoModal open={modalAberto} onClose={() => setModalAberto(false)} />  
+    <PanfletoModal
+  open={modalAberto}
+  onClose={() => setModalAberto(false)}
+  comercio={comercioSelecionado} // <-- passa o comércio selecionado aqui
+/>
+
     </div>
   );
 }
