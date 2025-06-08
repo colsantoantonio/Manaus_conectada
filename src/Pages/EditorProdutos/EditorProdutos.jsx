@@ -9,11 +9,20 @@ import {
   IconButton,
   Stack,
   Avatar,
-  Divider,
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogActions,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
-export default function EditorProdutos() {
+export default function EditorProdutos() { 
+  console.log('🚀 EditorProdutos renderizado');
+
+  const navigate = useNavigate();
+
   const [comercio, setComercio] = useState(null);
   const [produtos, setProdutos] = useState([]);
   const [novoProduto, setNovoProduto] = useState({
@@ -22,47 +31,66 @@ export default function EditorProdutos() {
     categoria: '',
     imagem: '',
   });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [confirmSairOpen, setConfirmSairOpen] = useState(false);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    const comercioString = localStorage.getItem('comercioLogado');
-    if (comercioString) {
+  console.log('🟡 Início do useEffect do PainelComercio');
+
+  const comercioString = localStorage.getItem('comercioLogado');
+  console.log('📦 localStorage.getItem:', comercioString);
+
+  if (comercioString) {
+    try {
       const comercioObj = JSON.parse(comercioString);
+      console.log('✅ Objeto parseado com sucesso:', comercioObj);
+
+      if (!comercioObj.imagem && comercioObj.logo) {
+        console.log('📷 "imagem" não existia, usando logo:', comercioObj.logo);
+        comercioObj.imagem = comercioObj.logo;
+      }
+
       setComercio(comercioObj);
+      console.log('📌 setComercio foi chamado');
 
       const numero = comercioObj.numero;
       const produtosSalvos = localStorage.getItem(`produtos-${numero}`);
+      console.log(`📦 Produtos salvos para o número ${numero}:`, produtosSalvos);
 
       if (!produtosSalvos || produtosSalvos === '[]') {
+        console.log('🆕 Produtos vazios. Salvando do objeto do comércio.');
         setProdutos(comercioObj.produtos || []);
-        localStorage.setItem(
-          `produtos-${numero}`,
-          JSON.stringify(comercioObj.produtos || [])
-        );
+        localStorage.setItem(`produtos-${numero}`, JSON.stringify(comercioObj.produtos || []));
       } else {
-        try {
-          setProdutos(JSON.parse(produtosSalvos));
-        } catch {
-          setProdutos(comercioObj.produtos || []);
-        }
+        console.log('📦 Produtos encontrados no localStorage. Carregando...');
+        setProdutos(JSON.parse(produtosSalvos));
       }
+
+      setCarregando(false);
+      console.log('✅ Carregamento concluído');
+
+    } catch (erro) {
+      console.error('❌ Erro ao parsear o JSON ou carregar dados:', erro);
+      navigate('/LoginComercio', { replace: true });
     }
-  }, []);
+  } else {
+    console.warn('⚠️ Nenhum comércio encontrado no localStorage');
+    setTimeout(() => {
+      navigate('/LoginComercio', { replace: true });
+    }, 1000);
+  }
+}, [navigate]);
+
 
   useEffect(() => {
     if (comercio) {
-      localStorage.setItem(
-        `produtos-${comercio.numero}`,
-        JSON.stringify(produtos)
-      );
+      localStorage.setItem(`produtos-${comercio.numero}`, JSON.stringify(produtos));
     }
   }, [produtos, comercio]);
 
   const adicionarProduto = () => {
-    if (
-      !novoProduto.nome.trim() ||
-      novoProduto.preco === '' ||
-      isNaN(Number(novoProduto.preco))
-    ) {
+    if (!novoProduto.nome.trim() || novoProduto.preco === '' || isNaN(Number(novoProduto.preco))) {
       alert('Preencha nome e preço válidos');
       return;
     }
@@ -77,6 +105,7 @@ export default function EditorProdutos() {
 
     setProdutos((prev) => [...prev, novo]);
     setNovoProduto({ nome: '', preco: '', categoria: '', imagem: '' });
+    setSnackbarOpen(true);
   };
 
   const removerProduto = (id) => {
@@ -102,16 +131,35 @@ export default function EditorProdutos() {
     );
   };
 
+  const abrirConfirmSair = () => setConfirmSairOpen(true);
+  const fecharConfirmSair = () => setConfirmSairOpen(false);
+
   const sairLogin = () => {
+    document.activeElement?.blur();
     localStorage.removeItem('comercioLogado');
-    window.location.href = '/LoginComercio';
+    setConfirmSairOpen(false);
+    navigate('/LoginComercio', { replace: true });
   };
 
+  const handleSnackbarClose = () => setSnackbarOpen(false);
+
+  // 🔄 Exibe "Carregando..." enquanto tenta ler o localStorage
+  if (carregando) {
+    return (
+      <Container sx={{ mt: 6 }}>
+        <Typography align="center" variant="h6">
+          Carregando dados do comércio...
+        </Typography>
+      </Container>
+    );
+  }
+
+  // ❌ Não encontrou o comércio, já está redirecionando
   if (!comercio) {
     return (
       <Container sx={{ mt: 6 }}>
         <Typography align="center" variant="h6" color="error">
-          Comércio não encontrado. Faça login novamente.
+          Comércio não encontrado. Redirecionando para login...
         </Typography>
       </Container>
     );
@@ -119,7 +167,6 @@ export default function EditorProdutos() {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 8 }}>
-      {/* LOGO + Nome */}
       <Box
         sx={{
           textAlign: 'center',
@@ -139,7 +186,7 @@ export default function EditorProdutos() {
               height: 120,
               margin: 'auto',
               mb: 2,
-              border: '3px solid #d92f27', // vermelho iFood
+              border: '3px solid #d92f27',
               boxShadow: '0 0 10px rgba(217, 47, 39, 0.5)',
             }}
           />
@@ -164,7 +211,7 @@ export default function EditorProdutos() {
         <Button
           variant="outlined"
           color="error"
-          onClick={sairLogin}
+          onClick={abrirConfirmSair}
           sx={{
             mt: 1,
             borderRadius: 3,
@@ -198,10 +245,7 @@ export default function EditorProdutos() {
             variant="outlined"
             fullWidth
             value={novoProduto.nome}
-            onChange={(e) =>
-              setNovoProduto({ ...novoProduto, nome: e.target.value })
-            }
-            sx={{ borderRadius: 2 }}
+            onChange={(e) => setNovoProduto({ ...novoProduto, nome: e.target.value })}
           />
           <TextField
             label="Preço"
@@ -210,30 +254,21 @@ export default function EditorProdutos() {
             type="number"
             inputProps={{ step: '0.01' }}
             value={novoProduto.preco}
-            onChange={(e) =>
-              setNovoProduto({ ...novoProduto, preco: e.target.value })
-            }
-            sx={{ borderRadius: 2 }}
+            onChange={(e) => setNovoProduto({ ...novoProduto, preco: e.target.value })}
           />
           <TextField
             label="Categoria"
             variant="outlined"
             fullWidth
             value={novoProduto.categoria}
-            onChange={(e) =>
-              setNovoProduto({ ...novoProduto, categoria: e.target.value })
-            }
-            sx={{ borderRadius: 2 }}
+            onChange={(e) => setNovoProduto({ ...novoProduto, categoria: e.target.value })}
           />
           <TextField
             label="URL da Imagem"
             variant="outlined"
             fullWidth
             value={novoProduto.imagem}
-            onChange={(e) =>
-              setNovoProduto({ ...novoProduto, imagem: e.target.value })
-            }
-            sx={{ borderRadius: 2 }}
+            onChange={(e) => setNovoProduto({ ...novoProduto, imagem: e.target.value })}
           />
           <Button
             variant="contained"
@@ -301,9 +336,7 @@ export default function EditorProdutos() {
                 label="Categoria"
                 variant="standard"
                 value={prod.categoria}
-                onChange={(e) =>
-                  atualizarProduto(prod.id, 'categoria', e.target.value)
-                }
+                onChange={(e) => atualizarProduto(prod.id, 'categoria', e.target.value)}
                 sx={{ mb: 1, mr: 1 }}
               />
               <TextField
@@ -326,6 +359,37 @@ export default function EditorProdutos() {
           </Paper>
         ))
       )}
+
+      <Button
+        variant="text"
+        onClick={() => navigate('/')}
+        sx={{ mt: 4, fontWeight: 'bold' }}
+      >
+        Voltar para a página inicial
+      </Button>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Produto adicionado com sucesso!
+        </Alert>
+      </Snackbar>
+
+      <Dialog open={confirmSairOpen} onClose={fecharConfirmSair}>
+        <DialogTitle>Deseja realmente sair do login?</DialogTitle>
+        <DialogActions>
+          <Button onClick={fecharConfirmSair} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={sairLogin} color="error" variant="contained" autoFocus>
+            Sair
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import comerciosData from '../../Components/Comercios/comercios.json';
 
@@ -46,22 +46,39 @@ export default function Login() {
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
 
+  const inputRef = useRef(null);
+
   const handleLogin = () => {
+    // Remove foco do input para evitar warning aria-hidden
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+
     const tipos = ['lanchonetes', 'mercadinhos', 'farmacias', 'saloes', 'igrejas', 'escolas'];
 
     for (const tipo of tipos) {
       const lista = comerciosData[tipo] || [];
       const comercio = lista.find(c => c.numero === telefone);
       if (comercio) {
-        localStorage.setItem('comercioLogado', JSON.stringify(comercio));
+        const comercioComProdutos = {
+          ...comercio,
+          produtos: Array.isArray(comercio.produtos) ? comercio.produtos : [],
+        };
+
+        localStorage.setItem('comercioLogado', JSON.stringify(comercioComProdutos));
 
         const keyProdutos = `produtos-${comercio.numero}`;
         const produtosExistentes = localStorage.getItem(keyProdutos);
-        if (!produtosExistentes && comercio.produtos) {
-          localStorage.setItem(keyProdutos, JSON.stringify(comercio.produtos));
+        if (!produtosExistentes) {
+          localStorage.setItem(keyProdutos, JSON.stringify(comercioComProdutos.produtos));
         }
+        console.log('Comercio salvo:', comercioComProdutos);
+        console.log('LocalStorage:', localStorage.getItem('comercioLogado'));
 
-        navigate('/EditorProdutos');
+       setTimeout(() => {
+      navigate('/EditorProdutos');
+    }, 100);
+    
         return;
       }
     }
@@ -90,6 +107,7 @@ export default function Login() {
           </Typography>
 
           <TextField
+            inputRef={inputRef}
             label="Número de celular"
             variant="outlined"
             fullWidth
