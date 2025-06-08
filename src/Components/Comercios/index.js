@@ -15,7 +15,7 @@ import {
   useTheme,
   useMediaQuery,
   Collapse,
-  CardMedia
+  CardMedia,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,6 +27,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import dadosComercios from "./comercios.json";
 import PanfletoModal from '../../Components/PanfletoModal/PanfletoModal';
+import LoginIcon from '@mui/icons-material/Login';
 
 function Comercio() {
   const [busca, setBusca] = useState("");
@@ -77,6 +78,10 @@ function Comercio() {
     saloes: "✂️ Salões de Beleza",
     igrejas: "⛪ Igrejas",
     escolas: "🏫 Escolas",
+  };
+
+   const irParaLogin = () => {
+    window.location.href = '/LoginComercio'; // ou usar react-router se tiver
   };
 
   const toggleCategoria = (cat) => {
@@ -258,6 +263,53 @@ function Comercio() {
       {/*<Button variant="contained" onClick={() => setModalAberto(true)}>
         Ver Panfleto
       </Button> */}
+
+      <Stack
+      direction="column"
+      spacing={1}
+      alignItems="center"
+      justifyContent="center"
+      mb={3}
+      sx={{
+        maxWidth: 300,
+        mx: 'auto',
+        p: 2,
+        borderRadius: 2,
+        backgroundColor: '#f5f5f5',
+        boxShadow: 1,
+      }}
+    >
+      <Typography
+        variant="body2"
+        align="center"
+        sx={{ color: '#666', fontStyle: 'italic', mb: 1 }}
+      >
+        Área exclusiva para Comercios cadastrados.
+      </Typography>
+
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<LoginIcon />}
+        onClick={irParaLogin}
+        sx={{
+          bgcolor: 'rgba(25, 67, 184, 0.4)', // vermelho iFood
+          '&:hover': {
+            bgcolor: '#b52722',
+          },
+          fontWeight: 'bold',
+         fontSize: '0.95rem',     // menor que 1.1rem
+          paddingX: 2.2,           // menor que 3
+          paddingY: 0.9,           // menor que 1.2
+          borderRadius: 2,         // ligeiramente menor
+                textTransform: 'none',
+          boxShadow: '0 4px 10px rgba(39, 87, 217, 0.4)',
+          width: '100%',
+        }}
+      >
+        Área do comércio
+      </Button>
+    </Stack>
        
     <PanfletoModal
   open={modalAberto}

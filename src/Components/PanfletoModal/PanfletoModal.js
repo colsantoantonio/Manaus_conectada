@@ -466,5 +466,4 @@ export default function PanfletoModal({ open, onClose, comercio }) {
       </Box>
     </Modal>
   );
-
 }
