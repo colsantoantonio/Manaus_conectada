@@ -96,7 +96,7 @@ function Comercio() {
           mb={2}
           px={2}
         >
-          <Button
+         <Button
             variant="contained"
             onClick={() => toggleCategoria(chave)}
             sx={{
@@ -104,6 +104,14 @@ function Comercio() {
               textAlign: "left",
               justifyContent: "flex-start",
               py: 1.5,
+              borderRadius: 2,
+              background: "#1943b8",
+              color: "#fff",
+              fontWeight: "bold",
+              boxShadow: "0px 4px 10px rgba(25, 67, 184, 0.2)",
+              '&:hover': {
+                backgroundColor: "#12359c"
+              }
             }}
           >
             {tituloCategoria[chave]}
@@ -113,20 +121,25 @@ function Comercio() {
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-           <Card
+                <Card
                   sx={{
                     width: 300,
                     height: 445,
                     borderRadius: 3,
-                    boxShadow: 3,
+                    boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
                     p: 2,
-                    backgroundColor: "#fff",
-                    overflow: "hidden",
+                    backgroundColor: "#ffffff",
+                    transition: "transform 0.2s",
+                    '&:hover': {
+                      transform: "scale(1.02)",
+                      boxShadow: "0 8px 25px rgba(0,0,0,0.1)"
+                    }
                   }}
                 >
+
                   {/* Imagem no topo */}
                  {item.logo && (
                   <CardMedia
@@ -221,21 +234,25 @@ function Comercio() {
 
   return (
     <div style={{ padding: "2rem 1rem", backgroundColor: "#f9fafb", minHeight: "100vh" }}>
-      <Typography
+     <Typography
         variant="h4"
         align="center"
         gutterBottom
         sx={{
-          fontWeight: "bold",
-          mb: 4,
-          fontSize: { xs: "1.3rem", sm: "2rem", md: "2.5rem" },
+          fontWeight: 700,
+          mb: { xs: 2, sm: 4 },
+          fontSize: { xs: "1.5rem", sm: "2.2rem", md: "2.8rem" },
+          color: "#1a237e",
           maxWidth: "900px",
-          margin: "0 auto",
-          px: 2,
+          mx: "auto",
+          px: { xs: 1, sm: 2 },
+          textAlign: "center",
         }}
       >
-        🏘️ Guia de Comércios do Bairro!
+        Guia de Comércios do Bairro
       </Typography>
+
+
 
       {/* Filtros */}
       <Stack
@@ -307,15 +324,15 @@ function Comercio() {
           width: '100%',
         }}
       >
-        Área do comércio
+        Área do Comerciante
       </Button>
     </Stack>
        
     <PanfletoModal
-  open={modalAberto}
-  onClose={() => setModalAberto(false)}
-  comercio={comercioSelecionado} // <-- passa o comércio selecionado aqui
-/>
+      open={modalAberto}
+      onClose={() => setModalAberto(false)}
+      comercio={comercioSelecionado} // <-- passa o comércio selecionado aqui
+    />
 
     </div>
   );
