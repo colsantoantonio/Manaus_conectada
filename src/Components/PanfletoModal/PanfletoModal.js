@@ -17,7 +17,11 @@ import {
   CircularProgress,
   Badge,
   Divider,
-  TextField,
+  TextField, 
+  FormControl, 
+  InputLabel, 
+  Select, 
+  MenuItem
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -38,6 +42,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [whatsapp, setWhatsapp] = useState('');
+  const [formaPagamento, setFormaPagamento] = useState("");
 
  useEffect(() => {
   let comercioSelecionado = comercio;
@@ -109,7 +114,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
   const finalizarPedido = () => {
     if (cartItems.length === 0) return;
 
-    if (!nomeRecebedor || !rua || !numeroCasa) {
+    if (!nomeRecebedor || !rua || !numeroCasa || !formaPagamento) {
       alert('Preencha todas as informações de entrega antes de finalizar o pedido.');
       return;
     }
@@ -124,9 +129,10 @@ export default function PanfletoModal({ open, onClose, comercio }) {
       .join('\n');
 
     const endereco = `Endereço: Rua ${rua}, Nº ${numeroCasa}`;
+    const pagamento = `Forma de pagamento: ${formaPagamento}`    
     const recebedor = `Receberá: ${nomeRecebedor}`;
 
-    const texto = `Olá! Gostaria de fazer o pedido:\n${mensagem}\n\n${endereco}\n${recebedor}\n\nTotal: R$ ${valorTotal.toFixed(2)}`;
+    const texto = `Olá! Gostaria de fazer o pedido:\n${mensagem}\n\n${endereco}\n\n ${pagamento}\n\n${recebedor}\n\nTotal: R$ ${valorTotal.toFixed(2)}`;
 
     const urlWhatsApp = `https://wa.me/${whatsapp.replace('+', '')}?text=${encodeURIComponent(texto)}`;
 
@@ -398,7 +404,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
             </Box>
 
             {/* Informações de Entrega */}
-            <Box sx={{ mt: 2 }}>
+            <Box s sx={{ mt: 4, px: { xs: 1, sm: 2 } }}>
               <Typography variant="h6" fontWeight="bold" color="#53aaf9" gutterBottom>
                 Informações de Entrega
               </Typography>
@@ -429,7 +435,23 @@ export default function PanfletoModal({ open, onClose, comercio }) {
                 onChange={(e) => setNumeroCasa(e.target.value)}
                 sx={{ mb: 2 }}
               />
-            </Box>
+           
+            <FormControl fullWidth sx={{ mt: 2, marginTop:"-2px" }}>
+            <InputLabel id="pagamento-label">Forma de Pagamento</InputLabel>
+            <Select
+              labelId="pagamento-label"
+              id="pagamento-select"
+              value={formaPagamento}
+              label="Forma de Pagamento"
+              onChange={(e) => setFormaPagamento(e.target.value)}
+            >
+              <MenuItem value="pix">Pix</MenuItem>
+              <MenuItem value="dinheiro">Dinheiro</MenuItem>
+              <MenuItem value="debito">Débito</MenuItem>
+              <MenuItem value="credito">Crédito</MenuItem>
+            </Select>
+          </FormControl>
+           </Box>
 
             <Button
               variant="contained"
@@ -437,6 +459,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
               onClick={finalizarPedido}
               disabled={cartItems.length === 0 || loading}
               sx={{
+                marginTop:"20px",
                 bgcolor: '#53aaf9',
                 color: 'white',
                 fontWeight: 'bold',
