@@ -20,6 +20,8 @@ import {
   useMediaQuery,
   Snackbar,
   Alert,
+  Box,
+  Paper,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -199,390 +201,309 @@ const handleFotoChange = async (event) => {
 };
 
 
-  return (
-    <div
-      style={{
-        padding: "1rem",
-        backgroundColor: "#f9fafb",
-        minHeight: "100vh",
+return (
+  <Box sx={{ p: 3, bgcolor: "#f0f2f5", minHeight: "100vh" }}>
+    <Typography
+      variant="h4"
+      align="center"
+      gutterBottom
+      sx={{
+        fontWeight: 700,
+        mb: 4,
+        fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
+        color: "#1a1a1a",
       }}
     >
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
+      👷 Profissionais da Comunidade
+    </Typography>
+
+    {!usuarioLogado ? (
+      <Paper
+        elevation={3}
         sx={{
-          fontWeight: "bold",
-          mb: 3,
-          fontSize: {
-            xs: "1.5rem",
-            sm: "2rem",
-            md: "2.5rem",
-            lg: "3rem",
-          },
+          maxWidth: 360,
+          mx: "auto",
+          p: 3,
+          borderRadius: 3,
+          textAlign: "center",
+          backgroundColor: "#ffffff",
         }}
       >
-        👷 Profissionais de Mão de Obra da Comunidade
-      </Typography>
+        <Typography variant="body1" sx={{ mb: 2, color: "#666" }}>
+          Área exclusiva para profissionais cadastrados.
+        </Typography>
 
-      {/* Área de login e logout */}
-      {!usuarioLogado ? (
-        <Stack
-          direction="column"
-          spacing={1}
-          alignItems="center"
-          justifyContent="center"
-          mb={3}
-          sx={{
-            maxWidth: 300,
-            mx: "auto",
-            p: 2,
-            borderRadius: 2,
-            backgroundColor: "#f5f5f5",
-            boxShadow: 1,
-          }}
+        <TextField
+          placeholder="Digite sua Senha"
+          variant="outlined"
+          fullWidth
+          value={loginTelefone}
+          onChange={(e) => setLoginTelefone(e.target.value)}
+          inputProps={{ inputMode: "tel" }}
+          size="small"
+          sx={{ mb: 2 }}
+        />
+
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={handleLogin}
         >
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{ color: "#666", fontStyle: "italic", mb: 1 }}
+          Entrar
+        </Button>
+      </Paper>
+    ) : (
+      <Paper
+        elevation={3}
+        sx={{
+          maxWidth: 420,
+          mx: "auto",
+          p: 3,
+          borderRadius: 3,
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <Typography variant="h6" align="center" sx={{ mb: 2 }}>
+          Olá, {usuarioLogado.nome}!
+        </Typography>
+
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id="status-label">Alterar Status</InputLabel>
+          <Select
+            labelId="status-label"
+            value={novoStatus}
+            label="Alterar Status"
+            onChange={(e) => setNovoStatus(e.target.value)}
           >
-            Área exclusiva para profissionais cadastrados.
-          </Typography>
+            <MenuItem value="online">Online</MenuItem>
+            <MenuItem value="ocupado">Ocupado</MenuItem>
+            <MenuItem value="offline">Offline</MenuItem>
+          </Select>
+        </FormControl>
 
-          <TextField
-            placeholder="Digite sua Senha"
-            variant="outlined"
-            value={loginTelefone}
-            onChange={(e) => setLoginTelefone(e.target.value)}
-            inputProps={{ inputMode: "tel" }}
-            size="small"
-            sx={{
-              width: "100%",
-              '& .MuiOutlinedInput-root': {
-                borderRadius: 2,
-                backgroundColor: '#fff',
-              },
-            }}
-          />
-
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 2 }}>
           <Button
             variant="contained"
-            onClick={handleLogin}
-            sx={{ width: "100%", py: 1 }}
+            fullWidth
+            onClick={handleSalvarStatus}
           >
-            Entrar
+            Salvar
           </Button>
-        </Stack>
-      ) : (
-        <Stack
-          direction="column"
-          spacing={2}
-          alignItems="center"
-          mb={3}
-          sx={{
-            border: "1px solid #ccc",
-            p: 2,
-            borderRadius: 2,
-            maxWidth: 400,
-            margin: "0 auto",
-            backgroundColor: "#fff",
-            width: "100%",
-          }}
-        >
-          <Typography variant="h6" align="center">
-            Olá, {usuarioLogado.nome}!
-          </Typography>
-
-          <FormControl fullWidth>
-            <InputLabel id="select-status-label">Alterar Status</InputLabel>
-            <Select
-              labelId="select-status-label"
-              value={novoStatus}
-              label="Alterar Status"
-              onChange={(e) => setNovoStatus(e.target.value)}
-            >
-              <MenuItem value="online">Online</MenuItem>
-              <MenuItem value="ocupado">Ocupado</MenuItem>
-              <MenuItem value="offline">Offline</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            width="100%"
-            justifyContent="center"
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSalvarStatus}
-              sx={{ py: 1.5, width: { xs: "100%", sm: "auto" } }}
-            >
-              Salvar
-            </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={handleLogout}
-              sx={{ py: 1.5, width: { xs: "100%", sm: "auto" } }}
-            >
-              Sair
-            </Button>
-          </Stack>
           <Button
             variant="outlined"
-            component="label"
-            sx={{ mt: 1, width: "100%" }}
+            color="error"
+            fullWidth
+            onClick={handleLogout}
           >
-            Trocar Foto
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleFotoChange}
-            />
+            Sair
           </Button>
         </Stack>
-      )}
 
-      <Stack direction="row" justifyContent="center" mb={3} px={1}>
-        <TextField
-          label="Buscar por nome ou serviço"
-          variant="outlined"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          sx={{ width: "100%", maxWidth: 400 }}
-        />
-      </Stack>
+        <Button variant="outlined" component="label" fullWidth>
+          Trocar Foto
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleFotoChange}
+          />
+        </Button>
+      </Paper>
+    )}
 
-      <Grid container spacing={3} justifyContent="center" px={1}>
-        {profissionaisFiltrados.map((item) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            key={item.id}
-            sx={{ display: "flex", justifyContent: "center" }}
+    <Box sx={{ mt: 5, mb: 3, display: "flex", justifyContent: "center" }}>
+      <TextField
+        label="Buscar por nome ou serviço"
+        variant="outlined"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        sx={{ width: "100%", maxWidth: 400 }}
+      />
+    </Box>
+
+    <Grid container spacing={3} justifyContent="center">
+      {profissionaisFiltrados.map((item) => (
+        <Grid item xs={12} sm={6} md={4} key={item.id}>
+          <Card
+            sx={{
+              height: 300,
+              width:300,
+              borderRadius: 3,
+              boxShadow: 4,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              bgcolor: "#ffffff",
+            }}
           >
-            <Card
-              sx={{
-                width: { xs: "100%", sm: 320 },
-                height: 280,
-                borderRadius: 3,
-                boxShadow: 3,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                backgroundColor: "#fff",
-              }}
-            >
-              <CardHeader
-                avatar={
-                  <Avatar
-                    alt={item.nome}
-                    src={item.foto}
-                    sx={{
-                      width: 64,
-                      height: 64,
-                      border: `3px solid ${statusColors[item.status]}`,
-                    }}
-                  />
-                }
-                title={
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    color="#212121"
-                    noWrap
-                    sx={{ maxWidth: 180 }}
-                  >
-                    {item.nome}
-                  </Typography>
-                }
-                subheader={
-                  <Typography
-                    variant="body2"
-                    fontWeight="bold"
-                    color="#757575"
-                    sx={{ mt: 0.5 }}
-                  >
-                    {item.servico}
-                  </Typography>
-                }
-                sx={{ pb: 0 }}
-              />
-
-              <CardContent
-                sx={{
-                  pt: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <PhoneIcon sx={{ color: "#555" }} />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      cursor: "default",
-                      userSelect: "text",
-                      color: "#555",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {item.telefone
-                      ? item.telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
-                      : ""}
-                  </Typography>
-            </Stack>
-
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <LocationOnIcon sx={{ color: "#555" }} />
-              <Button
-                variant="text"
-                href={item.localizacao}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ color: "#1976d2", padding: 0, textTransform: "none" }}
-              >
-                Ver localização
-              </Button>
-            </Stack>
-
-            <Stack
-              direction="row"
-              alignItems="center"
-              spacing={1}
-              mt={1}
-              justifyContent="space-between"
-            >
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                <CircleIcon
+            <CardHeader
+              avatar={
+                <Avatar
+                  src={item.foto}
+                  alt={item.nome}
                   sx={{
-                    fontSize: 14,
-                    color: statusColors[item.status] || "gray",
+                    width: 64,
+                    height: 64,
+                    border: `3px solid ${statusColors[item.status]}`,
                   }}
                 />
+              }
+              title={
                 <Typography
-                  variant="caption"
-                  sx={{ textTransform: "capitalize", color: "#555" }}
+                  variant="subtitle1"
+                  fontWeight="bold"
+                  noWrap
+                  sx={{ color: "#333", maxWidth: 180 }}
                 >
-                  {item.status}
+                  {item.nome}
+                </Typography>
+              }
+              subheader={
+                <Typography variant="body2" sx={{ color: "#666" }}>
+                  {item.servico}
+                </Typography>
+              }
+            />
+
+            <CardContent sx={{ pt: 0 }}>
+              <Stack direction="row" alignItems="center" spacing={1} mb={1}>
+                <PhoneIcon sx={{ color: "#555" }} />
+                <Typography variant="body2" sx={{ color: "#555" }}>
+                  {item.telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")}
                 </Typography>
               </Stack>
 
-              <Button
-                variant="contained"
-                startIcon={<WhatsAppIcon />}
-                onClick={() => openWhatsApp(item.telefone, item.nome)}
-                size="small"
-                sx={{ fontWeight: "bold" }}
+              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                <LocationOnIcon sx={{ color: "#555" }} />
+                <Button
+                  variant="text"
+                  size="small"
+                  href={item.localizacao}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ textTransform: "none", color: "#1976d2" }}
+                >
+                  Ver localização
+                </Button>
+              </Stack>
+
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                WhatsApp
-              </Button>
-            </Stack>
-          </CardContent>
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                  <CircleIcon
+                    sx={{
+                      fontSize: 14,
+                      color: statusColors[item.status] || "gray",
+                    }}
+                  />
+                  <Typography variant="caption" sx={{ color: "#555" }}>
+                    {item.status}
+                  </Typography>
+                </Stack>
 
-          <Button
-            variant="text"
-            onClick={() => abrirModalImagem(item.foto)}
-            sx={{
-              fontSize: 12,
-              color: "#1976d2",
-              textTransform: "none",
-              mb: 1,
-              mx: 2,
-            }}
-          >
-            Visualizar foto
-          </Button>
-        </Card>
-      </Grid>
-    ))}
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<WhatsAppIcon />}
+                  onClick={() => openWhatsApp(item.telefone, item.nome)}
+                  sx={{ textTransform: "none", fontWeight: "bold" }}
+                >
+                  WhatsApp
+                </Button>
+              </Stack>
+            </CardContent>
 
-    {profissionaisFiltrados.length === 0 && (
-      <Typography
-        variant="body1"
-        align="center"
-        sx={{ mt: 5, width: "100%", color: "#777" }}
-      >
-        Nenhum profissional encontrado para a busca "{busca}".
-      </Typography>
-    )}
-  </Grid>
+            <Button
+              variant="text"
+              onClick={() => abrirModalImagem(item.foto)}
+              sx={{ fontSize: 12, color: "#1976d2", mb: 1 }}
+            >
+              Visualizar foto
+            </Button>
+          </Card>
+        </Grid>
+      ))}
 
-  {/* Modal da imagem */}
-  <Dialog
-    open={modalAberto}
-    onClose={fecharModalImagem}
-    fullScreen={fullScreen}
-    maxWidth="sm"
-    fullWidth
-    aria-labelledby="modal-foto-profissional"
-  >
-    <DialogContent
-      sx={{
-        p: 1,
-        position: "relative",
-        backgroundColor: "#000",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <IconButton
-        onClick={fecharModalImagem}
-        sx={{
-          position: "absolute",
-          top: 8,
-          right: 8,
-          color: "white",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          "&:hover": { backgroundColor: "rgba(0,0,0,0.7)" },
-          zIndex: 10,
-        }}
-        aria-label="fechar modal"
-      >
-        <CloseIcon />
-      </IconButton>
-
-      {imagemSelecionada && (
-        <img
-          src={imagemSelecionada}
-          alt="Foto do profissional"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "80vh",
-            borderRadius: 8,
-            objectFit: "contain",
-          }}
-        />
+      {profissionaisFiltrados.length === 0 && (
+        <Typography
+          variant="body1"
+          align="center"
+          sx={{ mt: 5, width: "100%", color: "#777" }}
+        >
+          Nenhum profissional encontrado para a busca "{busca}".
+        </Typography>
       )}
-    </DialogContent>
-  </Dialog>
+    </Grid>
 
-  {/* Snackbar para mensagens */}
-  <Snackbar
-    open={snackbarOpen}
-    autoHideDuration={4000}
-    onClose={handleSnackbarClose}
-    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-  >
-    <Alert
-      onClose={handleSnackbarClose}
-      severity={snackbarSeverity}
-      sx={{ width: "100%" }}
-      variant="filled"
+    {/* Modal de imagem */}
+    <Dialog
+      open={modalAberto}
+      onClose={fecharModalImagem}
+      fullScreen={fullScreen}
+      maxWidth="sm"
+      fullWidth
     >
-      {snackbarMessage}
-    </Alert>
-  </Snackbar>
-</div>
+      <DialogContent
+        sx={{
+          p: 1,
+          backgroundColor: "#000",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <IconButton
+          onClick={fecharModalImagem}
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            color: "#fff",
+            bgcolor: "rgba(0,0,0,0.5)",
+            "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+
+        {imagemSelecionada && (
+          <img
+            src={imagemSelecionada}
+            alt="Foto do profissional"
+            style={{
+              maxWidth: "100%",
+              maxHeight: "80vh",
+              borderRadius: 8,
+              objectFit: "contain",
+            }}
+          />
+        )}
+      </DialogContent>
+    </Dialog>
+
+    {/* Snackbar */}
+    <Snackbar
+      open={snackbarOpen}
+      autoHideDuration={4000}
+      onClose={handleSnackbarClose}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+    >
+      <Alert
+        onClose={handleSnackbarClose}
+        severity={snackbarSeverity}
+        variant="filled"
+        sx={{ width: "100%" }}
+      >
+        {snackbarMessage}
+      </Alert>
+    </Snackbar>
+  </Box>
 );
+
 }
 
 export default PaginaProfissionais;
