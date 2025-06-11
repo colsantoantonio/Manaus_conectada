@@ -140,7 +140,6 @@ export default function PanfletoModal({ open, onClose, comercio }) {
     window.open(urlWhatsApp, '_blank');
   };
 
-
   return (
     <Modal open={open} onClose={onClose}>
       <Box
@@ -185,154 +184,148 @@ export default function PanfletoModal({ open, onClose, comercio }) {
         </Box>
 
         {/* Menu de Categorias fixo e destacado */}
-           {!mostrarCarrinho && (
-  <Box
-    sx={{
-      width: '100%',
-      px: 2,
-      py: 2,
-    }}
-  >
-    <Box
-      sx={{
-        width: '100%',
-        position: 'sticky',
-        top: 0,
-        zIndex: 15,
-        bgcolor: '#f9f9f9',
-        py: 2,
-        mb: 3,
-        borderRadius: 2,
-        boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: 1.5,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {categorias.map((cat) => (
-        <Button
-          key={cat}
-          onClick={() => setCategoriaSelecionada(cat)}
-          variant={cat === categoriaSelecionada ? 'contained' : 'outlined'}
-          sx={{
-            borderRadius: 50,
-            textTransform: 'capitalize',
-            px: 2.5,
-            py: 1,
-            minWidth: 'auto',
-            fontWeight: 600,
-            fontSize: { xs: '0.85rem', sm: '0.95rem' },
-            bgcolor: cat === categoriaSelecionada ? '#1976d2' : '#fff',
-            color: cat === categoriaSelecionada ? '#fff' : '#1976d2',
-            borderColor: '#1976d2',
-            boxShadow: cat === categoriaSelecionada
-              ? '0 3px 10px rgba(25, 118, 210, 0.3)'
-              : 'none',
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              bgcolor: cat === categoriaSelecionada ? '#1565c0' : 'rgba(25, 118, 210, 0.05)',
-              color: cat === categoriaSelecionada ? '#fff' : '#1565c0',
-              borderColor: '#1565c0',
-              transform: 'scale(1.05)',
-              boxShadow: '0 5px 14px rgba(25, 118, 210, 0.15)',
-            },
-            '&:active': {
-              transform: 'scale(0.95)',
-              boxShadow: 'none',
-              bgcolor: '#0d47a1',
-              borderColor: '#0d47a1',
-            },
-          }}
-        >
-          {cat}
-        </Button>
-      ))}
-    </Box>
-  </Box>
-)}
+       {!mostrarCarrinho && (
+          <Box
+            sx={{
+              width: '100%',
+              px: 2,
+              py: 2,
+            }}
+          >
+            <Box
+              sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 1000,  // garante que fique acima dos cards
+                bgcolor: '#f9f9f9',
+                px: 2,
+                py: 1,
+                borderRadius: 0, // sem borda arredondada para ficar mais clean no topo
+                boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+                overflowX: 'auto',
+                whiteSpace: 'nowrap',
+                WebkitOverflowScrolling: 'touch',
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
+              }}
+            >
+              {categorias.map((cat) => (
+                <Button
+                  key={cat}
+                  onClick={() => setCategoriaSelecionada(cat)}
+                  variant={cat === categoriaSelecionada ? 'contained' : 'outlined'}
+                  sx={{
+                    borderRadius: 50,
+                    textTransform: 'capitalize',
+                    px: 3,
+                    py: 1.2,
+                    minWidth: 'auto',
+                    fontWeight: 600,
+                    fontSize: { xs: '1rem', sm: '1.1rem' },
+                    bgcolor: cat === categoriaSelecionada ? '#1976d2' : '#fff',
+                    color: cat === categoriaSelecionada ? '#fff' : '#1976d2',
+                    borderColor: '#1976d2',
+                    boxShadow: cat === categoriaSelecionada
+                      ? '0 4px 15px rgba(25, 118, 210, 0.3)'
+                      : 'none',
+                    marginRight: 1.5,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      bgcolor: cat === categoriaSelecionada ? '#1565c0' : 'rgba(25, 118, 210, 0.1)',
+                      color: cat === categoriaSelecionada ? '#fff' : '#1565c0',
+                      borderColor: '#1565c0',
+                      transform: 'scale(1.05)',
+                      boxShadow: '0 6px 20px rgba(25, 118, 210, 0.15)',
+                    },
+                    '&:active': {
+                      transform: 'scale(0.95)',
+                      boxShadow: 'none',
+                      bgcolor: '#0d47a1',
+                      borderColor: '#0d47a1',
+                    },
+                  }}
+                >
+                  {cat}
+                </Button>
+              ))}
+            </Box>
+          </Box>
+        )}
 
 
         {/* Lista de Produtos */}
-     {!mostrarCarrinho && (
-            <Container maxWidth="lg" sx={{ px: 0 }}>
-              <Grid container spacing={3} justifyContent="center">
+          {!mostrarCarrinho && (
+            <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 0 } }}>
+              <Grid container spacing={4} justifyContent="center">
                 {produtos
                   .filter((p) => p.categoria === categoriaSelecionada)
                   .map((produto) => (
                     <Grid
                       item
                       xs={12}
-                      sm={8}
+                      sm={6}
                       md={4}
                       key={produto.id}
                       sx={{ display: 'flex', justifyContent: 'center' }}
                     >
                       <Card
                         sx={{
-                          width: '100%',
-                          maxWidth: 360,
+                          width: 320,
+                          borderRadius: 12,
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                          bgcolor: '#fff',
                           display: 'flex',
                           flexDirection: 'column',
-                          borderRadius: 3,
-                          boxShadow:
-                            '0 6px 15px rgba(21, 101, 192, 0.15)', // sombra azul leve e suave
-                          transition: 'all 0.3s ease',
+                          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                           cursor: 'pointer',
                           '&:hover': {
-                            transform: 'scale(1.05)',
-                            boxShadow:
-                              '0 12px 25px rgba(21, 101, 192, 0.3)', // sombra mais forte no hover
+                            transform: 'translateY(-6px)',
+                            boxShadow: '0 12px 24px rgba(0,0,0,0.12)',
                           },
-                          backgroundColor: '#f9fbff', // fundo clarinho azul
+                          padding: 3,
                         }}
                       >
-                        <CardMedia
-                          component="img"
-                          image={produto.imagem}
-                          alt={produto.nome}
-                          height="160"
-                          sx={{
-                            objectFit: 'cover',
-                            borderTopLeftRadius: 12,
-                            borderTopRightRadius: 12,
-                          }}
-                        />
-                        <CardContent sx={{ flexGrow: 1, px: 3, pt: 2, pb: 1 }}>
+                        <CardContent sx={{ flexGrow: 1, px: 0, pt: 0, pb: 3 }}>
                           <Typography
                             variant="h6"
-                            fontWeight="700"
-                            color="#1769aa" // azul forte para o título
-                            sx={{ mb: 0.5 }}
+                            fontWeight="600"
+                            color="#333"
+                            sx={{ mb: 1 }}
                           >
                             {produto.nome}
                           </Typography>
                           <Typography
-                            variant="subtitle1"
+                            variant="body2"
+                            color="#4caf50"
                             fontWeight="700"
-                            color="#0d47a1" // azul mais escuro para preço
+                            sx={{ fontSize: '1.4rem' }}
                           >
-                            R$ {produto.preco.toFixed(2)}
+                            R$ {produto.preco.toFixed(2).replace('.', ',')}
                           </Typography>
                         </CardContent>
-                        <CardActions sx={{ p: 2 }}>
+                        <CardActions sx={{ p: 0 }}>
                           <Button
                             fullWidth
                             variant="contained"
                             onClick={() => adicionarAoCarrinho(produto)}
                             sx={{
-                              bgcolor: '#1976d2', // azul vibrante
+                              bgcolor: 'blue',
                               color: '#fff',
                               fontWeight: '700',
-                              borderRadius: 3,
+                              borderRadius: 10,
                               textTransform: 'none',
-                              boxShadow: '0 5px 15px rgba(25, 118, 210, 0.5)',
-                              '&:hover': {
-                                bgcolor: '#1565c0',
-                                boxShadow: '0 7px 20px rgba(21, 101, 192, 0.7)',
-                              },
+                              boxShadow: '0 6px 15px rgba(255, 87, 34, 0.4)',
                               transition: 'all 0.3s ease',
+                              py: 1.5,
+                              fontSize: '1rem',
+                              '&:hover': {
+                                bgcolor: '#e64a19',
+                                boxShadow: '0 8px 20px rgba(230, 74, 25, 0.6)',
+                              },
+                              '&:active': {
+                                transform: 'scale(0.97)',
+                              },
                             }}
                           >
                             Adicionar ao carrinho
@@ -375,12 +368,12 @@ export default function PanfletoModal({ open, onClose, comercio }) {
                         alignItems: 'center',
                       }}
                     >
-                      <Box
+                      {/* <Box
                         component="img"
                         src={item.imagem}
                         alt={item.nome}
                         sx={{ width: 64, height: 64, borderRadius: 2, objectFit: 'cover', boxShadow: '0 2px 8px rgba(21, 101, 192, 0.1)' }}
-                      />
+                      /> */}
                       <Box sx={{ ml: 2, flexGrow: 1 }}>
                         <Typography fontWeight="700" color="#1565c0" noWrap>
                           {item.nome}
@@ -504,20 +497,24 @@ export default function PanfletoModal({ open, onClose, comercio }) {
           )}
 
         {/* Snackbar */}
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={2000}
-          onClose={() => setSnackbarOpen(false)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert
-            onClose={() => setSnackbarOpen(false)}
-            severity="success"
-            sx={{ width: '100%', bgcolor: '#4caf50', color: 'white' }}
-          >
-            Produto adicionado ao carrinho!
-          </Alert>
-        </Snackbar>
+        {snackbarOpen && (
+  <Alert
+    severity="success"
+    onClose={() => setSnackbarOpen(false)}
+    sx={{
+      width: '100%',
+      bgcolor: '#4caf50',
+      color: 'white',
+      position: 'sticky',
+      bottom: 0,
+      zIndex: 1300, // valor alto para ficar acima
+    }}
+  >
+    Produto adicionado ao carrinho!
+  </Alert>
+)}
+
+
       </Box>
     </Modal>
   );

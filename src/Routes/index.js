@@ -18,7 +18,7 @@ function RoutesApp() {
             <Route path='/sobre' element={<ProducingRoute ativo={true}><Sobre /></ProducingRoute>} />
             <Route path='/contato' element={<ProducingRoute ativo={false}><Contato /></ProducingRoute>} />
             <Route path='/mercadao' element={<ProducingRoute ativo={false}><Mercadao /></ProducingRoute>} />
-            <Route path='/informações' element={<ProducingRoute ativo={false}><Informações /></ProducingRoute>} />
+            <Route path='/informações' element={<ProducingRoute ativo={true}><Informações /></ProducingRoute>} />
             <Route path='/serviços' element={<ProducingRoute ativo={false}><Serviços /></ProducingRoute>} />
             <Route path='/LoginComercio' element={<ProducingRoute ativo={false}>< LoginComercio /></ProducingRoute>} />
             <Route path='/EditorProdutos' element={ <ProducingRoute ativo={false}><EditorProdutos /></ProducingRoute>} />

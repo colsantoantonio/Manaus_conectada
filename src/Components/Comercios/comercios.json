@@ -1,72 +1,60 @@
 {
   "mercadinhos": [
-  {
-    "nome": "Mercadinho Ceará",
-    "numero": "+5592993847070",
-    "horario": "5h30 às 9h00",
-    "entrega": "Entregamos a domicílio",
-    "logo": "/assets/mercadinhoceara.png",
-    "panfleto": "./assets/panfleto_mercadinho_ceara.png",
-    "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
-    "categorias": ["Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas"],
-    "produtos": [
-    {
-      "id": 1,
-      "nome": "Arroz Tipo 1 - 5kg",
-      "preco": 22.5,
-      "categoria": "Grãos",
-      "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 2,
-      "nome": "Feijão Carioca - 1kg",
-      "preco": 8.9,
-      "categoria": "Grãos",
-      "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 3,
-      "nome": "Coca-Cola 2L",
-      "preco": 9.5,
-      "categoria": "Bebidas",
-      "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 4,
-      "nome": "Alface Crespa",
-      "preco": 3.0,
-      "categoria": "Hortifruti",
-      "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 5,
-      "nome": "Banana Prata - 1kg",
-      "preco": 5.5,
-      "categoria": "Hortifruti",
-      "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 6,
-      "nome": "Sabão em Pó OMO 800g",
-      "preco": 12.0,
-      "categoria": "Limpeza",
-      "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 7,
-      "nome": "Leite Integral - 1L",
-      "preco": 4.5,
-      "categoria": "Laticínios",
-      "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 8,
-      "nome": "Queijo Mussarela Fatiado - 100g",
-      "preco": 6.9,
-      "categoria": "Laticínios",
-      "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65?auto=format&fit=crop&w=800&q=80"
-    }
+ {
+  "nome": "Mercadinho Ceará",
+  "numero": "+5592993847070",
+  "horario": "5h30 às 9h00",
+  "entrega": "Entregamos a domicílio",
+  "logo": "/assets/mercadinhoceara.png",
+  "panfleto": "./assets/panfleto_mercadinho_ceara.png",
+  "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
+  "categorias": [
+    "Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas",
+    "Higiene", "Padaria", "Congelados", "Carnes", "Petshop"
+  ],
+  "produtos": [
+    { "id": 1, "nome": "Arroz Tipo 1 - 5kg", "preco": 22.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d" },
+    { "id": 2, "nome": "Feijão Preto - 1kg", "preco": 9.2, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794" },
+    { "id": 3, "nome": "Macarrão Espaguete - 500g", "preco": 3.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1618411662459-1d9f0dc43f31" },
+    { "id": 4, "nome": "Açúcar Cristal - 1kg", "preco": 3.1, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1617250461072-20559973c60a" },
+    { "id": 5, "nome": "Alface Crespa", "preco": 3.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { "id": 6, "nome": "Banana Prata - 1kg", "preco": 5.5, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5" },
+    { "id": 7, "nome": "Tomate Italiano - 1kg", "preco": 6.3, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1592928302374-ea8cdd157ccd" },
+    { "id": 8, "nome": "Maçã Fuji - 1kg", "preco": 7.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" },
+    { "id": 9, "nome": "Coca-Cola 2L", "preco": 9.5, "categoria": "Bebidas", "imagem": "/assets/img/cocacola.png"},
+    { "id": 10, "nome": "Guaraná Antártica 1,5L", "preco": 7.9, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719240434-d817f09baf01" },
+    { "id": 11, "nome": "Água Mineral com Gás - 500ml", "preco": 1.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1585951237311-73ae7abbe6fa" },
+    { "id": 12, "nome": "Suco de Uva Integral - 1L", "preco": 8.0, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1571987502227-820ad73f0d35" },
+    { "id": 13, "nome": "Sabão em Pó OMO - 800g", "preco": 12.0, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389" },
+    { "id": 14, "nome": "Água Sanitária - 1L", "preco": 2.9, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 15, "nome": "Detergente Neutro - 500ml", "preco": 2.5, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1621984656171-420e5cc76dc2" },
+    { "id": 16, "nome": "Esponja Multiuso 3un", "preco": 3.8, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1619021249884-b5c16cbd8285" },
+    { "id": 17, "nome": "Leite Integral - 1L", "preco": 4.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0" },
+    { "id": 18, "nome": "Iogurte Natural - 170g", "preco": 2.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 19, "nome": "Queijo Mussarela - 100g", "preco": 6.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65" },
+    { "id": 20, "nome": "Requeijão Cremoso - 200g", "preco": 4.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1581419183510-9c7bd958fba2" },
+    { "id": 21, "nome": "Sabonete Dove 90g", "preco": 3.2, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611077431913-94814c68e47a" },
+    { "id": 22, "nome": "Desodorante Rexona Aerosol", "preco": 10.5, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611080626919-49b4c3ad4082" },
+    { "id": 23, "nome": "Escova de Dente Colgate", "preco": 4.0, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1610226187503-9f8ec83d96a6" },
+    { "id": 24, "nome": "Papel Higiênico Neve - 4un", "preco": 7.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 25, "nome": "Pão Francês - 1kg", "preco": 10.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587731604984-7870d8ad9b0f" },
+    { "id": 26, "nome": "Bolo de Milho", "preco": 6.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1611359401978-d5e5e4747b82" },
+    { "id": 27, "nome": "Croissant de Presunto e Queijo", "preco": 4.5, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587840171670-8b850147754e" },
+    { "id": 28, "nome": "Pizza Congelada Calabresa", "preco": 18.5, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1601924579467-3ccdebd6f097" },
+    { "id": 29, "nome": "Hambúrguer Bovina Congelado", "preco": 16.9, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+    { "id": 30, "nome": "Frango a Passarinho Congelado", "preco": 14.0, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" },
+    { "id": 31, "nome": "Coxa de Frango - 1kg", "preco": 12.5, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1615851059078-40d772ba9f82" },
+    { "id": 32, "nome": "Carne Moída - 1kg", "preco": 22.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1612197522925-257ec364a3d3" },
+    { "id": 33, "nome": "Linguiça Toscana - 1kg", "preco": 17.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1632175246605-d15ff8d5d6e1" },
+    { "id": 34, "nome": "Ração Pedigree Adulto 1kg", "preco": 10.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1603297631944-98f25d9c7e6c" },
+    { "id": 35, "nome": "Ração Whiskas Gatos 500g", "preco": 7.5, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1583337130417-3346a1ff6c72" },
+    { "id": 36, "nome": "Areia Sanitária - 4kg", "preco": 13.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1612430528530-1f6744379fa4" },
+    { "id": 37, "nome": "Biscoito Cream Cracker 200g", "preco": 2.7, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1585079834703-bdba8c186208" },
+    { "id": 38, "nome": "Farinha de Trigo - 1kg", "preco": 4.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 39, "nome": "Creme Dental Colgate - 90g", "preco": 3.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1589308078056-e776330b9e7d" },
+    { "id": 40, "nome": "Ovos Brancos - Dúzia", "preco": 9.0, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" }
   ]
+
   },
 
    {
@@ -77,64 +65,51 @@
     "logo": "/assets/",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
     "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
-    "categorias": ["arroz", "Hortifruti", "Limpeza", "Laticínios", "Bebidas"],
-    "produtos": [
-    {
-      "id": 1,
-      "nome": "Arroz Tipo 2 - 5kg",
-      "preco": 22.5,
-      "categoria": "Grãos",
-      "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 2,
-      "nome": "Feijão preto - 1kg",
-      "preco": 8.9,
-      "categoria": "Grãos",
-      "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 3,
-      "nome": "Coca-Cola 2L",
-      "preco": 9.5,
-      "categoria": "Bebidas",
-      "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 4,
-      "nome": "Alface Crespa",
-      "preco": 3.0,
-      "categoria": "Hortifruti",
-      "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 5,
-      "nome": "Banana Prata - 1kg",
-      "preco": 5.5,
-      "categoria": "Hortifruti",
-      "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 6,
-      "nome": "Sabão em Pó OMO 800g",
-      "preco": 12.0,
-      "categoria": "Limpeza",
-      "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 7,
-      "nome": "Leite Integral - 1L",
-      "preco": 4.5,
-      "categoria": "Laticínios",
-      "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "id": 8,
-      "nome": "Queijo Mussarela Fatiado - 100g",
-      "preco": 6.9,
-      "categoria": "Laticínios",
-      "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65?auto=format&fit=crop&w=800&q=80"
-    }
+    "categorias": [
+    "Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas",
+    "Higiene", "Padaria", "Congelados", "Carnes", "Petshop"
+  ],
+  "produtos": [
+    { "id": 1, "nome": "Arroz Tipo 1 - 5kg", "preco": 22.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d" },
+    { "id": 2, "nome": "Feijão Preto - 1kg", "preco": 9.2, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794" },
+    { "id": 3, "nome": "Macarrão Espaguete - 500g", "preco": 3.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1618411662459-1d9f0dc43f31" },
+    { "id": 4, "nome": "Açúcar Cristal - 1kg", "preco": 3.1, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1617250461072-20559973c60a" },
+    { "id": 5, "nome": "Alface Crespa", "preco": 3.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { "id": 6, "nome": "Banana Prata - 1kg", "preco": 5.5, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5" },
+    { "id": 7, "nome": "Tomate Italiano - 1kg", "preco": 6.3, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1592928302374-ea8cdd157ccd" },
+    { "id": 8, "nome": "Maçã Fuji - 1kg", "preco": 7.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" },
+    { "id": 9, "nome": "Coca-Cola 2L", "preco": 9.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d" },
+    { "id": 10, "nome": "Guaraná Antártica 1,5L", "preco": 7.9, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719240434-d817f09baf01" },
+    { "id": 11, "nome": "Água Mineral com Gás - 500ml", "preco": 1.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1585951237311-73ae7abbe6fa" },
+    { "id": 12, "nome": "Suco de Uva Integral - 1L", "preco": 8.0, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1571987502227-820ad73f0d35" },
+    { "id": 13, "nome": "Sabão em Pó OMO - 800g", "preco": 12.0, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389" },
+    { "id": 14, "nome": "Água Sanitária - 1L", "preco": 2.9, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 15, "nome": "Detergente Neutro - 500ml", "preco": 2.5, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1621984656171-420e5cc76dc2" },
+    { "id": 16, "nome": "Esponja Multiuso 3un", "preco": 3.8, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1619021249884-b5c16cbd8285" },
+    { "id": 17, "nome": "Leite Integral - 1L", "preco": 4.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0" },
+    { "id": 18, "nome": "Iogurte Natural - 170g", "preco": 2.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 19, "nome": "Queijo Mussarela - 100g", "preco": 6.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65" },
+    { "id": 20, "nome": "Requeijão Cremoso - 200g", "preco": 4.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1581419183510-9c7bd958fba2" },
+    { "id": 21, "nome": "Sabonete Dove 90g", "preco": 3.2, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611077431913-94814c68e47a" },
+    { "id": 22, "nome": "Desodorante Rexona Aerosol", "preco": 10.5, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611080626919-49b4c3ad4082" },
+    { "id": 23, "nome": "Escova de Dente Colgate", "preco": 4.0, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1610226187503-9f8ec83d96a6" },
+    { "id": 24, "nome": "Papel Higiênico Neve - 4un", "preco": 7.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 25, "nome": "Pão Francês - 1kg", "preco": 10.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587731604984-7870d8ad9b0f" },
+    { "id": 26, "nome": "Bolo de Milho", "preco": 6.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1611359401978-d5e5e4747b82" },
+    { "id": 27, "nome": "Croissant de Presunto e Queijo", "preco": 4.5, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587840171670-8b850147754e" },
+    { "id": 28, "nome": "Pizza Congelada Calabresa", "preco": 18.5, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1601924579467-3ccdebd6f097" },
+    { "id": 29, "nome": "Hambúrguer Bovina Congelado", "preco": 16.9, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+    { "id": 30, "nome": "Frango a Passarinho Congelado", "preco": 14.0, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" },
+    { "id": 31, "nome": "Coxa de Frango - 1kg", "preco": 12.5, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1615851059078-40d772ba9f82" },
+    { "id": 32, "nome": "Carne Moída - 1kg", "preco": 22.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1612197522925-257ec364a3d3" },
+    { "id": 33, "nome": "Linguiça Toscana - 1kg", "preco": 17.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1632175246605-d15ff8d5d6e1" },
+    { "id": 34, "nome": "Ração Pedigree Adulto 1kg", "preco": 10.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1603297631944-98f25d9c7e6c" },
+    { "id": 35, "nome": "Ração Whiskas Gatos 500g", "preco": 7.5, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1583337130417-3346a1ff6c72" },
+    { "id": 36, "nome": "Areia Sanitária - 4kg", "preco": 13.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1612430528530-1f6744379fa4" },
+    { "id": 37, "nome": "Biscoito Cream Cracker 200g", "preco": 2.7, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1585079834703-bdba8c186208" },
+    { "id": 38, "nome": "Farinha de Trigo - 1kg", "preco": 4.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 39, "nome": "Creme Dental Colgate - 90g", "preco": 3.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1589308078056-e776330b9e7d" },
+    { "id": 40, "nome": "Ovos Brancos - Dúzia", "preco": 9.0, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" }
   ]
   }
 ],
@@ -148,57 +123,52 @@
       "logo": "./assets/lanche.png",
       "panfleto": "./assets/panfleto_mercadinho_ceara.png",
       "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
-      "categorias": ["Hambúrguer", "Pizza", "Bebidas"],
-      "produtos": [
-        {
-          "id": 1,
-          "nome": "Hambúrguer Clássico",
-          "preco": 25.0,
-          "categoria": "Hambúrguer",
-          "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 2,
-          "nome": "Pizza Margherita",
-          "preco": 40.0,
-          "categoria": "Pizza",
-          "imagem": "https://images.unsplash.com/photo-1548365328-6b14788ca710?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 3,
-          "nome": "Coca-Cola 500ml",
-          "preco": 7.0,
-          "categoria": "Bebidas",
-          "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 4,
-          "nome": "Cheeseburguer",
-          "preco": 30.0,
-          "categoria": "Hambúrguer",
-          "imagem": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 5,
-          "nome": "Pizza Pepperoni",
-          "preco": 45.0,
-          "categoria": "Pizza",
-          "imagem": "https://images.unsplash.com/photo-1594007657608-31f4acb2b0bc?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 6,
-          "nome": "Suco de Laranja",
-          "preco": 8.0,
-          "categoria": "Bebidas",
-          "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
-        }, {
-          "id": 7,
-          "nome": "Suco de maracuja",
-          "preco": 8.0,
-          "categoria": "Bebidas",
-          "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
+     "categorias": [
+    "Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas",
+    "Higiene", "Padaria", "Congelados", "Carnes", "Petshop"
+  ],
+  "produtos": [
+    { "id": 1, "nome": "Arroz Tipo 1 - 5kg", "preco": 22.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d" },
+    { "id": 2, "nome": "Feijão Preto - 1kg", "preco": 9.2, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794" },
+    { "id": 3, "nome": "Macarrão Espaguete - 500g", "preco": 3.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1618411662459-1d9f0dc43f31" },
+    { "id": 4, "nome": "Açúcar Cristal - 1kg", "preco": 3.1, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1617250461072-20559973c60a" },
+    { "id": 5, "nome": "Alface Crespa", "preco": 3.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { "id": 6, "nome": "Banana Prata - 1kg", "preco": 5.5, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5" },
+    { "id": 7, "nome": "Tomate Italiano - 1kg", "preco": 6.3, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1592928302374-ea8cdd157ccd" },
+    { "id": 8, "nome": "Maçã Fuji - 1kg", "preco": 7.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" },
+    { "id": 9, "nome": "Coca-Cola 2L", "preco": 9.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d" },
+    { "id": 10, "nome": "Guaraná Antártica 1,5L", "preco": 7.9, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719240434-d817f09baf01" },
+    { "id": 11, "nome": "Água Mineral com Gás - 500ml", "preco": 1.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1585951237311-73ae7abbe6fa" },
+    { "id": 12, "nome": "Suco de Uva Integral - 1L", "preco": 8.0, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1571987502227-820ad73f0d35" },
+    { "id": 13, "nome": "Sabão em Pó OMO - 800g", "preco": 12.0, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389" },
+    { "id": 14, "nome": "Água Sanitária - 1L", "preco": 2.9, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 15, "nome": "Detergente Neutro - 500ml", "preco": 2.5, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1621984656171-420e5cc76dc2" },
+    { "id": 16, "nome": "Esponja Multiuso 3un", "preco": 3.8, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1619021249884-b5c16cbd8285" },
+    { "id": 17, "nome": "Leite Integral - 1L", "preco": 4.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0" },
+    { "id": 18, "nome": "Iogurte Natural - 170g", "preco": 2.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 19, "nome": "Queijo Mussarela - 100g", "preco": 6.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65" },
+    { "id": 20, "nome": "Requeijão Cremoso - 200g", "preco": 4.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1581419183510-9c7bd958fba2" },
+    { "id": 21, "nome": "Sabonete Dove 90g", "preco": 3.2, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611077431913-94814c68e47a" },
+    { "id": 22, "nome": "Desodorante Rexona Aerosol", "preco": 10.5, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611080626919-49b4c3ad4082" },
+    { "id": 23, "nome": "Escova de Dente Colgate", "preco": 4.0, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1610226187503-9f8ec83d96a6" },
+    { "id": 24, "nome": "Papel Higiênico Neve - 4un", "preco": 7.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 25, "nome": "Pão Francês - 1kg", "preco": 10.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587731604984-7870d8ad9b0f" },
+    { "id": 26, "nome": "Bolo de Milho", "preco": 6.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1611359401978-d5e5e4747b82" },
+    { "id": 27, "nome": "Croissant de Presunto e Queijo", "preco": 4.5, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587840171670-8b850147754e" },
+    { "id": 28, "nome": "Pizza Congelada Calabresa", "preco": 18.5, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1601924579467-3ccdebd6f097" },
+    { "id": 29, "nome": "Hambúrguer Bovina Congelado", "preco": 16.9, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+    { "id": 30, "nome": "Frango a Passarinho Congelado", "preco": 14.0, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" },
+    { "id": 31, "nome": "Coxa de Frango - 1kg", "preco": 12.5, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1615851059078-40d772ba9f82" },
+    { "id": 32, "nome": "Carne Moída - 1kg", "preco": 22.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1612197522925-257ec364a3d3" },
+    { "id": 33, "nome": "Linguiça Toscana - 1kg", "preco": 17.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1632175246605-d15ff8d5d6e1" },
+    { "id": 34, "nome": "Ração Pedigree Adulto 1kg", "preco": 10.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1603297631944-98f25d9c7e6c" },
+    { "id": 35, "nome": "Ração Whiskas Gatos 500g", "preco": 7.5, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1583337130417-3346a1ff6c72" },
+    { "id": 36, "nome": "Areia Sanitária - 4kg", "preco": 13.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1612430528530-1f6744379fa4" },
+    { "id": 37, "nome": "Biscoito Cream Cracker 200g", "preco": 2.7, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1585079834703-bdba8c186208" },
+    { "id": 38, "nome": "Farinha de Trigo - 1kg", "preco": 4.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 39, "nome": "Creme Dental Colgate - 90g", "preco": 3.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1589308078056-e776330b9e7d" },
+    { "id": 40, "nome": "Ovos Brancos - Dúzia", "preco": 9.0, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" }
+  ]
     }
   ],
 
@@ -211,51 +181,52 @@
     "logo": "./assets/farmacia.png",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
     "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
-     "categorias": ["Medicamentos", "Higiene", "Vitaminas"],
-      "produtos": [
-        {
-          "id": 1,
-          "nome": "Paracetamol 750mg - 20 Comprimidos",
-          "preco": 12.0,
-          "categoria": "Medicamentos",
-          "imagem": "https://images.unsplash.com/photo-1588776814546-ec7e90f7be94?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 2,
-          "nome": "Dipirona Sódica 1g - 10 Comprimidos",
-          "preco": 9.5,
-          "categoria": "Medicamentos",
-          "imagem": "https://images.unsplash.com/photo-1584824486539-53bb4646bdbc?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 3,
-          "nome": "Sabonete Dove - 90g",
-          "preco": 4.5,
-          "categoria": "Higiene",
-          "imagem": "https://images.unsplash.com/photo-1611078489935-0cb964db5c57?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 4,
-          "nome": "Escova de Dente Colgate",
-          "preco": 6.0,
-          "categoria": "Higiene",
-          "imagem": "https://images.unsplash.com/photo-1629792082416-0152db0a6f13?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 5,
-          "nome": "Vitamina C Efervescente - 10 Comprimidos",
-          "preco": 14.9,
-          "categoria": "Vitaminas",
-          "imagem": "https://images.unsplash.com/photo-1632269281266-f3021e1c98bc?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 6,
-          "nome": "Centrum Homem - 30 Comprimidos",
-          "preco": 39.9,
-          "categoria": "Vitaminas",
-          "imagem": "https://images.unsplash.com/photo-1609770234511-0b8f8c75008a?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
+    "categorias": [
+    "Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas",
+    "Higiene", "Padaria", "Congelados", "Carnes", "Petshop"
+  ],
+  "produtos": [
+    { "id": 1, "nome": "Arroz Tipo 1 - 5kg", "preco": 22.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d" },
+    { "id": 2, "nome": "Feijão Preto - 1kg", "preco": 9.2, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794" },
+    { "id": 3, "nome": "Macarrão Espaguete - 500g", "preco": 3.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1618411662459-1d9f0dc43f31" },
+    { "id": 4, "nome": "Açúcar Cristal - 1kg", "preco": 3.1, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1617250461072-20559973c60a" },
+    { "id": 5, "nome": "Alface Crespa", "preco": 3.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { "id": 6, "nome": "Banana Prata - 1kg", "preco": 5.5, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5" },
+    { "id": 7, "nome": "Tomate Italiano - 1kg", "preco": 6.3, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1592928302374-ea8cdd157ccd" },
+    { "id": 8, "nome": "Maçã Fuji - 1kg", "preco": 7.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" },
+    { "id": 9, "nome": "Coca-Cola 2L", "preco": 9.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d" },
+    { "id": 10, "nome": "Guaraná Antártica 1,5L", "preco": 7.9, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719240434-d817f09baf01" },
+    { "id": 11, "nome": "Água Mineral com Gás - 500ml", "preco": 1.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1585951237311-73ae7abbe6fa" },
+    { "id": 12, "nome": "Suco de Uva Integral - 1L", "preco": 8.0, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1571987502227-820ad73f0d35" },
+    { "id": 13, "nome": "Sabão em Pó OMO - 800g", "preco": 12.0, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389" },
+    { "id": 14, "nome": "Água Sanitária - 1L", "preco": 2.9, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 15, "nome": "Detergente Neutro - 500ml", "preco": 2.5, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1621984656171-420e5cc76dc2" },
+    { "id": 16, "nome": "Esponja Multiuso 3un", "preco": 3.8, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1619021249884-b5c16cbd8285" },
+    { "id": 17, "nome": "Leite Integral - 1L", "preco": 4.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0" },
+    { "id": 18, "nome": "Iogurte Natural - 170g", "preco": 2.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 19, "nome": "Queijo Mussarela - 100g", "preco": 6.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65" },
+    { "id": 20, "nome": "Requeijão Cremoso - 200g", "preco": 4.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1581419183510-9c7bd958fba2" },
+    { "id": 21, "nome": "Sabonete Dove 90g", "preco": 3.2, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611077431913-94814c68e47a" },
+    { "id": 22, "nome": "Desodorante Rexona Aerosol", "preco": 10.5, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611080626919-49b4c3ad4082" },
+    { "id": 23, "nome": "Escova de Dente Colgate", "preco": 4.0, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1610226187503-9f8ec83d96a6" },
+    { "id": 24, "nome": "Papel Higiênico Neve - 4un", "preco": 7.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 25, "nome": "Pão Francês - 1kg", "preco": 10.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587731604984-7870d8ad9b0f" },
+    { "id": 26, "nome": "Bolo de Milho", "preco": 6.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1611359401978-d5e5e4747b82" },
+    { "id": 27, "nome": "Croissant de Presunto e Queijo", "preco": 4.5, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587840171670-8b850147754e" },
+    { "id": 28, "nome": "Pizza Congelada Calabresa", "preco": 18.5, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1601924579467-3ccdebd6f097" },
+    { "id": 29, "nome": "Hambúrguer Bovina Congelado", "preco": 16.9, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+    { "id": 30, "nome": "Frango a Passarinho Congelado", "preco": 14.0, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" },
+    { "id": 31, "nome": "Coxa de Frango - 1kg", "preco": 12.5, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1615851059078-40d772ba9f82" },
+    { "id": 32, "nome": "Carne Moída - 1kg", "preco": 22.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1612197522925-257ec364a3d3" },
+    { "id": 33, "nome": "Linguiça Toscana - 1kg", "preco": 17.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1632175246605-d15ff8d5d6e1" },
+    { "id": 34, "nome": "Ração Pedigree Adulto 1kg", "preco": 10.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1603297631944-98f25d9c7e6c" },
+    { "id": 35, "nome": "Ração Whiskas Gatos 500g", "preco": 7.5, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1583337130417-3346a1ff6c72" },
+    { "id": 36, "nome": "Areia Sanitária - 4kg", "preco": 13.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1612430528530-1f6744379fa4" },
+    { "id": 37, "nome": "Biscoito Cream Cracker 200g", "preco": 2.7, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1585079834703-bdba8c186208" },
+    { "id": 38, "nome": "Farinha de Trigo - 1kg", "preco": 4.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 39, "nome": "Creme Dental Colgate - 90g", "preco": 3.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1589308078056-e776330b9e7d" },
+    { "id": 40, "nome": "Ovos Brancos - Dúzia", "preco": 9.0, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" }
+  ]
     }
   ],
   "saloes": [
@@ -267,57 +238,52 @@
     "logo": "./assets/salao.png",
     "panfleto": "./assets/panfleto_mercadinho_ceara.png",
     "localizacao": "https://www.google.com/maps?q=-3.101944,-60.025",
-     "categorias": ["Cabelo", "Unhas", "Estética"],
-        "produtos": [
-        {
-          "id": 1,
-          "nome": "Corte Feminino",
-          "preco": 35.0,
-          "categoria": "Cabelo",
-          "duracao": "30 minutos",
-          "imagem": "https://images.unsplash.com/photo-1616106372224-043cb10b4fa3?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 2,
-          "nome": "Escova Progressiva",
-          "preco": 120.0,
-          "categoria": "Cabelo",
-          "duracao": "1h 30min",
-          "imagem": "https://images.unsplash.com/photo-1559599113-090dddfc1817?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 3,
-          "nome": "Manicure e Pedicure",
-          "preco": 45.0,
-          "categoria": "Unhas",
-          "duracao": "1 hora",
-          "imagem": "https://images.unsplash.com/photo-1603395845393-6b6a7585f7ba?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 4,
-          "nome": "Alongamento de Unhas Gel",
-          "preco": 90.0,
-          "categoria": "Unhas",
-          "duracao": "1h 30min",
-          "imagem": "https://images.unsplash.com/photo-1591360018387-74ee9d261b45?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 5,
-          "nome": "Limpeza de Pele",
-          "preco": 70.0,
-          "categoria": "Estética",
-          "duracao": "45 minutos",
-          "imagem": "https://images.unsplash.com/photo-1616211486685-05e6fdadb835?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": 6,
-          "nome": "Design de Sobrancelhas",
-          "preco": 25.0,
-          "categoria": "Estética",
-          "duracao": "20 minutos",
-          "imagem": "https://images.unsplash.com/photo-1604200210721-90e4011e6f87?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
+     "categorias": [
+    "Grãos", "Hortifruti", "Limpeza", "Laticínios", "Bebidas",
+    "Higiene", "Padaria", "Congelados", "Carnes", "Petshop"
+  ],
+  "produtos": [
+    { "id": 1, "nome": "Arroz Tipo 1 - 5kg", "preco": 22.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1606756791957-3dd993ff1e7d" },
+    { "id": 2, "nome": "Feijão Preto - 1kg", "preco": 9.2, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1615485925563-7b3842082794" },
+    { "id": 3, "nome": "Macarrão Espaguete - 500g", "preco": 3.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1618411662459-1d9f0dc43f31" },
+    { "id": 4, "nome": "Açúcar Cristal - 1kg", "preco": 3.1, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1617250461072-20559973c60a" },
+    { "id": 5, "nome": "Alface Crespa", "preco": 3.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { "id": 6, "nome": "Banana Prata - 1kg", "preco": 5.5, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1585238342028-96604e1fc8e5" },
+    { "id": 7, "nome": "Tomate Italiano - 1kg", "preco": 6.3, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1592928302374-ea8cdd157ccd" },
+    { "id": 8, "nome": "Maçã Fuji - 1kg", "preco": 7.0, "categoria": "Hortifruti", "imagem": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" },
+    { "id": 9, "nome": "Coca-Cola 2L", "preco": 9.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719478147-56c69d0df86d" },
+    { "id": 10, "nome": "Guaraná Antártica 1,5L", "preco": 7.9, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1582719240434-d817f09baf01" },
+    { "id": 11, "nome": "Água Mineral com Gás - 500ml", "preco": 1.5, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1585951237311-73ae7abbe6fa" },
+    { "id": 12, "nome": "Suco de Uva Integral - 1L", "preco": 8.0, "categoria": "Bebidas", "imagem": "https://images.unsplash.com/photo-1571987502227-820ad73f0d35" },
+    { "id": 13, "nome": "Sabão em Pó OMO - 800g", "preco": 12.0, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1632706527811-3ffba303b389" },
+    { "id": 14, "nome": "Água Sanitária - 1L", "preco": 2.9, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 15, "nome": "Detergente Neutro - 500ml", "preco": 2.5, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1621984656171-420e5cc76dc2" },
+    { "id": 16, "nome": "Esponja Multiuso 3un", "preco": 3.8, "categoria": "Limpeza", "imagem": "https://images.unsplash.com/photo-1619021249884-b5c16cbd8285" },
+    { "id": 17, "nome": "Leite Integral - 1L", "preco": 4.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1612197516411-13f2e518b5f0" },
+    { "id": 18, "nome": "Iogurte Natural - 170g", "preco": 2.5, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 19, "nome": "Queijo Mussarela - 100g", "preco": 6.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1610915528244-d07e47417a65" },
+    { "id": 20, "nome": "Requeijão Cremoso - 200g", "preco": 4.9, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1581419183510-9c7bd958fba2" },
+    { "id": 21, "nome": "Sabonete Dove 90g", "preco": 3.2, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611077431913-94814c68e47a" },
+    { "id": 22, "nome": "Desodorante Rexona Aerosol", "preco": 10.5, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1611080626919-49b4c3ad4082" },
+    { "id": 23, "nome": "Escova de Dente Colgate", "preco": 4.0, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1610226187503-9f8ec83d96a6" },
+    { "id": 24, "nome": "Papel Higiênico Neve - 4un", "preco": 7.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1588776814546-ec86a0be69b7" },
+    { "id": 25, "nome": "Pão Francês - 1kg", "preco": 10.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587731604984-7870d8ad9b0f" },
+    { "id": 26, "nome": "Bolo de Milho", "preco": 6.0, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1611359401978-d5e5e4747b82" },
+    { "id": 27, "nome": "Croissant de Presunto e Queijo", "preco": 4.5, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1587840171670-8b850147754e" },
+    { "id": 28, "nome": "Pizza Congelada Calabresa", "preco": 18.5, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1601924579467-3ccdebd6f097" },
+    { "id": 29, "nome": "Hambúrguer Bovina Congelado", "preco": 16.9, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349" },
+    { "id": 30, "nome": "Frango a Passarinho Congelado", "preco": 14.0, "categoria": "Congelados", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" },
+    { "id": 31, "nome": "Coxa de Frango - 1kg", "preco": 12.5, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1615851059078-40d772ba9f82" },
+    { "id": 32, "nome": "Carne Moída - 1kg", "preco": 22.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1612197522925-257ec364a3d3" },
+    { "id": 33, "nome": "Linguiça Toscana - 1kg", "preco": 17.9, "categoria": "Carnes", "imagem": "https://images.unsplash.com/photo-1632175246605-d15ff8d5d6e1" },
+    { "id": 34, "nome": "Ração Pedigree Adulto 1kg", "preco": 10.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1603297631944-98f25d9c7e6c" },
+    { "id": 35, "nome": "Ração Whiskas Gatos 500g", "preco": 7.5, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1583337130417-3346a1ff6c72" },
+    { "id": 36, "nome": "Areia Sanitária - 4kg", "preco": 13.0, "categoria": "Petshop", "imagem": "https://images.unsplash.com/photo-1612430528530-1f6744379fa4" },
+    { "id": 37, "nome": "Biscoito Cream Cracker 200g", "preco": 2.7, "categoria": "Padaria", "imagem": "https://images.unsplash.com/photo-1585079834703-bdba8c186208" },
+    { "id": 38, "nome": "Farinha de Trigo - 1kg", "preco": 4.5, "categoria": "Grãos", "imagem": "https://images.unsplash.com/photo-1589927986089-35812388d1d5" },
+    { "id": 39, "nome": "Creme Dental Colgate - 90g", "preco": 3.9, "categoria": "Higiene", "imagem": "https://images.unsplash.com/photo-1589308078056-e776330b9e7d" },
+    { "id": 40, "nome": "Ovos Brancos - Dúzia", "preco": 9.0, "categoria": "Laticínios", "imagem": "https://images.unsplash.com/photo-1606755962773-cbfc9f6d7d17" }
+  ]
     }
   ],
   "igrejas": [
