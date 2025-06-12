@@ -233,7 +233,7 @@ function Comercio() {
   );
 
   return (
-    <div style={{ padding: "2rem 1rem", backgroundColor: "#f9fafb", minHeight: "100vh" }}>
+    <div style={{ padding: "2rem 1rem", backgroundColor: "#f3f3f3f3", minHeight: "100vh" }}>
      <Typography
         variant="h4"
         align="center"

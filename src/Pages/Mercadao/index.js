@@ -42,7 +42,7 @@ function Mercadao(){
     return(
 
                 <div className="body">
-                    <div className="texto">
+                    <div className="texto" >
                     <Comercio/>
                     </div>
                 </div>
