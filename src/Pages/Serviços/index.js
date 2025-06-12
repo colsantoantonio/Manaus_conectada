@@ -91,6 +91,7 @@ function PaginaProfissionais() {
     async function carregarProfissionais() {
       try {
         const response = await fetch("https://manaus-conectada.onrender.com/api/profissionais");
+        //const response = await fetch("http://localhost:5000/api/profissionais");
         if (!response.ok) throw new Error("Erro ao carregar profissionais");
         const data = await response.json();
         setProfissionais(data);
@@ -141,7 +142,9 @@ const profissionaisFiltrados = profissionais.filter((p) => {
   }
 
   try {
-    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, {
+     //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`,    
+     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, 
+      {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: novoStatus }),
@@ -175,7 +178,9 @@ const handleFotoChange = async (event) => {
   formData.append("foto", arquivo);
 
   try {
-    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, {
+    //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`,
+    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, 
+      {
       method: "POST",
       body: formData,
     });
