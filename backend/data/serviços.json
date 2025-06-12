@@ -7,5 +7,23 @@
     "localizacao": "https://maps.google.com?q=Bairro+Central",
     "status": "online",
     "foto": "/uploads/profissional-1-1748483939519.png"
-  }
+  },
+   {
+    "id": 2,
+    "nome": "Tica love",
+    "servico": "Soldador",
+    "telefone": "92993847075",
+    "localizacao": "https://maps.google.com?q=Bairro+Central",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=21"
+  },
+  {
+    "id": 22,
+    "nome": "Pedro Henrique",
+    "servico": "Técnico em informática",
+    "telefone": "92997887766",
+    "localizacao": "https://maps.google.com?q=Bairro+Ponta+Negra",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=21"
+   }
 ]
