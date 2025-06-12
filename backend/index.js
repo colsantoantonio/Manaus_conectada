@@ -168,6 +168,113 @@ app.post('/api/profissionais/:id/foto', upload.single('foto'), (req, res) => {
   });
 });
 
+// Caminho para o JSON de entregas
+const entregasPath = path.join(__dirname, 'data', 'entregas.json');
+
+// Criar uma nova entrega (dono do mercado)
+app.post('/api/entregas', (req, res) => {
+  const { pedido, endereco, cliente, mercado, retirada } = req.body;
+
+  if (!pedido || !endereco || !cliente || !mercado || !retirada) {
+    return res.status(400).json({ message: 'Pedido, endereço e cliente são obrigatórios.' });
+  }
+
+  fs.readFile(entregasPath, 'utf8', (err, data) => {
+    const entregas = err ? [] : JSON.parse(data || '[]');
+
+    const novaEntrega = {
+      id: Date.now(), // ID único
+      mercado,
+      pedido,
+      endereco,
+      retirada,
+      cliente,
+      status: 'pendente', // ou "aceito"
+      motoqueiro: null
+    };
+
+    entregas.push(novaEntrega);
+
+    fs.writeFile(entregasPath, JSON.stringify(entregas, null, 2), err2 => {
+      if (err2) return res.status(500).json({ message: 'Erro ao salvar entrega' });
+      res.status(201).json(novaEntrega);
+    });
+  });
+});
+
+// Listar todas as entregas (para motoqueiros ou dono do mercado)
+app.get('/api/entregas', (req, res) => {
+  fs.readFile(entregasPath, 'utf8', (err, data) => {
+    if (err) return res.status(500).json({ message: 'Erro ao ler entregas' });
+    const entregas = JSON.parse(data || '[]');
+    res.json(entregas);
+  });
+});
+
+// Aceitar uma entrega (feito pelo motoqueiro)
+app.put('/api/entregas/:id/aceitar', (req, res) => {
+  const { id } = req.params;
+  const { motoqueiro } = req.body;
+
+  if (!motoqueiro) {
+    return res.status(400).json({ message: 'Nome do motoqueiro é obrigatório.' });
+  }
+
+  fs.readFile(entregasPath, 'utf8', (err, data) => {
+    if (err) return res.status(500).json({ message: 'Erro ao ler entregas' });
+
+    const entregas = JSON.parse(data || '[]');
+    const entregaIndex = entregas.findIndex(e => String(e.id) === String(id));
+
+    if (entregaIndex === -1) {
+      return res.status(404).json({ message: 'Entrega não encontrada' });
+    }
+
+    if (entregas[entregaIndex].status !== 'pendente') {
+      return res.status(400).json({ message: 'Entrega já foi aceita' });
+    }
+
+    entregas[entregaIndex].status = 'aceito';
+    entregas[entregaIndex].motoqueiro = motoqueiro;
+
+    fs.writeFile(entregasPath, JSON.stringify(entregas, null, 2), err2 => {
+      if (err2) return res.status(500).json({ message: 'Erro ao salvar entrega' });
+      res.json(entregas[entregaIndex]);
+    });
+  });
+});
+
+setInterval(() => {
+  fs.readFile(entregasPath, 'utf8', (readErr, data) => {
+    if (readErr) {
+      console.error('Erro ao ler entregas.json:', readErr);
+      return;
+    }
+
+    let entregas;
+    try {
+      entregas = JSON.parse(data || '[]');
+    } catch (parseErr) {
+      console.error('Erro ao parsear entregas.json:', parseErr);
+      return;
+    }
+
+    if (entregas.length > 2) {
+      entregas = entregas.slice(0, entregas.length - 2); // Remove as 2 últimas entregas
+    } else {
+      entregas = []; // Se tiver 2 ou menos, apaga tudo
+    }
+    
+    
+    fs.writeFile(entregasPath, JSON.stringify(entregas, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error('Erro ao atualizar entregas.json:', writeErr);
+      } else {
+        console.log('Removidas 2 últimas entregas automaticamente.');
+      }
+    });
+  });
+}, 2 * 60 * 1000); // 2 minutos
 
 
 app.listen(PORT, '0.0.0.0', () => {
