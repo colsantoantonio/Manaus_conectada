@@ -152,7 +152,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
           width: '95%',
           maxHeight: '90vh',
           overflowY: 'auto',
-          bgcolor: 'white',
+          bgcolor: '#bbdefb',
           borderRadius: 2,
           boxShadow: 24,
           p: 2,
@@ -169,13 +169,13 @@ export default function PanfletoModal({ open, onClose, comercio }) {
             mb: 2,
           }}
         >
-          <Typography variant="h6" fontWeight="bold" color="#53aaf9">
+          <Typography variant="h6" fontWeight="bold" color="blue">
             Meu Food
           </Typography>
           <Box>
             <IconButton onClick={() => setMostrarCarrinho(!mostrarCarrinho)}>
               <Badge badgeContent={cartItems.length} color="secondary">
-                <ShoppingCartIcon sx={{ color: '#53aaf9' }} />
+                <ShoppingCartIcon sx={{ color: 'blue' }} />
               </Badge>
             </IconButton>
             <IconButton onClick={onClose}>
@@ -198,7 +198,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
                 position: 'sticky',
                 top: 0,
                 zIndex: 1000,  // garante que fique acima dos cards
-                bgcolor: '#f9f9f9',
+                bgcolor: '#bbdefb',
                 px: 2,
                 py: 1,
                 borderRadius: 0, // sem borda arredondada para ficar mais clean no topo
