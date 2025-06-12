@@ -43,6 +43,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
   const [categorias, setCategorias] = useState([]);
   const [whatsapp, setWhatsapp] = useState('');
   const [formaPagamento, setFormaPagamento] = useState("");
+  
 
  useEffect(() => {
   let comercioSelecionado = comercio;

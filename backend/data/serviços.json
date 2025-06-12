@@ -187,5 +187,14 @@
     "localizacao": "https://maps.google.com?q=Bairro+Ponta+Negra",
     "status": "online",
     "foto": "https://i.pravatar.cc/150?img=21"
+  },
+  {
+    "id": 22,
+    "nome": "Pedro Henrique",
+    "servico": "Técnico em informática",
+    "telefone": "92997887766",
+    "localizacao": "https://maps.google.com?q=Bairro+Ponta+Negra",
+    "status": "online",
+    "foto": "https://i.pravatar.cc/150?img=21"
   }
 ]
