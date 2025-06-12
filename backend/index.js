@@ -28,18 +28,20 @@ app.get('/api/noticias', async (req, res) => {
 // Endpoint para listar profissionais
 app.get('/api/profissionais', (req, res) => {
   const { status } = req.query;
-  const filePath = path.join(__dirname, 'data', 'serviços.json');
+  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Erro ao ler arquivo serviços.json:', err);
+      console.error('Erro ao ler arquivo servicos.json:', err);
       return res.status(500).json({ message: 'Erro ao carregar profissionais' });
     }
 
     let profissionais;
     try {
       profissionais = JSON.parse(data);
+      console.log('JSON válido ✅');
     } catch (parseErr) {
+      console.error('JSON inválido ❌:');
       console.error('Erro ao parsear JSON de profissionais:', parseErr);
       return res.status(500).json({ message: 'Erro ao processar dados dos profissionais' });
     }
@@ -59,7 +61,7 @@ app.get('/api/profissionais', (req, res) => {
 app.put('/api/profissionais/:id/status', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  const filePath = path.join(__dirname, 'data', 'serviços.json');
+  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
   if (!status) {
     return res.status(400).json({ message: 'Status é obrigatório.' });
@@ -67,14 +69,16 @@ app.put('/api/profissionais/:id/status', (req, res) => {
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Erro ao ler arquivo serviços.json:', err);
+      console.error('Erro ao ler arquivo servicos.json:', err);
       return res.status(500).json({ message: 'Erro ao carregar profissionais' });
     }
 
     let profissionais;
     try {
       profissionais = JSON.parse(data);
+   console.log('JSON válido ✅');
     } catch (parseErr) {
+      console.error('JSON inválido ❌:');
       console.error('Erro ao parsear JSON de profissionais:', parseErr);
       return res.status(500).json({ message: 'Erro ao processar dados' });
     }
@@ -101,7 +105,7 @@ app.put('/api/profissionais/:id/status', (req, res) => {
 // Endpoint para trocar foto do profissional
 app.post('/api/profissionais/:id/foto', upload.single('foto'), (req, res) => {
   const { id } = req.params;
-  const filePath = path.join(__dirname, 'data', 'serviços.json');
+  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
   if (!req.file) {
     return res.status(400).json({ message: 'Arquivo de foto é obrigatório.' });
@@ -109,14 +113,16 @@ app.post('/api/profissionais/:id/foto', upload.single('foto'), (req, res) => {
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Erro ao ler arquivo serviços.json:', err);
+      console.error('Erro ao ler arquivo servicos.json:', err);
       return res.status(500).json({ message: 'Erro ao carregar profissionais' });
     }
 
     let profissionais;
     try {
       profissionais = JSON.parse(data);
+   console.log('JSON válido ✅');
     } catch (parseErr) {
+      console.error('JSON inválido ❌:');
       console.error('Erro ao parsear JSON de profissionais:', parseErr);
       return res.status(500).json({ message: 'Erro ao processar dados' });
     }
