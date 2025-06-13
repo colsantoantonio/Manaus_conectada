@@ -21,7 +21,7 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#d92f27', // vermelho vibrante iFood
+      main: '#d92f27', 
     },
     background: {
       default: '#fff',

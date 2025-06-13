@@ -83,11 +83,13 @@ export default function EditorProdutos() {
 }, [navigate]);
 
 
-  useEffect(() => {
-    if (comercio) {
-      localStorage.setItem(`produtos-${comercio.numero}`, JSON.stringify(produtos));
-    }
-  }, [produtos, comercio]);
+ useEffect(() => {
+  if (comercio?.numero) {
+    localStorage.setItem(`produtos-${comercio.numero}`, JSON.stringify(produtos));
+    console.log('✅ Produtos salvos:', produtos);
+  }
+}, [produtos, comercio?.numero]);
+
 
   const adicionarProduto = () => {
     if (!novoProduto.nome.trim() || novoProduto.preco === '' || isNaN(Number(novoProduto.preco))) {
