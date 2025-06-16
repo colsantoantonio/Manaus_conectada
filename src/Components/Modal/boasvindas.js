@@ -8,20 +8,27 @@ import {
   Button,
   IconButton,
   Box,
-  Typography
+  Typography,
+  Slide
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const ModalBoasVindas = () => {
   const [open, setOpen] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const savedName = localStorage.getItem('userFirstName');
     if (savedName) {
       setFirstName(savedName);
-      setSubmitted(true); // já mostra mensagem de boas-vindas
+      setSubmitted(true);
     }
 
     const timer = setTimeout(() => {
@@ -37,45 +44,49 @@ const ModalBoasVindas = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstName.trim()) {
-      localStorage.setItem('userFirstName', firstName);
-      setSubmitted(true);
-
-      window.dispatchEvent(new CustomEvent('userNameUpdated', { detail: firstName }));
-      console.log('Evento disparado com nome:', firstName);
-
-      setTimeout(() => {
-        setOpen(false);
-      }, 3000);
+    if (!firstName.trim()) {
+      setError(true);
+      return;
     }
+
+    localStorage.setItem('userFirstName', firstName.trim());
+    setSubmitted(true);
+    window.dispatchEvent(new CustomEvent('userNameUpdated', { detail: firstName.trim() }));
+
+    setTimeout(() => {
+      setOpen(false);
+    }, 3000);
   };
 
   return (
     <Dialog
       open={open}
+      TransitionComponent={Transition}
       onClose={handleClose}
-      aria-labelledby="welcome-dialog-title"
-      maxWidth="sm"
+      aria-labelledby="modal-title"
+      maxWidth="xs"
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 2,
+          borderRadius: 4,
           padding: 3,
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%)',
-          '@media (min-width:600px)': {
-            width: 500,
-          },
+          background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)',
+          boxShadow: 6,
         }
       }}
     >
-      <DialogTitle 
-        id="welcome-dialog-title" 
-        sx={{ 
-          textAlign: 'center', 
-          pt: 4, 
-          position: 'relative'
+      <DialogTitle
+        id="modal-title"
+        sx={{
+          textAlign: 'center',
+          position: 'relative',
+          fontWeight: 'bold',
+          color: '#2c3e50',
+          fontSize: '1.4rem',
+          pb: 1
         }}
       >
+        Bem-vindo à Comunidade!
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -84,84 +95,80 @@ const ModalBoasVindas = () => {
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
-            width: 36,
-            height: 36,
           }}
         >
           <CloseIcon />
         </IconButton>
-
-        <Typography variant="h5" component="div" sx={{ 
-          fontWeight: 'bold',
-          color: '#2c3e50',
-          mb: 2
-        }}>
-          Bem-vindo à Comunidade Manaus Conectada!
-        </Typography>
       </DialogTitle>
 
       <DialogContent>
         {!submitted ? (
           <>
-            <DialogContentText sx={{ 
-              textAlign: 'center', 
-              mb: 3,
-              fontSize: { xs: '1rem', sm: '1.1rem' },
-              color: '#555'
-            }}>
-              Conecte-se com a comunidade, compartilhe notícias e aproveite as promoções dos mercados locais!
+            <DialogContentText
+              sx={{
+                textAlign: 'center',
+                mb: 3,
+                fontSize: '1rem',
+                color: '#555',
+              }}
+            >
+              Participe da comunidade, compartilhe novidades e receba promoções exclusivas da sua região!
             </DialogContentText>
 
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+            <Box component="form" onSubmit={handleSubmit} noValidate>
               <TextField
                 autoFocus
-                margin="dense"
-                id="firstName"
-                label="Qual é o seu primeiro nome?"
-                type="text"
                 fullWidth
+                required
+                label="Digite seu primeiro nome"
                 variant="outlined"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                  if (error && e.target.value.trim()) setError(false);
+                }}
+                error={error}
+                helperText={error ? 'Nome é obrigatório para continuar.' : ''}
                 sx={{
+                  backgroundColor: '#fff',
+                  borderRadius: 2,
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: '12px',
-                    backgroundColor: '#fff'
+                    borderRadius: 2,
                   }
                 }}
-                required
               />
 
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
+                disabled={!firstName.trim()}
                 sx={{
                   mt: 3,
-                  mb: 2,
                   py: 1.5,
-                  borderRadius: '12px',
-                  fontSize: { xs: '0.9rem', sm: '1rem' },
                   fontWeight: 'bold',
+                  borderRadius: 2,
+                  fontSize: '1rem',
                   background: 'linear-gradient(135deg, #3f51b5 0%, #283593 100%)',
                   '&:hover': {
-                    background: 'linear-gradient(135deg, #283593 0%, #1a237e 100%)'
+                    background: 'linear-gradient(135deg, #283593 0%, #1a237e 100%)',
                   }
                 }}
               >
-                Acessar Comunidade
+                Entrar na Comunidade
               </Button>
             </Box>
           </>
         ) : (
-          <DialogContentText sx={{ 
-            textAlign: 'center', 
-            fontSize: { xs: '1rem', sm: '1.2rem' },
-            py: 4,
-            color: '#2e7d32'
-          }}>
-            🎉 Bem-vindo{firstName ? `, ${firstName}` : ''}! Estamos felizes em ter você com a gente!
-          </DialogContentText>
+          <Box textAlign="center" py={4}>
+            <EmojiEmotionsIcon sx={{ fontSize: 48, color: '#2e7d32', mb: 2 }} />
+            <Typography variant="h6" sx={{ color: '#2e7d32', fontWeight: 'bold' }}>
+              🎉 Bem-vindo{firstName ? `, ${firstName}` : ''}!
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 1, color: '#444' }}>
+              Estamos felizes em ter você com a gente!
+            </Typography>
+          </Box>
         )}
       </DialogContent>
     </Dialog>
@@ -169,5 +176,3 @@ const ModalBoasVindas = () => {
 };
 
 export default ModalBoasVindas;
-
-

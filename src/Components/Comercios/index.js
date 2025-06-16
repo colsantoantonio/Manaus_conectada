@@ -315,7 +315,7 @@ function Comercio() {
           paddingX: 2.2,           // menor que 3
           paddingY: 0.9,           // menor que 1.2
           borderRadius: 2,         // ligeiramente menor
-                textTransform: 'none',
+          textTransform: 'none',
           boxShadow: '0 4px 10px rgba(39, 87, 217, 0.4)',
           width: '100%',
         }}

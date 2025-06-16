@@ -17,6 +17,8 @@ import Importantes from "../../Components/Importantes";
 import "../Home/Home.css";
 import MarkVip from "../../Components/MarkVip";
 import Calendario from "../../Components/Calendario";
+import { useNavigate } from "react-router-dom";
+
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -25,6 +27,7 @@ function Home() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [nomeUsuario, setNomeUsuario] = useState(localStorage.getItem('userFirstName') || '');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNomeUsuario(localStorage.getItem('userFirstName') || '');
@@ -96,65 +99,146 @@ function Home() {
       <Container maxWidth="lg" sx={{ mt: 4, marginTop: "-5px" }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
-            <div className="todos">
-              <div className="primeira">
-                <Container maxWidth="md" sx={{ mt: 4 }}>
-                 {nomeUsuario && (
+           <Grid item xs={12} md={6}>
+              <Box className="todos">
+                <Container maxWidth="md" sx={{ mt: { xs: 2, md: 4 } }}>
+                  {nomeUsuario && (
+                    <Box
+                      sx={{
+                        bgcolor: "#fff",
+                        p: { xs: 2, sm: 3, md: 4 },
+                        borderRadius: 3,
+                        boxShadow: 2,
+                        textAlign: "center",
+                        mb: { xs: 3, md: 5 },
+                      }}
+                    >
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: { xs: "1.3rem", sm: "1.5rem" },
+                          mb: 1,
+                          color: "#333",
+                        }}
+                      >
+                        👋 Olá, {nomeUsuario}!
+                      </Typography>
+
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontSize: { xs: "0.95rem", sm: "1.05rem" },
+                          color: "#555",
+                        }}
+                      >
+                        Seja bem-vindo ao <strong>Manaus Conectada</strong> — o app que conecta moradores, comércios e serviços do seu bairro!
+                      </Typography>
+
+                      {/* Lista compacta */}
+                      <Box
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          bgcolor: "#f9f9f9",
+                          borderRadius: 2,
+                          p: { xs: 1.5, sm: 2 },
+                        }}
+                      >
+                        <Typography
+                          variant="subtitle2"
+                          sx={{
+                            fontWeight: "bold",
+                            mb: 1,
+                            fontSize: "1rem",
+                          }}
+                        >
+                          O que você encontra aqui:
+                        </Typography>
+                        <ul style={{ paddingLeft: "20px", margin: 0 }}>
+                          <li>🛒 Ofertas de comércios locais</li>
+                          <li>👷‍♂️ Profissionais perto de você</li>
+                         <li>📰 Notícias atualizadas da cidade</li>
+                        </ul>
+                      </Box>
+
+                      {/* Ações principais com boa responsividade */}
+                      {/* <Box
+                        sx={{
+                          mt: 3,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 1.5,
+                        }}
+                      >
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        sx={{
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
+                          py: 1.2,
+                        }}
+                        onClick={() => navigate("/mercadao")} // <- Aqui define o caminho da nova página
+                      >
+                        Comercios
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        sx={{
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
+                          py: 1.2,
+                        }}
+                        onClick={() => navigate("/serviços")} // <- Aqui define o caminho da nova página
+                      >
+                        Profissionais
+                      </Button>
+                      </Box> */}
+                    </Box>
+                  )}
+
+                  {/* Seções adicionais somente desktop */}
+                  {isDesktop && (
+                    <>
+                      <Box sx={{ mb: 3 }}>
+                        <MarkVip />
+                      </Box>
+                      <Box sx={{ mb: 3 }}>
+                        <Importantes />
+                      </Box>
+                    </>
+                  )}
+                </Container>
+
+                {/* Notícias e Formulário */}
+                <Box className="segunda" sx={{ px: { xs: 1, sm: 2 } }}>
                   <Typography
-                    key={nomeUsuario}
-                    variant="h5"
-                    gutterBottom
-                    bgcolor="white"
-                    width="100%"
+                    variant="h6"
                     sx={{
-                      fontSize: { xs: "1.2rem", sm: "1.8rem", md: "2rem" },
-                      textAlign: "center",
-                      color: "black",
-                      py: { xs: 1.5, sm: 2 },
-                      px: 2,
-                      borderRadius: 2,
-                      boxShadow: 3,
-                      lineHeight: 1.4,
+                      fontWeight: "bold",
+                      mb: 2,
+                      fontSize: { xs: "1.1rem", sm: "1.3rem" },
                     }}
                   >
-                    Olá, {nomeUsuario}! 👋 <br />
-                    Bem-vindo à <strong>Manaus Conectada</strong> — o app que fortalece o seu bairro!
+                    🗞️ Últimas Notícias de Manaus
                   </Typography>
-                )}
 
-              {isDesktop && (
-                <div style={{ marginTop: "20px" }}>
-                  <MarkVip />
-                </div>
-                 )}
+                  <Noticia />
 
-                {isDesktop && (
-                  <div style={{ marginTop: "20px" }}>
-                    <Importantes />
-                  </div>
-                )}
-                 </Container>               
-              </div>
-
-              <div className="segunda">
-                <Typography variant="h5" gutterBottom>
-                  Últimas Notícias de Manaus
-                </Typography>
-                <Noticia />
-
-                 <Typography
+                  <Typography
                     variant="body1"
                     sx={{
-                      mb: { xs: 2, sm: 4 },
-                      fontSize: { xs: "1rem", sm: "1.125rem" },
-                      lineHeight: 1.6,
-                      textAlign:"center",
-                      marginTop:"25px"
+                      mt: 4,
+                      mb: 2,
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                      textAlign: "center",
                     }}
                   >
-                    Area do morador!
+                    Quer contribuir com alguma informação?
                   </Typography>
-
 
                   <Fade in={snackbarOpen} timeout={{ enter: 500, exit: 500 }}>
                     <Box sx={{ mb: 2 }}>
@@ -168,33 +252,42 @@ function Home() {
                       )}
                     </Box>
                   </Fade>
-               
 
-                <TextField
-                  fullWidth
-                  label="Seu e-mail ou whatsapp"
-                  variant="outlined"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
+                  <TextField
+                    fullWidth
+                    label="Seu e-mail ou WhatsApp"
+                    variant="outlined"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{ mb: 2 }}
+                  />
 
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={4}
-                  label="Compartilhe informações..."
-                  variant="outlined"
-                  value={mensagem}
-                  onChange={(e) => setMensagem(e.target.value)}
-                  sx={{ mb: 2 }}
-                />
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={4}
+                    label="Compartilhe informações úteis para a comunidade"
+                    variant="outlined"
+                    value={mensagem}
+                    onChange={(e) => setMensagem(e.target.value)}
+                    sx={{ mb: 2 }}
+                  />
 
-                <Button fullWidth variant="contained" onClick={handleSubmit}>
-                  Enviar
-                </Button>
-              </div>
-            </div>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={handleSubmit}
+                    sx={{
+                      py: 1.3,
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    🚀 Enviar
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
