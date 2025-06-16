@@ -259,135 +259,134 @@ export default function PanfletoModal({ open, onClose, comercio }) {
 
         {/* Lista de Produtos */}
         {!mostrarCarrinho && (
-  <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 0 }, py: 4 }}>
-    <Grid container spacing={4} justifyContent="center">
-      {produtos
-        .filter((p) => p.categoria === categoriaSelecionada)
-        .map((produto, index) => {
-          const mostrarPopular = Math.random() < 0.3;
-          return (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={produto.id}
-              sx={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-              >
-                <Card
-                  sx={{
-                    width: 320,
-                    borderRadius: 6,
-                    bgcolor: '#fdfdfd',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
-                    p: 3,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    position: 'relative',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.12)',
-                      transform: 'translateY(-6px)',
-                    },
-                  }}
-                >
-                  {mostrarPopular && (
-                    <Chip
-                      label="Popular"
-                      color="warning"
-                      size="small"
-                      sx={{
-                        position: 'absolute',
-                        top: 12,
-                        right: 12,
-                        fontWeight: 'bold',
-                      }}
-                    />
-                  )}
-
-                  <Box mb={2}>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        display: 'inline-block',
-                        background: '#e3f2fd',
-                        color: '#1565c0',
-                        px: 1.5,
-                        py: 0.5,
-                        borderRadius: '8px',
-                        fontSize: '0.75rem',
-                        fontWeight: 600,
-                        mb: 1,
-                      }}
-                    >
-                      {produto.categoria}
-                    </Typography>
-
-                    <Typography
-                      variant="h6"
-                      fontWeight="700"
-                      color="#212121"
-                      sx={{ mb: 0.5 }}
-                    >
-                      {produto.nome}
-                    </Typography>
-
-                    <Typography
-                      variant="body1"
-                      fontWeight="700"
-                      color="#4caf50"
-                      sx={{ fontSize: '1.3rem' }}
-                    >
-                      R$ {produto.preco.toFixed(2).replace('.', ',')}
-                    </Typography>
-                  </Box>
-
-                  <CardActions sx={{ p: 0, mt: 2 }}>
-                    <Tooltip title={produto.descricao || 'Clique para adicionar ao carrinho'}>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        onClick={() => adicionarAoCarrinho(produto)}
-                        startIcon={<ShoppingCartIcon />}
-                        sx={{
-                          background: 'linear-gradient(45deg,rgb(67, 102, 255),rgb(34, 56, 255))',
-                          color: '#fff',
-                          fontWeight: '700',
-                          textTransform: 'none',
-                          borderRadius: '12px',
-                          py: 1.4,
-                          fontSize: '1rem',
-                          boxShadow: '0 6px 15px rgba(167, 34, 255, 0.3)',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            background: 'linear-gradient(45deg,rgb(25, 172, 230),rgb(21, 144, 216))',
-                            boxShadow: '0 8px 20px rgba(138, 25, 230, 0.5)',
-                          },
-                          '&:active': {
-                            transform: 'scale(0.97)',
-                          },
-                        }}
+            <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 0 }, py: 4 }}>
+              <Grid container spacing={4} justifyContent="center">
+                {produtos
+                  .filter((p) => p.categoria === categoriaSelecionada)
+                  .map((produto, index) => {
+                    const mostrarPopular = Math.random() < 0.3;
+                    return (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        key={produto.id}
+                        sx={{ display: 'flex', justifyContent: 'center' }}
                       >
-                        Adicionar ao carrinho
-                      </Button>
-                    </Tooltip>
-                  </CardActions>
-                </Card>
-              </motion.div>
-            </Grid>
-          );
-        })}
-    </Grid>
-  </Container>
-)}
+                        <motion.div
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1, duration: 0.5 }}
+                          style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                        >
+                          <Card
+                            sx={{
+                              width: 320,
+                              borderRadius: 6,
+                              bgcolor: '#fdfdfd',
+                              boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
+                              p: 3,
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'space-between',
+                              position: 'relative',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                boxShadow: '0 12px 32px rgba(0,0,0,0.12)',
+                                transform: 'translateY(-6px)',
+                              },
+                            }}
+                          >
+                            {mostrarPopular && (
+                              <Chip
+                                label="Popular"
+                                color="warning"
+                                size="small"
+                                sx={{
+                                  position: 'absolute',
+                                  top: 12,
+                                  right: 12,
+                                  fontWeight: 'bold',
+                                }}
+                              />
+                            )}
 
+                            <Box mb={2}>
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  display: 'inline-block',
+                                  background: '#e3f2fd',
+                                  color: '#1565c0',
+                                  px: 1.5,
+                                  py: 0.5,
+                                  borderRadius: '8px',
+                                  fontSize: '0.75rem',
+                                  fontWeight: 600,
+                                  mb: 1,
+                                }}
+                              >
+                                {produto.categoria}
+                              </Typography>
+
+                              <Typography
+                                variant="h6"
+                                fontWeight="700"
+                                color="#212121"
+                                sx={{ mb: 0.5 }}
+                              >
+                                {produto.nome}
+                              </Typography>
+
+                              <Typography
+                                variant="body1"
+                                fontWeight="700"
+                                color="#4caf50"
+                                sx={{ fontSize: '1.3rem' }}
+                              >
+                                R$ {produto.preco.toFixed(2).replace('.', ',')}
+                              </Typography>
+                            </Box>
+
+                            <CardActions sx={{ p: 0, mt: 2 }}>
+                              <Tooltip title={produto.descricao || 'Clique para adicionar ao carrinho'}>
+                                <Button
+                                  fullWidth
+                                  variant="contained"
+                                  onClick={() => adicionarAoCarrinho(produto)}
+                                  startIcon={<ShoppingCartIcon />}
+                                  sx={{
+                                    background: 'linear-gradient(45deg,rgb(67, 102, 255),rgb(34, 56, 255))',
+                                    color: '#fff',
+                                    fontWeight: '700',
+                                    textTransform: 'none',
+                                    borderRadius: '12px',
+                                    py: 1.4,
+                                    fontSize: '1rem',
+                                    boxShadow: '0 6px 15px rgba(167, 34, 255, 0.3)',
+                                    transition: 'all 0.3s ease',
+                                    '&:hover': {
+                                      background: 'linear-gradient(45deg,rgb(25, 172, 230),rgb(21, 144, 216))',
+                                      boxShadow: '0 8px 20px rgba(138, 25, 230, 0.5)',
+                                    },
+                                    '&:active': {
+                                      transform: 'scale(0.97)',
+                                    },
+                                  }}
+                                >
+                                  Adicionar ao carrinho
+                                </Button>
+                              </Tooltip>
+                            </CardActions>
+                          </Card>
+                        </motion.div>
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </Container>
+          )}
         {/* Carrinho */}
         {mostrarCarrinho && (
             <Box sx={{ mb: 3, px: { xs: 2, sm: 4 }, py: 3, bgcolor: '#f0f7ff', borderRadius: 3, boxShadow: '0 4px 20px rgba(21, 101, 192, 0.1)' }}>
@@ -548,23 +547,21 @@ export default function PanfletoModal({ open, onClose, comercio }) {
 
         {/* Snackbar */}
         {snackbarOpen && (
-  <Alert
-    severity="success"
-    onClose={() => setSnackbarOpen(false)}
-    sx={{
-      width: '100%',
-      bgcolor: '#4caf50',
-      color: 'white',
-      position: 'sticky',
-      bottom: 0,
-      zIndex: 1300, // valor alto para ficar acima
-    }}
-  >
-    Produto adicionado ao carrinho!
-  </Alert>
-)}
-
-
+          <Alert
+            severity="success"
+            onClose={() => setSnackbarOpen(false)}
+            sx={{
+              width: '100%',
+              bgcolor: '#4caf50',
+              color: 'white',
+              position: 'sticky',
+              bottom: 0,
+              zIndex: 1300, // valor alto para ficar acima
+            }}
+          >
+                Produto adicionado ao carrinho!
+              </Alert>
+            )}
       </Box>
     </Modal>
   );
