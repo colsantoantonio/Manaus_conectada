@@ -13,10 +13,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Noticia from "../../Components/G1news";
 import CarroselComponent from "../../Components/Carrosel";
-import Importantes from "../../Components/Importantes";
 import "../Home/Home.css";
-import MarkVip from "../../Components/MarkVip";
-import Calendario from "../../Components/Calendario";
 import { useNavigate } from "react-router-dom";
 
 
@@ -193,23 +190,12 @@ function Home() {
                         }}
                         onClick={() => navigate("/serviços")} // <- Aqui define o caminho da nova página
                       >
-                        Profissionais
+                        Profissionaisf
                       </Button>
                       </Box> */}
                     </Box>
                   )}
-
-                  {/* Seções adicionais somente desktop */}
-                  {isDesktop && (
-                    <>
-                      <Box sx={{ mb: 3 }}>
-                        <MarkVip />
-                      </Box>
-                      <Box sx={{ mb: 3 }}>
-                        <Importantes />
-                      </Box>
-                    </>
-                  )}
+               
                 </Container>
 
                 {/* Notícias e Formulário */}
