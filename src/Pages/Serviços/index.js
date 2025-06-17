@@ -143,7 +143,7 @@ const profissionaisFiltrados = profissionais.filter((p) => {
 
   try {
      //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`,    
-     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, 
+     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/status`, 
       {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -156,7 +156,7 @@ const profissionaisFiltrados = profissionais.filter((p) => {
 
     setProfissionais(prev =>
       prev.map(p =>
-        p.id === usuarioLogado.id ? { ...p, status: novoStatus } : p
+        p.id === usuarioLogado._id ? { ...p, status: novoStatus } : p
       )
     );
 
@@ -179,7 +179,7 @@ const handleFotoChange = async (event) => {
 
   try {
     //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`,
-    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, 
+    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/foto`, 
       {
       method: "POST",
       body: formData,
@@ -192,7 +192,7 @@ const handleFotoChange = async (event) => {
     // Adiciona timestamp para evitar cache
     const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
 
-    const idUsuario = usuarioLogado.id;
+    const idUsuario = usuarioLogado._id;
 
     setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
     setProfissionais((prev) =>
