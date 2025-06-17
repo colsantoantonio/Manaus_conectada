@@ -54,7 +54,6 @@ function PaginaProfissionais() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-
   // Abrir modal de imagem
   const abrirModalImagem = (imagem) => {
     setImagemSelecionada(imagem);
@@ -87,32 +86,35 @@ function PaginaProfissionais() {
     setSnackbarOpen(false);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     async function carregarProfissionais() {
       try {
         const response = await fetch("https://manaus-conectada.onrender.com/api/profissionais");
-        //const response = await fetch("http://localhost:5000/api/profissionais");
         if (!response.ok) throw new Error("Erro ao carregar profissionais");
         const data = await response.json();
-        setProfissionais(data);
+
+        // Mapeia para trocar _id por id para usar de forma consistente
+        const profissionaisFormatados = data.map((profissional) => ({
+          ...profissional,
+          id: profissional._id || profissional.id,
+        }));
+
+        setProfissionais(profissionaisFormatados);
       } catch (error) {
         console.error(error);
-        // Aqui você pode exibir snackbar ou mensagem de erro, se quiser
       }
     }
     carregarProfissionais();
   }, []);
 
-  
   // Filtra profissionais pelo nome ou serviço (ajustado para evitar erros)
-const buscaTrim = busca.trim().toLowerCase();
+  const buscaTrim = busca.trim().toLowerCase();
 
-const profissionaisFiltrados = profissionais.filter((p) => {
-  const nome = p.nome ? p.nome.toLowerCase() : "";
-  const servico = p.servico ? p.servico.toLowerCase() : "";
-  return nome.includes(buscaTrim) || servico.includes(buscaTrim);
-});
-
+  const profissionaisFiltrados = profissionais.filter((p) => {
+    const nome = p.nome ? p.nome.toLowerCase() : "";
+    const servico = p.servico ? p.servico.toLowerCase() : "";
+    return nome.includes(buscaTrim) || servico.includes(buscaTrim);
+  });
 
   // Fazer login só com telefone
   const handleLogin = () => {
@@ -136,379 +138,375 @@ const profissionaisFiltrados = profissionais.filter((p) => {
 
   // Atualizar status do usuário logado
   const handleSalvarStatus = async () => {
-  if (!novoStatus) {
-    abrirSnackbar("Selecione um status válido.", "warning");
-    return;
-  }
+    if (!novoStatus) {
+      abrirSnackbar("Selecione um status válido.", "warning");
+      return;
+    }
 
-  try {
-     //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`,    
-     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, 
-      {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: novoStatus }),
-    });
+    try {
+      const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, 
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: novoStatus }),
+        });
 
-    if (!response.ok) throw new Error('Erro ao atualizar status');
+      if (!response.ok) throw new Error('Erro ao atualizar status');
 
-    const data = await response.json();
+      const data = await response.json();
 
-    setProfissionais(prev =>
-      prev.map(p =>
-        p.id === usuarioLogado.id ? { ...p, status: novoStatus } : p
-      )
-    );
+      setProfissionais(prev =>
+        prev.map(p =>
+          p.id === usuarioLogado.id ? { ...p, status: novoStatus } : p
+        )
+      );
 
-    setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
+      setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
 
-    abrirSnackbar("Status atualizado com sucesso!", "success");
-  } catch (error) {
-    abrirSnackbar("Erro ao atualizar status.", "error");
-    console.error(error);
-  }
-};
+      abrirSnackbar("Status atualizado com sucesso!", "success");
+    } catch (error) {
+      abrirSnackbar("Erro ao atualizar status.", "error");
+      console.error(error);
+    }
+  };
 
-// Função para trocar a foto do usuário logado
-const handleFotoChange = async (event) => {
-  const arquivo = event.target.files[0];
-  if (!arquivo) return;
+  // Função para trocar a foto do usuário logado
+  const handleFotoChange = async (event) => {
+    const arquivo = event.target.files[0];
+    if (!arquivo) return;
 
-  const formData = new FormData();
-  formData.append("foto", arquivo);
+    const formData = new FormData();
+    formData.append("foto", arquivo);
 
-  try {
-    //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`,
-    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, 
-      {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, 
+        {
+          method: "POST",
+          body: formData,
+        });
 
-    if (!response.ok) throw new Error("Erro ao enviar foto");
+      if (!response.ok) throw new Error("Erro ao enviar foto");
 
-    const data = await response.json();
+      const data = await response.json();
 
-    // Adiciona timestamp para evitar cache
-    const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
+      // Adiciona timestamp para evitar cache
+      const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
 
-    const idUsuario = usuarioLogado.id;
+      const idUsuario = usuarioLogado.id;
 
-    setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
-    setProfissionais((prev) =>
-      prev.map((p) => (p.id === idUsuario ? { ...p, foto: urlFoto } : p))
-    );
+      setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
+      setProfissionais((prev) =>
+        prev.map((p) => (p.id === idUsuario ? { ...p, foto: urlFoto } : p))
+      );
 
-    abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
-  } catch (error) {
-    abrirSnackbar("Erro ao enviar foto", "error");
-  }
-};
+      abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
+    } catch (error) {
+      abrirSnackbar("Erro ao enviar foto", "error");
+    }
+  };
 
-
-return (
-  <Box sx={{ p: 3, bgcolor: "#f0f2f5", minHeight: "100vh" }}>
-    <Typography
-      variant="h4"
-      align="center"
-      gutterBottom
-      sx={{
-        fontWeight: 700,
-        mb: 4,
-        fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
-        color: "#1a1a1a",
-      }}
-    >
-      👷 Profissionais da Comunidade
-    </Typography>
-
-    {!usuarioLogado ? (
-      <Paper
-        elevation={3}
+  return (
+    <Box sx={{ p: 3, bgcolor: "#f0f2f5", minHeight: "100vh" }}>
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
         sx={{
-          maxWidth: 360,
-          mx: "auto",
-          p: 3,
-          borderRadius: 3,
-          textAlign: "center",
-          backgroundColor: "#ffffff",
+          fontWeight: 700,
+          mb: 4,
+          fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
+          color: "#1a1a1a",
         }}
       >
-        <Typography variant="body1" sx={{ mb: 2, color: "#666" }}>
-          Área exclusiva para profissionais cadastrados.
-        </Typography>
+        👷 Profissionais da Comunidade
+      </Typography>
 
-        <TextField
-          placeholder="Digite sua Senha"
-          variant="outlined"
-          fullWidth
-          value={loginTelefone}
-          onChange={(e) => setLoginTelefone(e.target.value)}
-          inputProps={{ inputMode: "tel" }}
-          size="small"
-          sx={{ mb: 2 }}
-        />
-
-        <Button
-          variant="contained"
-          fullWidth
-          size="large"
-          onClick={handleLogin}
+      {!usuarioLogado ? (
+        <Paper
+          elevation={3}
+          sx={{
+            maxWidth: 360,
+            mx: "auto",
+            p: 3,
+            borderRadius: 3,
+            textAlign: "center",
+            backgroundColor: "#ffffff",
+          }}
         >
-          Entrar
-        </Button>
-      </Paper>
-    ) : (
-      <Paper
-        elevation={3}
-        sx={{
-          maxWidth: 420,
-          mx: "auto",
-          p: 3,
-          borderRadius: 3,
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <Typography variant="h6" align="center" sx={{ mb: 2 }}>
-          Olá, {usuarioLogado.nome}!
-        </Typography>
+          <Typography variant="body1" sx={{ mb: 2, color: "#666" }}>
+            Área exclusiva para profissionais cadastrados.
+          </Typography>
 
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel id="status-label">Alterar Status</InputLabel>
-          <Select
-            labelId="status-label"
-            value={novoStatus}
-            label="Alterar Status"
-            onChange={(e) => setNovoStatus(e.target.value)}
-          >
-            <MenuItem value="online">Online</MenuItem>
-            <MenuItem value="ocupado">Ocupado</MenuItem>
-            <MenuItem value="offline">Offline</MenuItem>
-          </Select>
-        </FormControl>
+          <TextField
+            placeholder="Digite sua Senha"
+            variant="outlined"
+            fullWidth
+            value={loginTelefone}
+            onChange={(e) => setLoginTelefone(e.target.value)}
+            inputProps={{ inputMode: "tel" }}
+            size="small"
+            sx={{ mb: 2 }}
+          />
 
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 2 }}>
           <Button
             variant="contained"
             fullWidth
-            onClick={handleSalvarStatus}
+            size="large"
+            onClick={handleLogin}
           >
-            Salvar
+            Entrar
           </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            fullWidth
-            onClick={handleLogout}
-          >
-            Sair
-          </Button>
-        </Stack>
+        </Paper>
+      ) : (
+        <Paper
+          elevation={3}
+          sx={{
+            maxWidth: 420,
+            mx: "auto",
+            p: 3,
+            borderRadius: 3,
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <Typography variant="h6" align="center" sx={{ mb: 2 }}>
+            Olá, {usuarioLogado.nome}!
+          </Typography>
 
-        <Button variant="outlined" component="label" fullWidth>
-          Trocar Foto
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={handleFotoChange}
-          />
-        </Button>
-      </Paper>
-    )}
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <InputLabel id="status-label">Alterar Status</InputLabel>
+            <Select
+              labelId="status-label"
+              value={novoStatus}
+              label="Alterar Status"
+              onChange={(e) => setNovoStatus(e.target.value)}
+            >
+              <MenuItem value="online">Online</MenuItem>
+              <MenuItem value="ocupado">Ocupado</MenuItem>
+              <MenuItem value="offline">Offline</MenuItem>
+            </Select>
+          </FormControl>
 
-    <Box sx={{ mt: 5, mb: 3, display: "flex", justifyContent: "center" }}>
-      <TextField
-        label="Buscar por nome ou serviço"
-        variant="outlined"
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-        sx={{ width: "100%", maxWidth: 400 }}
-      />
-    </Box>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 2 }}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={handleSalvarStatus}
+            >
+              Salvar
+            </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              fullWidth
+              onClick={handleLogout}
+            >
+              Sair
+            </Button>
+          </Stack>
 
-    <Grid container spacing={3} justifyContent="center">
-      {profissionaisFiltrados.map((item) => (
-        <Grid item xs={12} sm={6} md={4} key={item.id}>
-          <Card
-            sx={{
-              height: 300,
-              width:300,
-              borderRadius: 3,
-              boxShadow: 4,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              bgcolor: "#ffffff",
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Avatar
-                  src={item.foto}
-                  alt={item.nome}
-                  sx={{
-                    width: 64,
-                    height: 64,
-                    border: `3px solid ${statusColors[item.status]}`,
-                  }}
-                />
-              }
-              title={
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  noWrap
-                  sx={{ color: "#333", maxWidth: 180 }}
-                >
-                  {item.nome}
-                </Typography>
-              }
-              subheader={
-                <Typography variant="body2" sx={{ color: "#666" }}>
-                  {item.servico}
-                </Typography>
-              }
+          <Button variant="outlined" component="label" fullWidth>
+            Trocar Foto
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleFotoChange}
             />
+          </Button>
+        </Paper>
+      )}
 
-            <CardContent sx={{ pt: 0 }}>
-              <Stack direction="row" alignItems="center" spacing={1} mb={1}>
-                <PhoneIcon sx={{ color: "#555" }} />
-                <Typography variant="body2" sx={{ color: "#555" }}>
-                  {item.telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")}
-                </Typography>
-              </Stack>
+      <Box sx={{ mt: 5, mb: 3, display: "flex", justifyContent: "center" }}>
+        <TextField
+          label="Buscar por nome ou serviço"
+          variant="outlined"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          sx={{ width: "100%", maxWidth: 400 }}
+        />
+      </Box>
 
-              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
-                <LocationOnIcon sx={{ color: "#555" }} />
-                <Button
-                  variant="text"
-                  size="small"
-                  href={item.localizacao}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ textTransform: "none", color: "#1976d2" }}
-                >
-                  Ver localização
-                </Button>
-              </Stack>
-
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Stack direction="row" spacing={0.5} alignItems="center">
-                  <CircleIcon
+      <Grid container spacing={3} justifyContent="center">
+        {profissionaisFiltrados.map((item) => (
+          <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Card
+              sx={{
+                height: 300,
+                width:300,
+                borderRadius: 3,
+                boxShadow: 4,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                bgcolor: "#ffffff",
+              }}
+            >
+              <CardHeader
+                avatar={
+                  <Avatar
+                    src={item.foto}
+                    alt={item.nome}
                     sx={{
-                      fontSize: 14,
-                      color: statusColors[item.status] || "gray",
+                      width: 64,
+                      height: 64,
+                      border: `3px solid ${statusColors[item.status]}`,
                     }}
                   />
-                  <Typography variant="caption" sx={{ color: "#555" }}>
-                    {item.status}
+                }
+                title={
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight="bold"
+                    noWrap
+                    sx={{ color: "#333", maxWidth: 180 }}
+                  >
+                    {item.nome}
+                  </Typography>
+                }
+                subheader={
+                  <Typography variant="body2" sx={{ color: "#666" }}>
+                    {item.servico}
+                  </Typography>
+                }
+              />
+
+              <CardContent sx={{ pt: 0 }}>
+                <Stack direction="row" alignItems="center" spacing={1} mb={1}>
+                  <PhoneIcon sx={{ color: "#555" }} />
+                  <Typography variant="body2" sx={{ color: "#555" }}>
+                    {item.telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")}
                   </Typography>
                 </Stack>
 
-                <Button
-                  variant="contained"
-                  size="small"
-                  startIcon={<WhatsAppIcon />}
-                  onClick={() => openWhatsApp(item.telefone, item.nome)}
-                  sx={{ textTransform: "none", fontWeight: "bold" }}
+                <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                  <LocationOnIcon sx={{ color: "#555" }} />
+                  <Button
+                    variant="text"
+                    size="small"
+                    href={item.localizacao}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: "none", color: "#1976d2" }}
+                  >
+                    Ver localização
+                  </Button>
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
                 >
-                  WhatsApp
-                </Button>
-              </Stack>
-            </CardContent>
+                  <Stack direction="row" spacing={0.5} alignItems="center">
+                    <CircleIcon
+                      sx={{
+                        fontSize: 14,
+                        color: statusColors[item.status] || "gray",
+                      }}
+                    />
+                    <Typography variant="caption" sx={{ color: "#555" }}>
+                      {item.status}
+                    </Typography>
+                  </Stack>
 
-            <Button
-              variant="text"
-              onClick={() => abrirModalImagem(item.foto)}
-              sx={{ fontSize: 12, color: "#1976d2", mb: 1 }}
-            >
-              Visualizar foto
-            </Button>
-          </Card>
-        </Grid>
-      ))}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    startIcon={<WhatsAppIcon />}
+                    onClick={() => openWhatsApp(item.telefone, item.nome)}
+                    sx={{ textTransform: "none", fontWeight: "bold" }}
+                  >
+                    WhatsApp
+                  </Button>
+                </Stack>
+              </CardContent>
 
-      {profissionaisFiltrados.length === 0 && (
-        <Typography
-          variant="body1"
-          align="center"
-          sx={{ mt: 5, width: "100%", color: "#777" }}
-        >
-          Nenhum profissional encontrado para a busca "{busca}".
-        </Typography>
-      )}
-    </Grid>
+              <Button
+                variant="text"
+                onClick={() => abrirModalImagem(item.foto)}
+                sx={{ fontSize: 12, color: "#1976d2", mb: 1 }}
+              >
+                Visualizar foto
+              </Button>
+            </Card>
+          </Grid>
+        ))}
 
-    {/* Modal de imagem */}
-    <Dialog
-      open={modalAberto}
-      onClose={fecharModalImagem}
-      fullScreen={fullScreen}
-      maxWidth="sm"
-      fullWidth
-    >
-      <DialogContent
-        sx={{
-          p: 1,
-          backgroundColor: "#000",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        {profissionaisFiltrados.length === 0 && (
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{ mt: 5, width: "100%", color: "#777" }}
+          >
+            Nenhum profissional encontrado para a busca "{busca}".
+          </Typography>
+        )}
+      </Grid>
+
+      {/* Modal de imagem */}
+      <Dialog
+        open={modalAberto}
+        onClose={fecharModalImagem}
+        fullScreen={fullScreen}
+        maxWidth="sm"
+        fullWidth
       >
-        <IconButton
-          onClick={fecharModalImagem}
+        <DialogContent
           sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            color: "#fff",
-            bgcolor: "rgba(0,0,0,0.5)",
-            "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+            p: 1,
+            backgroundColor: "#000",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <CloseIcon />
-        </IconButton>
-
-        {imagemSelecionada && (
-          <img
-            src={imagemSelecionada}
-            alt="Foto do profissional"
-            style={{
-              maxWidth: "100%",
-              maxHeight: "80vh",
-              borderRadius: 8,
-              objectFit: "contain",
+          <IconButton
+            onClick={fecharModalImagem}
+            sx={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              color: "#fff",
+              bgcolor: "rgba(0,0,0,0.5)",
+              "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
             }}
-          />
-        )}
-      </DialogContent>
-    </Dialog>
+          >
+            <CloseIcon />
+          </IconButton>
 
-    {/* Snackbar */}
-    <Snackbar
-      open={snackbarOpen}
-      autoHideDuration={4000}
-      onClose={handleSnackbarClose}
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-    >
-      <Alert
+          {imagemSelecionada && (
+            <img
+              src={imagemSelecionada}
+              alt="Foto do profissional"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "80vh",
+                borderRadius: 8,
+                objectFit: "contain",
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
         onClose={handleSnackbarClose}
-        severity={snackbarSeverity}
-        variant="filled"
-        sx={{ width: "100%" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        {snackbarMessage}
-      </Alert>
-    </Snackbar>
-  </Box>
-);
-
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </Box>
+  );
 }
 
 export default PaginaProfissionais;

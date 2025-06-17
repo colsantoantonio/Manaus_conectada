@@ -5,6 +5,16 @@ const fs = require('fs');
 const getNoticias = require('./scraper');
 const multer = require('multer');
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.mongodb.net/Profissionais?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('🟢 Conectado ao MongoDB'))
+.catch(err => console.error('🔴 Erro ao conectar ao MongoDB:', err));
+
+
 // Pasta onde as fotos serão salvas
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -26,153 +36,91 @@ app.get('/api/noticias', async (req, res) => {
 });
 
 // Endpoint para listar profissionais
-app.get('/api/profissionais', (req, res) => {
+const Profissional = require('./models/Profissional');
+
+app.get('/api/profissionais', async (req, res) => {
   const { status } = req.query;
-  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erro ao ler arquivo servicos.json:', err);
-      return res.status(500).json({ message: 'Erro ao carregar profissionais' });
-    }
-
-    let profissionais;
-    try {
-      profissionais = JSON.parse(data);
-      console.log('JSON válido ✅');
-    } catch (parseErr) {
-      console.error('JSON inválido ❌:');
-      console.error('Erro ao parsear JSON de profissionais:', parseErr);
-      return res.status(500).json({ message: 'Erro ao processar dados dos profissionais' });
-    }
-
+  try {
+    let query = {};
     if (status) {
-      profissionais = profissionais.filter(p => {
-        if (!p.status) return false;
-        return p.status.toLowerCase() === status.toLowerCase();
-      });
+      query.status = new RegExp(`^${status}$`, 'i'); // busca case-insensitive
     }
 
+    const profissionais = await Profissional.find(query);
     res.json(profissionais);
-  });
+  } catch (err) {
+    console.error('Erro ao buscar profissionais:', err);
+    res.status(500).json({ message: 'Erro ao buscar profissionais' });
+  }
 });
 
+
 // Endpoint para atualizar o status de um profissional
-app.put('/api/profissionais/:id/status', (req, res) => {
+app.put('/api/profissionais/:id/status', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
   if (!status) {
     return res.status(400).json({ message: 'Status é obrigatório.' });
   }
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erro ao ler arquivo servicos.json:', err);
-      return res.status(500).json({ message: 'Erro ao carregar profissionais' });
-    }
+  try {
+    const profissional = await Profissional.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
 
-    let profissionais;
-    try {
-      profissionais = JSON.parse(data);
-   console.log('JSON válido ✅');
-    } catch (parseErr) {
-      console.error('JSON inválido ❌:');
-      console.error('Erro ao parsear JSON de profissionais:', parseErr);
-      return res.status(500).json({ message: 'Erro ao processar dados' });
-    }
-
-    const index = profissionais.findIndex(p => String(p.id) === String(id));
-
-    if (index === -1) {
+    if (!profissional) {
       return res.status(404).json({ message: 'Profissional não encontrado.' });
     }
 
-    profissionais[index].status = status;
-
-    fs.writeFile(filePath, JSON.stringify(profissionais, null, 2), (writeErr) => {
-      if (writeErr) {
-        console.error('Erro ao salvar arquivo:', writeErr);
-        return res.status(500).json({ message: 'Erro ao salvar status' });
-      }
-
-      res.json({ message: 'Status atualizado com sucesso.', profissional: profissionais[index] });
-    });
-  });
+    res.json({ message: 'Status atualizado com sucesso.', profissional });
+  } catch (err) {
+    console.error('Erro ao atualizar status:', err);
+    res.status(500).json({ message: 'Erro ao atualizar status' });
+  }
 });
 
+
 // Endpoint para trocar foto do profissional
-app.post('/api/profissionais/:id/foto', upload.single('foto'), (req, res) => {
+app.post('/api/profissionais/:id/foto', upload.single('foto'), async (req, res) => {
   const { id } = req.params;
-  const filePath = path.join(__dirname, 'data', 'servicos.json');
 
   if (!req.file) {
     return res.status(400).json({ message: 'Arquivo de foto é obrigatório.' });
   }
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erro ao ler arquivo servicos.json:', err);
-      return res.status(500).json({ message: 'Erro ao carregar profissionais' });
-    }
+  const extensao = path.extname(req.file.originalname);
+  const novoNome = `profissional-${id}-${Date.now()}${extensao}`;
+  const novoPath = path.join(__dirname, 'uploads', novoNome);
 
-    let profissionais;
-    try {
-      profissionais = JSON.parse(data);
-   console.log('JSON válido ✅');
-    } catch (parseErr) {
-      console.error('JSON inválido ❌:');
-      console.error('Erro ao parsear JSON de profissionais:', parseErr);
-      return res.status(500).json({ message: 'Erro ao processar dados' });
-    }
+  try {
+    fs.renameSync(req.file.path, novoPath);
 
-    const index = profissionais.findIndex(p => String(p.id) === String(id));
+    const profissional = await Profissional.findByIdAndUpdate(
+      id,
+      { foto: `/uploads/${novoNome}` },
+      { new: true }
+    );
 
-    if (index === -1) {
-      // Apaga o arquivo enviado, pois não será usado
-      fs.unlinkSync(req.file.path);
+    if (!profissional) {
+      fs.unlinkSync(novoPath);
       return res.status(404).json({ message: 'Profissional não encontrado.' });
     }
 
-    // Excluir foto antiga, se existir
-    if (profissionais[index].foto) {
-      const fotoAntigaPath = path.join(__dirname, 'uploads', path.basename(profissionais[index].foto));
-      if (fs.existsSync(fotoAntigaPath)) {
-        fs.unlinkSync(fotoAntigaPath);
-      }
-    }
-
-    // Renomear o arquivo enviado para um nome mais amigável
-    const extensao = path.extname(req.file.originalname);
-    const novoNome = `profissional-${id}-${Date.now()}${extensao}`;
-    const novoPath = path.join(__dirname, 'uploads', novoNome);
-
-    fs.rename(req.file.path, novoPath, (renameErr) => {
-      if (renameErr) {
-        console.error('Erro ao renomear arquivo:', renameErr);
-        return res.status(500).json({ message: 'Erro ao processar arquivo' });
-      }
-
-      // Atualiza o campo foto no JSON
-      profissionais[index].foto = `/uploads/${novoNome}`;
-
-      // Salva o JSON atualizado
-      fs.writeFile(filePath, JSON.stringify(profissionais, null, 2), (writeErr) => {
-        if (writeErr) {
-          console.error('Erro ao salvar arquivo:', writeErr);
-          return res.status(500).json({ message: 'Erro ao salvar dados' });
-        }
-
-        res.json({
-          message: 'Foto atualizada com sucesso.',
-          foto: profissionais[index].foto,
-          profissional: profissionais[index],
-        });
-      });
+    res.json({
+      message: 'Foto atualizada com sucesso.',
+      foto: profissional.foto,
+      profissional
     });
-  });
+  } catch (err) {
+    console.error('Erro ao processar foto:', err);
+    res.status(500).json({ message: 'Erro ao atualizar foto' });
+  }
 });
+
 
 // Caminho para o JSON de entregas
 const entregasPath = path.join(__dirname, 'data', 'entregas.json');
