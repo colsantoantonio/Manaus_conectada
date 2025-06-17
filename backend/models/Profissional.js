@@ -1,12 +1,30 @@
 const mongoose = require('mongoose');
 
-const ProfissionalSchema = new mongoose.Schema({
-  nome: String,
-  serviço: String,
-  telefone: String,
-  localização: String,
-  status: String,
-  foto: String
+const profissionalSchema = new mongoose.Schema({
+  nome: {
+    type: String,
+    required: true
+  },
+  telefone: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  servico: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    enum: ['disponível', 'ocupado', 'offline'],
+    default: 'disponível'
+  },
+  foto: {
+    type: String,
+    default: ''
+  }
+}, {
+  timestamps: true
 });
 
-module.exports = mongoose.model('Profissional', ProfissionalSchema);
+module.exports = mongoose.model('Profissional', profissionalSchema);

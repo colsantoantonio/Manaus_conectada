@@ -143,23 +143,24 @@ function PaginaProfissionais() {
       return;
     }
 
-    try {
-      const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/status`, 
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: novoStatus }),
-        });
+  try {
+     //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`,    
+     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/status`, 
+      {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: novoStatus }),
+    });
 
       if (!response.ok) throw new Error('Erro ao atualizar status');
 
       const data = await response.json();
 
-      setProfissionais(prev =>
-        prev.map(p =>
-          p.id === usuarioLogado.id ? { ...p, status: novoStatus } : p
-        )
-      );
+    setProfissionais(prev =>
+      prev.map(p =>
+        p.id === usuarioLogado._id ? { ...p, status: novoStatus } : p
+      )
+    );
 
       setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
 
@@ -178,12 +179,13 @@ function PaginaProfissionais() {
     const formData = new FormData();
     formData.append("foto", arquivo);
 
-    try {
-      const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado.id}/foto`, 
-        {
-          method: "POST",
-          body: formData,
-        });
+  try {
+    //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`,
+    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/foto`, 
+      {
+      method: "POST",
+      body: formData,
+    });
 
       if (!response.ok) throw new Error("Erro ao enviar foto");
 
@@ -192,7 +194,7 @@ function PaginaProfissionais() {
       // Adiciona timestamp para evitar cache
       const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
 
-      const idUsuario = usuarioLogado.id;
+    const idUsuario = usuarioLogado._id;
 
       setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
       setProfissionais((prev) =>
