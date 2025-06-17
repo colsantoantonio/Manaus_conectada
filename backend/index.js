@@ -7,7 +7,7 @@ const multer = require('multer');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.mongodb.net/Profissionais?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://bairrocolsantoantonio:<db_password>@cluster0.pvzzhgi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
