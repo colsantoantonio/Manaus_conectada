@@ -87,26 +87,20 @@ function PaginaProfissionais() {
   };
 
   useEffect(() => {
-    async function carregarProfissionais() {
-      try {
-        const response = await fetch("https://manaus-conectada.onrender.com/api/profissionais");
-        if (!response.ok) throw new Error("Erro ao carregar profissionais");
-        const data = await response.json();
+  async function carregarProfissionais() {
+    try {
+      const response = await fetch("https://manaus-conectada.onrender.com/api/profissionais");
+      if (!response.ok) throw new Error("Erro ao carregar profissionais");
+      const data = await response.json();
 
-        // Mapeia para trocar _id por id para usar de forma consistente
-        const profissionaisFormatados = data.map((profissional) => ({
-          ...profissional,
-          id: profissional._id || profissional.id,
-        }));
-
-        setProfissionais(profissionaisFormatados);
-      } catch (error) {
-        console.error(error);
-      }
+      // Usar data diretamente, pois _id já existe
+      setProfissionais(data);
+    } catch (error) {
+      console.error(error);
     }
-    carregarProfissionais();
-  }, []);
-
+  }
+  carregarProfissionais();
+}, []);
   // Filtra profissionais pelo nome ou serviço (ajustado para evitar erros)
   const buscaTrim = busca.trim().toLowerCase();
 
@@ -118,15 +112,15 @@ function PaginaProfissionais() {
 
   // Fazer login só com telefone
   const handleLogin = () => {
-    const usuario = profissionais.find((p) => p.telefone === loginTelefone);
-    if (usuario) {
-      setUsuarioLogado(usuario);
-      setNovoStatus(usuario.status);
-      abrirSnackbar(`Bem-vindo, ${usuario.nome}! Você está logado.`, "success");
-    } else {
-      abrirSnackbar("Usuário não encontrado.", "error");
-    }
-  };
+  const usuario = profissionais.find((p) => p.telefone === loginTelefone);
+  if (usuario) {
+    setUsuarioLogado(usuario);
+    setNovoStatus(usuario.status);
+    abrirSnackbar(`Bem-vindo, ${usuario.nome}! Você está logado.`, "success");
+  } else {
+    abrirSnackbar("Usuário não encontrado.", "error");
+  }
+};
 
   // Fazer logout
   const handleLogout = () => {
@@ -137,75 +131,69 @@ function PaginaProfissionais() {
   };
 
   // Atualizar status do usuário logado
-  const handleSalvarStatus = async () => {
-    if (!novoStatus) {
-      abrirSnackbar("Selecione um status válido.", "warning");
-      return;
-    }
+ const handleSalvarStatus = async () => {
+  if (!novoStatus) {
+    abrirSnackbar("Selecione um status válido.", "warning");
+    return;
+  }
 
   try {
-     //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/status`,    
-     const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/status`, 
-      {
+    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: novoStatus }),
     });
 
-      if (!response.ok) throw new Error('Erro ao atualizar status');
+    if (!response.ok) throw new Error('Erro ao atualizar status');
 
-      const data = await response.json();
+    const data = await response.json();
 
     setProfissionais(prev =>
       prev.map(p =>
-        p.id === usuarioLogado._id ? { ...p, status: novoStatus } : p
+        p._id === usuarioLogado._id ? { ...p, status: novoStatus } : p
       )
     );
 
-      setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
+    setUsuarioLogado(prev => ({ ...prev, status: novoStatus }));
 
-      abrirSnackbar("Status atualizado com sucesso!", "success");
-    } catch (error) {
-      abrirSnackbar("Erro ao atualizar status.", "error");
-      console.error(error);
-    }
-  };
+    abrirSnackbar("Status atualizado com sucesso!", "success");
+  } catch (error) {
+    abrirSnackbar("Erro ao atualizar status.", "error");
+    console.error(error);
+  }
+};
 
   // Função para trocar a foto do usuário logado
-  const handleFotoChange = async (event) => {
-    const arquivo = event.target.files[0];
-    if (!arquivo) return;
+ const handleFotoChange = async (event) => {
+  const arquivo = event.target.files[0];
+  if (!arquivo) return;
 
-    const formData = new FormData();
-    formData.append("foto", arquivo);
+  const formData = new FormData();
+  formData.append("foto", arquivo);
 
   try {
-    //const response = await fetch(`http://localhost:5000/api/profissionais/${usuarioLogado.id}/foto`,
-    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/foto`, 
-      {
+    const response = await fetch(`https://manaus-conectada.onrender.com/api/profissionais/${usuarioLogado._id}/foto`, {
       method: "POST",
       body: formData,
     });
 
-      if (!response.ok) throw new Error("Erro ao enviar foto");
+    if (!response.ok) throw new Error("Erro ao enviar foto");
 
-      const data = await response.json();
+    const data = await response.json();
 
-      // Adiciona timestamp para evitar cache
-      const urlFoto = `/uploads/${data.foto}?t=${new Date().getTime()}`;
+    // data.foto já é algo como "/uploads/arquivo.jpg"
+    const urlFoto = `${data.foto}?t=${new Date().getTime()}`;
 
-    const idUsuario = usuarioLogado._id;
+    setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
+    setProfissionais((prev) =>
+      prev.map((p) => (p._id === usuarioLogado._id ? { ...p, foto: urlFoto } : p))
+    );
 
-      setUsuarioLogado((prev) => ({ ...prev, foto: urlFoto }));
-      setProfissionais((prev) =>
-        prev.map((p) => (p.id === idUsuario ? { ...p, foto: urlFoto } : p))
-      );
-
-      abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
-    } catch (error) {
-      abrirSnackbar("Erro ao enviar foto", "error");
-    }
-  };
+    abrirSnackbar("Foto atualizada com sucesso no servidor", "success");
+  } catch (error) {
+    abrirSnackbar("Erro ao enviar foto", "error");
+  }
+};
 
   return (
     <Box sx={{ p: 3, bgcolor: "#f0f2f5", minHeight: "100vh" }}>

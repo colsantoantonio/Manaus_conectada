@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
 
 const profissionalSchema = new mongoose.Schema({
+  id: Number, // se você quiser manter um ID personalizado
   nome: {
     type: String,
     required: true
@@ -14,10 +15,14 @@ const profissionalSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  localizacao: {
+    type: String,
+    required: false
+  },
   status: {
     type: String,
-    enum: ['disponível', 'ocupado', 'offline'],
-    default: 'disponível'
+    enum: ['online', 'ocupado', 'offline'], // corrigido
+    default: 'offline'
   },
   foto: {
     type: String,
@@ -28,3 +33,4 @@ const profissionalSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Profissional', profissionalSchema);
+
