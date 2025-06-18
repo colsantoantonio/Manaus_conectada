@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const Profissional = require('./models/Profissional');
 
 // Use variável de ambiente para a conexão (crie um arquivo .env com MONGODB_URI)
-const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/Profissionais?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
