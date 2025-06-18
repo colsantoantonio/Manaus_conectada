@@ -68,7 +68,7 @@ app.put('/api/profissionais/:id/status', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  const statusesValidos = ['disponível', 'ocupado', 'offline'];
+  const statusesValidos = ['online', 'ocupado', 'offline'];
 
   if (!status || !statusesValidos.includes(status)) {
     return res.status(400).json({ message: 'Status inválido ou não fornecido.' });
