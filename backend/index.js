@@ -1,15 +1,20 @@
+require('dotenv').config(); // Coloque essa linha no topo e crie arquivo .env na raiz com MONGODB_URI
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const fsPromises = fs.promises;
 const getNoticias = require('./scraper');
 const multer = require('multer');
-
 const mongoose = require('mongoose');
 
+const Profissional = require('./models/Profissional');
 
-mongoose.connect('mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+// Use variável de ambiente para a conexão (crie um arquivo .env com MONGODB_URI)
+const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -24,7 +29,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(express.json()); // Necessário para ler JSON no body das requisições
+app.use(express.json());
+
+// Servir arquivos estáticos da pasta uploads para acesso às fotos
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Endpoint para notícias
 app.get('/api/noticias', async (req, res) => {
@@ -37,16 +45,14 @@ app.get('/api/noticias', async (req, res) => {
   }
 });
 
-// Endpoint para listar profissionais
-const Profissional = require('./models/Profissional');
-
+// Listar profissionais com filtro opcional por status
 app.get('/api/profissionais', async (req, res) => {
   const { status } = req.query;
 
   try {
     let query = {};
     if (status) {
-      query.status = new RegExp(`^${status}$`, 'i'); // busca case-insensitive
+      query.status = new RegExp(`^${status}$`, 'i');
     }
 
     const profissionais = await Profissional.find(query);
@@ -57,14 +63,15 @@ app.get('/api/profissionais', async (req, res) => {
   }
 });
 
-
-// Endpoint para atualizar o status de um profissional
+// Atualizar status do profissional com validação simples do enum
 app.put('/api/profissionais/:id/status', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  if (!status) {
-    return res.status(400).json({ message: 'Status é obrigatório.' });
+  const statusesValidos = ['disponível', 'ocupado', 'offline'];
+
+  if (!status || !statusesValidos.includes(status)) {
+    return res.status(400).json({ message: 'Status inválido ou não fornecido.' });
   }
 
   try {
@@ -85,8 +92,7 @@ app.put('/api/profissionais/:id/status', async (req, res) => {
   }
 });
 
-
-// Endpoint para trocar foto do profissional
+// Upload e troca da foto do profissional com fs.promises.rename
 app.post('/api/profissionais/:id/foto', upload.single('foto'), async (req, res) => {
   const { id } = req.params;
 
@@ -99,7 +105,7 @@ app.post('/api/profissionais/:id/foto', upload.single('foto'), async (req, res) 
   const novoPath = path.join(__dirname, 'uploads', novoNome);
 
   try {
-    fs.renameSync(req.file.path, novoPath);
+    await fsPromises.rename(req.file.path, novoPath);
 
     const profissional = await Profissional.findByIdAndUpdate(
       id,
@@ -108,7 +114,7 @@ app.post('/api/profissionais/:id/foto', upload.single('foto'), async (req, res) 
     );
 
     if (!profissional) {
-      fs.unlinkSync(novoPath);
+      await fsPromises.unlink(novoPath);
       return res.status(404).json({ message: 'Profissional não encontrado.' });
     }
 
@@ -139,13 +145,13 @@ app.post('/api/entregas', (req, res) => {
     const entregas = err ? [] : JSON.parse(data || '[]');
 
     const novaEntrega = {
-      id: Date.now(), // ID único
+      id: Date.now(),
       mercado,
       pedido,
       endereco,
       retirada,
       cliente,
-      status: 'pendente', // ou "aceito"
+      status: 'pendente',
       motoqueiro: null
     };
 
@@ -158,7 +164,7 @@ app.post('/api/entregas', (req, res) => {
   });
 });
 
-// Listar todas as entregas (para motoqueiros ou dono do mercado)
+// Listar todas as entregas
 app.get('/api/entregas', (req, res) => {
   fs.readFile(entregasPath, 'utf8', (err, data) => {
     if (err) return res.status(500).json({ message: 'Erro ao ler entregas' });
@@ -200,6 +206,7 @@ app.put('/api/entregas/:id/aceitar', (req, res) => {
   });
 });
 
+// Remove as 2 últimas entregas a cada 2 minutos
 setInterval(() => {
   fs.readFile(entregasPath, 'utf8', (readErr, data) => {
     if (readErr) {
@@ -216,11 +223,10 @@ setInterval(() => {
     }
 
     if (entregas.length > 2) {
-      entregas = entregas.slice(0, entregas.length - 2); // Remove as 2 últimas entregas
+      entregas = entregas.slice(0, entregas.length - 2);
     } else {
-      entregas = []; // Se tiver 2 ou menos, apaga tudo
+      entregas = [];
     }
-    
     
     fs.writeFile(entregasPath, JSON.stringify(entregas, null, 2), (writeErr) => {
       if (writeErr) {
@@ -231,7 +237,6 @@ setInterval(() => {
     });
   });
 }, 2 * 60 * 1000); // 2 minutos
-
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
