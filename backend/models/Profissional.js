@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); 
 
 const profissionalSchema = new mongoose.Schema({
-  id: Number, // se você quiser manter um ID personalizado
+  id: Number, // ID customizado, ok!
   nome: {
     type: String,
     required: true
@@ -21,7 +21,7 @@ const profissionalSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['online', 'ocupado', 'offline'], // corrigido
+    enum: ['online', 'ocupado', 'offline'], // OK!
     default: 'offline'
   },
   foto: {
@@ -29,8 +29,8 @@ const profissionalSchema = new mongoose.Schema({
     default: ''
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  collection: 'Profissionais' // 👈 Força o nome exato da coleção existente no Atlas
 });
 
 module.exports = mongoose.model('Profissional', profissionalSchema);
-
