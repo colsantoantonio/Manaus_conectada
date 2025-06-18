@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); 
 
 const profissionalSchema = new mongoose.Schema({
-  id: Number, // ID customizado, ok!
+  id: Number,
   nome: {
     type: String,
     required: true

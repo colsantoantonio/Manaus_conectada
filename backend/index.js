@@ -10,6 +10,7 @@ const multer = require('multer');
 const mongoose = require('mongoose');
 
 const Profissional = require('./models/Profissional');
+const Estabelecimento = require('./models/Estabelecimento');
 
 // Use variável de ambiente para a conexão (crie um arquivo .env com MONGODB_URI)
 const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/Profissionais?retryWrites=true&w=majority&appName=Cluster0';
@@ -237,6 +238,37 @@ setInterval(() => {
     });
   });
 }, 2 * 60 * 1000); // 2 minutos
+
+
+app.get('/api/estabelecimentos', async (req, res) => {
+  const { tipo, nome, produto } = req.query;
+
+  try {
+    const filtros = {};
+
+    
+    if (tipo) {
+      filtros.tipo = new RegExp(tipo, 'i');
+    }
+
+    if (nome) {
+      filtros.nome = new RegExp(nome, 'i'); 
+    }
+
+    if (produto) {
+      filtros.produtos = {
+        $elemMatch: { nome: new RegExp(produto, 'i') } 
+      };
+    }
+
+    const estabelecimentos = await Estabelecimento.find(filtros);
+    res.json(estabelecimentos);
+  } catch (err) {
+    console.error('Erro ao buscar estabelecimentos:', err);
+    res.status(500).json({ message: 'Erro ao buscar estabelecimentos' });
+  }
+});
+
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
