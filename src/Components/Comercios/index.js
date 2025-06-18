@@ -195,8 +195,7 @@ function Comercio() {
                     </Typography>
                   )}
                 </CardContent>
-
-                <Stack spacing={1} mt={1}>
+               <Stack spacing={1} mt={1}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -207,17 +206,16 @@ function Comercio() {
                   >
                     WhatsApp
                   </Button>
-                  {item.panfleto && (
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      color="primary"
-                      sx={{ height: 40 }}
-                      onClick={() => abrirModalComercio(item)}
-                    >
-                      Fazer pedido
-                    </Button>
-                  )}
+
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    sx={{ height: 40 }}
+                    onClick={() => abrirModalComercio(item)}
+                  >
+                    Fazer pedido
+                  </Button>
                 </Stack>
               </Card>
             </Grid>
