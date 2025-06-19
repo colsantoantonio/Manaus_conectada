@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import comerciosData from '../../Components/Comercios/comercios.json';
 
 import {
   Container,
@@ -14,7 +13,7 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-
+import axios from 'axios';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 // Tema personalizado inspirado em iFood
@@ -48,43 +47,41 @@ export default function Login() {
 
   const inputRef = useRef(null);
 
-  const handleLogin = () => {
-    // Remove foco do input para evitar warning aria-hidden
-    if (inputRef.current) {
-      inputRef.current.blur();
+const handleLogin = async () => {
+  if (inputRef.current) {
+    inputRef.current.blur();
+  }
+
+  try {
+    const response = await axios.post('https://manaus-conectada.onrender.com/api/login', {
+      numero: telefone,
+    });
+
+    const comercio = response.data.estabelecimento;
+
+    const comercioComProdutos = {
+      ...comercio,
+      produtos: Array.isArray(comercio.produtos) ? comercio.produtos : [],
+    };
+
+    localStorage.setItem('comercioLogado', JSON.stringify(comercioComProdutos));
+
+    const keyProdutos = `produtos-${comercio.numero}`;
+    const produtosExistentes = localStorage.getItem(keyProdutos);
+    if (!produtosExistentes) {
+      localStorage.setItem(keyProdutos, JSON.stringify(comercioComProdutos.produtos));
     }
 
-    const tipos = ['lanchonetes', 'mercadinhos', 'farmacias', 'saloes', 'igrejas', 'escolas'];
-
-    for (const tipo of tipos) {
-      const lista = comerciosData[tipo] || [];
-      const comercio = lista.find(c => c.numero === telefone);
-      if (comercio) {
-        const comercioComProdutos = {
-          ...comercio,
-          produtos: Array.isArray(comercio.produtos) ? comercio.produtos : [],
-        };
-
-        localStorage.setItem('comercioLogado', JSON.stringify(comercioComProdutos));
-
-        const keyProdutos = `produtos-${comercio.numero}`;
-        const produtosExistentes = localStorage.getItem(keyProdutos);
-        if (!produtosExistentes) {
-          localStorage.setItem(keyProdutos, JSON.stringify(comercioComProdutos.produtos));
-        }
-        console.log('Comercio salvo:', comercioComProdutos);
-        console.log('LocalStorage:', localStorage.getItem('comercioLogado'));
-
-       setTimeout(() => {
+    console.log('Comercio salvo:', comercioComProdutos);
+    setTimeout(() => {
       navigate('/EditorProdutos');
     }, 100);
-    
-        return;
-      }
-    }
-
+  } catch (error) {
+    console.error(error);
     setErro('Número não encontrado. Verifique o número ou cadastre o comércio.');
-  };
+  }
+};
+
 
   return (
     <ThemeProvider theme={theme}>

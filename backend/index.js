@@ -269,6 +269,10 @@ app.get('/api/estabelecimentos', async (req, res) => {
   }
 });
 
+const loginRoute = require('./routes/login');
+app.use('/api/login', loginRoute);
+
+
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
