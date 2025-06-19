@@ -272,6 +272,8 @@ app.get('/api/estabelecimentos', async (req, res) => {
 const loginRoute = require('./routes/login');
 app.use('/api/login', loginRoute);
 
+const produtosRoute = require('./routes/produtos');
+app.use('/api/produtos', produtosRoute);
 
 
 app.listen(PORT, '0.0.0.0', () => {
