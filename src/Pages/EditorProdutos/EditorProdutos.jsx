@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import {
   Container,
   Typography,
@@ -24,6 +24,7 @@ export default function EditorProdutos() {
 
   const [comercio, setComercio] = useState(null);
   const [produtos, setProdutos] = useState([]);
+  const [produtosEditaveis, setProdutosEditaveis] = useState([]); // para edição local
   const [novoProduto, setNovoProduto] = useState({
     nome: '',
     preco: '',
@@ -44,6 +45,7 @@ export default function EditorProdutos() {
         .get(`https://manaus-conectada.onrender.com/api/produtos/${comercioObj.numero}`)
         .then((res) => {
           setProdutos(res.data);
+          setProdutosEditaveis(res.data.map(p => ({ ...p }))); // cópia para edição
           setCarregando(false);
         })
         .catch((err) => {
@@ -74,6 +76,7 @@ export default function EditorProdutos() {
         produtoFinal
       );
       setProdutos(res.data.produtos);
+      setProdutosEditaveis(res.data.produtos.map(p => ({ ...p })));
       setNovoProduto({ nome: '', preco: '', categoria: '', imagem: '' });
       setSnackbarOpen(true);
     } catch (err) {
@@ -82,23 +85,36 @@ export default function EditorProdutos() {
     }
   };
 
-  const atualizarProduto = async (id, campo, valor) => {
-    const produtoEditado = produtos.find((p) => p._id === id);
-    if (!produtoEditado) return;
+  // Atualiza localmente o produto editável (não salva no servidor ainda)
+  const editarLocalmente = (id, campo, valor) => {
+    setProdutosEditaveis((prev) =>
+      prev.map((p) => (p._id === id ? { ...p, [campo]: campo === 'preco' ? (parseFloat(valor) || 0) : valor } : p))
+    );
+  };
 
-    const atualizado = {
-      ...produtoEditado,
-      [campo]: campo === 'preco' ? parseFloat(valor) || 0 : valor,
-    };
+  // Envia atualização para o servidor e atualiza estados
+  const salvarEdicao = async (id) => {
+    const produtoEditado = produtosEditaveis.find((p) => p._id === id);
+    if (!produtoEditado) return;
 
     try {
       const res = await axios.put(
         `https://manaus-conectada.onrender.com/api/produtos/${comercio.numero}/${id}`,
-        atualizado
+        {
+          nome: produtoEditado.nome,
+          preco: produtoEditado.preco,
+          categoria: produtoEditado.categoria,
+          imagem: produtoEditado.imagem,
+        }
       );
+      // Atualiza produtos com resposta do servidor
       setProdutos((prev) =>
         prev.map((p) => (p._id === id ? res.data.produto : p))
       );
+      setProdutosEditaveis((prev) =>
+        prev.map((p) => (p._id === id ? res.data.produto : p))
+      );
+      setSnackbarOpen(true);
     } catch (err) {
       console.error('Erro ao atualizar produto:', err);
       alert('Erro ao atualizar produto.');
@@ -111,6 +127,7 @@ export default function EditorProdutos() {
         `https://manaus-conectada.onrender.com/api/produtos/${comercio.numero}/${id}`
       );
       setProdutos(res.data.produtos);
+      setProdutosEditaveis(res.data.produtos.map(p => ({ ...p })));
     } catch (err) {
       console.error('Erro ao remover produto:', err);
       alert('Erro ao remover produto.');
@@ -236,10 +253,10 @@ export default function EditorProdutos() {
         Produtos Cadastrados
       </Typography>
 
-      {produtos.length === 0 ? (
+      {produtosEditaveis.length === 0 ? (
         <Typography>Nenhum produto adicionado ainda.</Typography>
       ) : (
-        produtos.map((prod) => (
+        produtosEditaveis.map((prod) => (
           <Paper
             key={prod._id}
             sx={{
@@ -257,7 +274,7 @@ export default function EditorProdutos() {
                 label="Nome"
                 variant="standard"
                 value={prod.nome}
-                onChange={(e) => atualizarProduto(prod._id, 'nome', e.target.value)}
+                onChange={(e) => editarLocalmente(prod._id, 'nome', e.target.value)}
                 sx={{ mb: 1, mr: 1 }}
               />
               <TextField
@@ -266,28 +283,40 @@ export default function EditorProdutos() {
                 type="number"
                 inputProps={{ step: '0.01' }}
                 value={prod.preco}
-                onChange={(e) => atualizarProduto(prod._id, 'preco', e.target.value)}
+                onChange={(e) => editarLocalmente(prod._id, 'preco', e.target.value)}
                 sx={{ mb: 1, mr: 1, width: '120px' }}
               />
               <TextField
                 label="Categoria"
                 variant="standard"
                 value={prod.categoria}
-                onChange={(e) => atualizarProduto(prod._id, 'categoria', e.target.value)}
+                onChange={(e) => editarLocalmente(prod._id, 'categoria', e.target.value)}
                 sx={{ mb: 1, mr: 1 }}
               />
               <TextField
                 label="URL da Imagem"
                 variant="standard"
                 value={prod.imagem}
-                onChange={(e) => atualizarProduto(prod._id, 'imagem', e.target.value)}
+                onChange={(e) => editarLocalmente(prod._id, 'imagem', e.target.value)}
                 sx={{ mb: 1 }}
                 fullWidth
               />
             </Box>
-            <IconButton color="error" onClick={() => removerProduto(prod._id)}>
-              <DeleteIcon />
-            </IconButton>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 1 }}>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => salvarEdicao(prod._id)}
+                sx={{ bgcolor: '#4caf50', '&:hover': { bgcolor: '#388e3c' } }}
+              >
+                Salvar
+              </Button>
+
+              <IconButton color="error" onClick={() => removerProduto(prod._id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Paper>
         ))
       )}
@@ -303,7 +332,7 @@ export default function EditorProdutos() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
-          Produto adicionado com sucesso!
+          Operação realizada com sucesso!
         </Alert>
       </Snackbar>
 
