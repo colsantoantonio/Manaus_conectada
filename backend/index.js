@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 
 const Profissional = require('./models/Profissional');
 const Estabelecimento = require('./models/Estabelecimento');
+const Mercado = require('../models/Mercado');
 
 // Use variável de ambiente para a conexão (crie um arquivo .env com MONGODB_URI)
 const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bairrocolsantoantonio:Bento03062015@cluster0.pvzzhgi.mongodb.net/Profissionais?retryWrites=true&w=majority&appName=Cluster0';
@@ -268,6 +269,77 @@ app.get('/api/estabelecimentos', async (req, res) => {
     res.status(500).json({ message: 'Erro ao buscar estabelecimentos' });
   }
 });
+
+// GET produtos do comércio
+app.get('/:numero', async (req, res) => {
+  try {
+    const mercado = await Mercado.findOne({ numero: req.params.numero });
+    if (!mercado) return res.status(404).json({ error: 'Comércio não encontrado' });
+    res.json(mercado.produtos);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar produtos' });
+  }
+});
+
+// POST novo produto
+app.post('/', async (req, res) => {
+  try {
+    const { numeroComercio, nome, preco, categoria, imagem } = req.body;
+    const mercado = await Mercado.findOne({ numero: numeroComercio });
+    if (!mercado) return res.status(404).json({ error: 'Comércio não encontrado' });
+
+    const novoProduto = {
+      id: Date.now(), 
+      nome,
+      preco,
+      categoria,
+      imagem,
+    };
+
+    mercado.produtos.push(novoProduto);
+    await mercado.save();
+
+    res.json(novoProduto);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao adicionar produto' });
+  }
+});
+
+// PUT atualizar produto
+app.put('/:id', async (req, res) => {
+  try {
+    const { numeroComercio } = req.body;
+    const mercado = await Mercado.findOne({ numero: numeroComercio });
+    if (!mercado) return res.status(404).json({ error: 'Comércio não encontrado' });
+
+    const produto = mercado.produtos.find((p) => p.id === parseInt(req.params.id));
+    if (!produto) return res.status(404).json({ error: 'Produto não encontrado' });
+
+    Object.assign(produto, req.body);
+    await mercado.save();
+
+    res.json(produto);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao atualizar produto' });
+  }
+});
+
+// DELETE remover produto
+app.delete('/:id', async (req, res) => {
+  try {
+    const { numeroComercio } = req.body;
+    const mercado = await Mercado.findOne({ numero: numeroComercio });
+    if (!mercado) return res.status(404).json({ error: 'Comércio não encontrado' });
+
+    mercado.produtos = mercado.produtos.filter((p) => p.id !== parseInt(req.params.id));
+    await mercado.save();
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao remover produto' });
+  }
+});
+
 
 
 app.listen(PORT, '0.0.0.0', () => {
