@@ -4,23 +4,22 @@ import {
   Typography,
   TextField,
   Button,
-  Box,
-  Paper,
-  IconButton,
   Stack,
-  Avatar,
+  Paper,
   Snackbar,
   Alert,
+  Avatar,
   Dialog,
   DialogTitle,
   DialogActions,
+  Box,
+  IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export default function EditorProdutos() { 
-  console.log('🚀 EditorProdutos renderizado');
-
+export default function EditorProdutos() {
   const navigate = useNavigate();
 
   const [comercio, setComercio] = useState(null);
@@ -36,108 +35,89 @@ export default function EditorProdutos() {
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-  console.log('🟡 Início do useEffect do PainelComercio');
-
-  const comercioString = localStorage.getItem('comercioLogado');
-  console.log('📦 localStorage.getItem:', comercioString);
-
-  if (comercioString) {
-    try {
+    const comercioString = localStorage.getItem('comercioLogado');
+    if (comercioString) {
       const comercioObj = JSON.parse(comercioString);
-      console.log('✅ Objeto parseado com sucesso:', comercioObj);
-
-      if (!comercioObj.imagem && comercioObj.logo) {
-        console.log('📷 "imagem" não existia, usando logo:', comercioObj.logo);
-        comercioObj.imagem = comercioObj.logo;
-      }
-
       setComercio(comercioObj);
-      console.log('📌 setComercio foi chamado');
 
-      const numero = comercioObj.numero;
-      const produtosSalvos = localStorage.getItem(`produtos-${numero}`);
-      console.log(`📦 Produtos salvos para o número ${numero}:`, produtosSalvos);
-
-      if (!produtosSalvos || produtosSalvos === '[]') {
-        console.log('🆕 Produtos vazios. Salvando do objeto do comércio.');
-        setProdutos(comercioObj.produtos || []);
-        localStorage.setItem(`produtos-${numero}`, JSON.stringify(comercioObj.produtos || []));
-      } else {
-        console.log('📦 Produtos encontrados no localStorage. Carregando...');
-        setProdutos(JSON.parse(produtosSalvos));
-      }
-
-      setCarregando(false);
-      console.log('✅ Carregamento concluído');
-
-    } catch (erro) {
-      console.error('❌ Erro ao parsear o JSON ou carregar dados:', erro);
+      axios
+        .get(`https://manaus-conectada.onrender.com/api/produtos/${comercioObj.numero}`)
+        .then((res) => {
+          setProdutos(res.data);
+          setCarregando(false);
+        })
+        .catch((err) => {
+          console.error('Erro ao carregar produtos:', err);
+          setCarregando(false);
+        });
+    } else {
       navigate('/LoginComercio', { replace: true });
     }
-  } else {
-    console.warn('⚠️ Nenhum comércio encontrado no localStorage');
-    setTimeout(() => {
-      navigate('/LoginComercio', { replace: true });
-    }, 1000);
-  }
-}, [navigate]);
+  }, [navigate]);
 
-
- useEffect(() => {
-  if (comercio?.numero) {
-    localStorage.setItem(`produtos-${comercio.numero}`, JSON.stringify(produtos));
-    console.log('✅ Produtos salvos:', produtos);
-  }
-}, [produtos, comercio?.numero]);
-
-
-  const adicionarProduto = () => {
+  const adicionarProduto = async () => {
     if (!novoProduto.nome.trim() || novoProduto.preco === '' || isNaN(Number(novoProduto.preco))) {
       alert('Preencha nome e preço válidos');
       return;
     }
 
-    const novo = {
-      id: Date.now(),
+    const produtoFinal = {
       nome: novoProduto.nome.trim(),
       preco: parseFloat(novoProduto.preco),
       categoria: novoProduto.categoria.trim(),
       imagem: novoProduto.imagem.trim(),
     };
 
-    setProdutos((prev) => [...prev, novo]);
-    setNovoProduto({ nome: '', preco: '', categoria: '', imagem: '' });
-    setSnackbarOpen(true);
+    try {
+      const res = await axios.post(
+        `https://manaus-conectada.onrender.com/api/produtos/${comercio.numero}`,
+        produtoFinal
+      );
+      setProdutos(res.data.produtos);
+      setNovoProduto({ nome: '', preco: '', categoria: '', imagem: '' });
+      setSnackbarOpen(true);
+    } catch (err) {
+      console.error('Erro ao adicionar produto:', err);
+      alert('Erro ao adicionar produto.');
+    }
   };
 
-  const removerProduto = (id) => {
-    setProdutos((prev) => prev.filter((p) => p.id !== id));
+  const atualizarProduto = async (id, campo, valor) => {
+    const produtoEditado = produtos.find((p) => p._id === id);
+    if (!produtoEditado) return;
+
+    const atualizado = {
+      ...produtoEditado,
+      [campo]: campo === 'preco' ? parseFloat(valor) || 0 : valor,
+    };
+
+    try {
+      const res = await axios.put(
+        `https://manaus-conectada.onrender.com/api/produtos/${comercio.numero}/${id}`,
+        atualizado
+      );
+      setProdutos((prev) =>
+        prev.map((p) => (p._id === id ? res.data.produto : p))
+      );
+    } catch (err) {
+      console.error('Erro ao atualizar produto:', err);
+      alert('Erro ao atualizar produto.');
+    }
   };
 
-  const atualizarProduto = (id, campo, valor) => {
-    setProdutos((prev) =>
-      prev.map((p) => {
-        if (p.id === id) {
-          if (campo === 'preco') {
-            if (valor === '') {
-              return { ...p, preco: '' };
-            }
-            const num = parseFloat(valor);
-            if (isNaN(num)) return p;
-            return { ...p, preco: num };
-          }
-          return { ...p, [campo]: valor };
-        }
-        return p;
-      })
-    );
+  const removerProduto = async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://manaus-conectada.onrender.com/api/produtos/${comercio.numero}/${id}`
+      );
+      setProdutos(res.data.produtos);
+    } catch (err) {
+      console.error('Erro ao remover produto:', err);
+      alert('Erro ao remover produto.');
+    }
   };
-
-  const abrirConfirmSair = () => setConfirmSairOpen(true);
-  const fecharConfirmSair = () => setConfirmSairOpen(false);
 
   const sairLogin = () => {
-    document.activeElement?.blur();
     localStorage.removeItem('comercioLogado');
     setConfirmSairOpen(false);
     navigate('/LoginComercio', { replace: true });
@@ -145,7 +125,6 @@ export default function EditorProdutos() {
 
   const handleSnackbarClose = () => setSnackbarOpen(false);
 
-  // 🔄 Exibe "Carregando..." enquanto tenta ler o localStorage
   if (carregando) {
     return (
       <Container sx={{ mt: 6 }}>
@@ -156,7 +135,6 @@ export default function EditorProdutos() {
     );
   }
 
-  // ❌ Não encontrou o comércio, já está redirecionando
   if (!comercio) {
     return (
       <Container sx={{ mt: 6 }}>
@@ -179,41 +157,25 @@ export default function EditorProdutos() {
           boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
         }}
       >
-        {comercio.imagem ? (
-          <Avatar
-            src={comercio.imagem}
-            alt={comercio.nome}
-            sx={{
-              width: 120,
-              height: 120,
-              margin: 'auto',
-              mb: 2,
-              border: '3px solid #d92f27',
-              boxShadow: '0 0 10px rgba(217, 47, 39, 0.5)',
-            }}
-          />
-        ) : (
-          <Avatar
-            sx={{
-              width: 120,
-              height: 120,
-              margin: 'auto',
-              mb: 2,
-              bgcolor: '#d92f27',
-              fontSize: 48,
-              fontWeight: 'bold',
-            }}
-          >
-            {comercio.nome[0].toUpperCase()}
-          </Avatar>
-        )}
+        <Avatar
+          src={comercio.logo || ''}
+          alt={comercio.nome}
+          sx={{
+            width: 120,
+            height: 120,
+            margin: 'auto',
+            mb: 2,
+            border: '3px solid #d92f27',
+            boxShadow: '0 0 10px rgba(217, 47, 39, 0.5)',
+          }}
+        />
         <Typography variant="h4" fontWeight="700" gutterBottom>
           {comercio.nome}
         </Typography>
         <Button
           variant="outlined"
           color="error"
-          onClick={abrirConfirmSair}
+          onClick={() => setConfirmSairOpen(true)}
           sx={{
             mt: 1,
             borderRadius: 3,
@@ -227,16 +189,7 @@ export default function EditorProdutos() {
         </Button>
       </Box>
 
-      <Paper
-        elevation={3}
-        sx={{
-          p: 3,
-          borderRadius: 3,
-          mb: 6,
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-        }}
-      >
+      <Paper sx={{ p: 3, borderRadius: 3, mb: 6, bgcolor: '#fff' }}>
         <Typography variant="h6" gutterBottom fontWeight="600">
           Adicionar Novo Produto
         </Typography>
@@ -244,14 +197,12 @@ export default function EditorProdutos() {
         <Stack spacing={2} mb={2}>
           <TextField
             label="Nome"
-            variant="outlined"
             fullWidth
             value={novoProduto.nome}
             onChange={(e) => setNovoProduto({ ...novoProduto, nome: e.target.value })}
           />
           <TextField
             label="Preço"
-            variant="outlined"
             fullWidth
             type="number"
             inputProps={{ step: '0.01' }}
@@ -260,14 +211,12 @@ export default function EditorProdutos() {
           />
           <TextField
             label="Categoria"
-            variant="outlined"
             fullWidth
             value={novoProduto.categoria}
             onChange={(e) => setNovoProduto({ ...novoProduto, categoria: e.target.value })}
           />
           <TextField
             label="URL da Imagem"
-            variant="outlined"
             fullWidth
             value={novoProduto.imagem}
             onChange={(e) => setNovoProduto({ ...novoProduto, imagem: e.target.value })}
@@ -276,15 +225,7 @@ export default function EditorProdutos() {
             variant="contained"
             fullWidth
             onClick={adicionarProduto}
-            sx={{
-              mt: 1,
-              bgcolor: '#d92f27',
-              fontWeight: 'bold',
-              fontSize: '1.1rem',
-              '&:hover': {
-                bgcolor: '#b52722',
-              },
-            }}
+            sx={{ mt: 1, bgcolor: '#d92f27', fontWeight: 'bold', fontSize: '1.1rem' }}
           >
             Adicionar
           </Button>
@@ -300,8 +241,7 @@ export default function EditorProdutos() {
       ) : (
         produtos.map((prod) => (
           <Paper
-            key={prod.id}
-            variant="outlined"
+            key={prod._id}
             sx={{
               p: 2,
               mb: 2,
@@ -310,11 +250,6 @@ export default function EditorProdutos() {
               borderRadius: 3,
               boxShadow: '0 1px 5px rgba(0,0,0,0.08)',
               bgcolor: '#fff',
-              transition: 'transform 0.15s ease-in-out',
-              '&:hover': {
-                transform: 'scale(1.02)',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.12)',
-              },
             }}
           >
             <Box sx={{ flexGrow: 1 }}>
@@ -322,7 +257,7 @@ export default function EditorProdutos() {
                 label="Nome"
                 variant="standard"
                 value={prod.nome}
-                onChange={(e) => atualizarProduto(prod.id, 'nome', e.target.value)}
+                onChange={(e) => atualizarProduto(prod._id, 'nome', e.target.value)}
                 sx={{ mb: 1, mr: 1 }}
               />
               <TextField
@@ -330,43 +265,34 @@ export default function EditorProdutos() {
                 variant="standard"
                 type="number"
                 inputProps={{ step: '0.01' }}
-                value={prod.preco === '' ? '' : prod.preco}
-                onChange={(e) => atualizarProduto(prod.id, 'preco', e.target.value)}
+                value={prod.preco}
+                onChange={(e) => atualizarProduto(prod._id, 'preco', e.target.value)}
                 sx={{ mb: 1, mr: 1, width: '120px' }}
               />
               <TextField
                 label="Categoria"
                 variant="standard"
                 value={prod.categoria}
-                onChange={(e) => atualizarProduto(prod.id, 'categoria', e.target.value)}
+                onChange={(e) => atualizarProduto(prod._id, 'categoria', e.target.value)}
                 sx={{ mb: 1, mr: 1 }}
               />
               <TextField
                 label="URL da Imagem"
                 variant="standard"
                 value={prod.imagem}
-                onChange={(e) => atualizarProduto(prod.id, 'imagem', e.target.value)}
+                onChange={(e) => atualizarProduto(prod._id, 'imagem', e.target.value)}
                 sx={{ mb: 1 }}
                 fullWidth
               />
             </Box>
-            <IconButton
-              color="error"
-              onClick={() => removerProduto(prod.id)}
-              aria-label="remover"
-              sx={{ ml: 1 }}
-            >
+            <IconButton color="error" onClick={() => removerProduto(prod._id)}>
               <DeleteIcon />
             </IconButton>
           </Paper>
         ))
       )}
 
-      <Button
-        variant="text"
-        onClick={() => navigate('/')}
-        sx={{ mt: 4, fontWeight: 'bold' }}
-      >
+      <Button variant="text" onClick={() => navigate('/')}>
         Voltar para a página inicial
       </Button>
 
@@ -381,13 +307,11 @@ export default function EditorProdutos() {
         </Alert>
       </Snackbar>
 
-      <Dialog open={confirmSairOpen} onClose={fecharConfirmSair}>
+      <Dialog open={confirmSairOpen} onClose={() => setConfirmSairOpen(false)}>
         <DialogTitle>Deseja realmente sair do login?</DialogTitle>
         <DialogActions>
-          <Button onClick={fecharConfirmSair} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={sairLogin} color="error" variant="contained" autoFocus>
+          <Button onClick={() => setConfirmSairOpen(false)}>Cancelar</Button>
+          <Button color="error" variant="contained" onClick={sairLogin}>
             Sair
           </Button>
         </DialogActions>
