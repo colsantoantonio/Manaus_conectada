@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import comerciosData from '../../Components/Comercios/comercios.json';
-
 import {
   Container,
   Box,
@@ -14,30 +12,17 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
-// Tema personalizado inspirado em iFood
 const theme = createTheme({
   palette: {
-    primary: {
-      main: '#d92f27', 
-    },
-    background: {
-      default: '#fff',
-      paper: '#fafafa',
-    },
+    primary: { main: '#d92f27' },
+    background: { default: '#fff', paper: '#fafafa' },
   },
   typography: {
     fontFamily: `'Roboto', sans-serif`,
-    h5: {
-      fontWeight: 700,
-    },
-    button: {
-      textTransform: 'none',
-      fontWeight: 700,
-      fontSize: '1.1rem',
-    },
+    h5: { fontWeight: 700 },
+    button: { textTransform: 'none', fontWeight: 700, fontSize: '1.1rem' },
   },
 });
 
@@ -45,45 +30,26 @@ export default function Login() {
   const [telefone, setTelefone] = useState('');
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
-
   const inputRef = useRef(null);
 
-  const handleLogin = () => {
-    // Remove foco do input para evitar warning aria-hidden
-    if (inputRef.current) {
-      inputRef.current.blur();
-    }
+  const handleLogin = async () => {
+    if (inputRef.current) inputRef.current.blur();
+    setErro('');
 
-    const tipos = ['lanchonetes', 'mercadinhos', 'farmacias', 'saloes', 'igrejas', 'escolas'];
+    try {
+      const res = await fetch(`https://manaus-conectada.onrender.com/api/comercio/${telefone}`);
+      const data = await res.json();
 
-    for (const tipo of tipos) {
-      const lista = comerciosData[tipo] || [];
-      const comercio = lista.find(c => c.numero === telefone);
-      if (comercio) {
-        const comercioComProdutos = {
-          ...comercio,
-          produtos: Array.isArray(comercio.produtos) ? comercio.produtos : [],
-        };
-
-        localStorage.setItem('comercioLogado', JSON.stringify(comercioComProdutos));
-
-        const keyProdutos = `produtos-${comercio.numero}`;
-        const produtosExistentes = localStorage.getItem(keyProdutos);
-        if (!produtosExistentes) {
-          localStorage.setItem(keyProdutos, JSON.stringify(comercioComProdutos.produtos));
-        }
-        console.log('Comercio salvo:', comercioComProdutos);
-        console.log('LocalStorage:', localStorage.getItem('comercioLogado'));
-
-       setTimeout(() => {
-      navigate('/EditorProdutos');
-    }, 100);
-    
-        return;
+      if (res.ok && data && data.numero === telefone) {
+        localStorage.setItem('comercioLogado', JSON.stringify(data));
+        navigate('/EditorProdutos');
+      } else {
+        setErro('Número não encontrado. Verifique o número ou cadastre o comércio.');
       }
+    } catch (err) {
+      console.error('Erro ao tentar login:', err);
+      setErro('Erro ao tentar login. Verifique sua conexão ou tente novamente.');
     }
-
-    setErro('Número não encontrado. Verifique o número ou cadastre o comércio.');
   };
 
   return (
@@ -112,7 +78,7 @@ export default function Login() {
             variant="outlined"
             fullWidth
             value={telefone}
-            onChange={e => setTelefone(e.target.value)}
+            onChange={(e) => setTelefone(e.target.value)}
             placeholder="+55 99 99999-9999"
             InputProps={{
               startAdornment: (
@@ -122,13 +88,8 @@ export default function Login() {
               ),
             }}
             sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: 2,
-              },
-              '& input::placeholder': {
-                fontStyle: 'italic',
-                color: '#999',
-              },
+              '& .MuiOutlinedInput-root': { borderRadius: 2 },
+              '& input::placeholder': { fontStyle: 'italic', color: '#999' },
             }}
           />
 
