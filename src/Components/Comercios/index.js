@@ -38,6 +38,7 @@ function Comercio() {
   const [avaliarItem, setAvaliarItem] = useState(null);
   const [nota, setNota] = useState(0);
 
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -109,6 +110,7 @@ function Comercio() {
     setAbertos((prev) => ({ ...prev, [cat]: !prev[cat] }));
   };
 
+
     const abrirModalAvaliacao = (item) => {
     setAvaliarItem(item);
     setNota(0);
@@ -135,6 +137,7 @@ function Comercio() {
     }
   };
 
+
   const renderCategoriaComBotao = (chave, lista) => (
     <div key={chave} style={{ marginBottom: "2rem" }}>
       <Stack direction="row" justifyContent="center" mb={2} px={2}>
@@ -157,7 +160,8 @@ function Comercio() {
           {tituloCategoria[chave] || chave}
         </Button>
       </Stack>
-   <Collapse in={abertos[chave] || false} timeout="auto" unmountOnExit>
+
+      <Collapse in={abertos[chave] || false} timeout="auto" unmountOnExit>
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -232,6 +236,7 @@ function Comercio() {
                     </Typography>
                   )}
 
+
                   <Typography
                   variant="body2"
                   color="primary"
@@ -241,11 +246,33 @@ function Comercio() {
                   Avaliar este comércio
                 </Typography>
 
+
                   <Box display="flex" alignItems="center" mt={1}>
                     <Rating name={`read-${item._id}`} value={item.rating || 0} precision={0.5} readOnly />
                     <Typography variant="body2" color="text.secondary" ml={1}>
                       ({item.ratingCount || 0})
                     </Typography>
+
+                  </Box>
+                  <Box mt={1}>
+                    <Typography variant="body2">Avaliar:</Typography>
+                    <Rating
+                      name={`rate-${item._id}`}
+                      value={0}
+                      onChange={async (event, newValue) => {
+                        if (!newValue) return;
+                        try {
+                          await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
+                            id: item._id,
+                            rating: newValue
+                          });
+                          alert("Obrigado pela sua avaliação!");
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    />
+
                   </Box>
                 </CardContent>
 
@@ -260,7 +287,6 @@ function Comercio() {
                   >
                     WhatsApp
                   </Button>
-
                   <Button
                     fullWidth
                     variant="outlined"
@@ -276,6 +302,7 @@ function Comercio() {
           ))}
         </Grid>
       </Collapse>
+
 
       {/* MODAL DE AVALIAÇÃO */}
       <Modal
