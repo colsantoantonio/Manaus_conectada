@@ -254,7 +254,7 @@ function Comercio() {
                     </Typography>
 
                   </Box>
-                  <Box mt={1}>
+                  {/* <Box mt={1}>
                     <Typography variant="body2">Avaliar:</Typography>
                     <Rating
                       name={`rate-${item._id}`}
@@ -273,7 +273,7 @@ function Comercio() {
                       }}
                     />
 
-                  </Box>
+                  </Box> */}
                 </CardContent>
 
                 <Stack spacing={1} mt={1}>
