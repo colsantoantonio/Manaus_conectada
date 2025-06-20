@@ -14,10 +14,6 @@ import {
   CardMedia,
   Rating,
   Box,
-  DialogContent,
-  Dialog,
-  DialogTitle,
-  DialogActions
 } from "@mui/material";
 import axios from "axios";
 import StoreIcon from "@mui/icons-material/Store";
@@ -36,8 +32,6 @@ function Comercio() {
   const [abertos, setAbertos] = useState({});
   const [comercioSelecionado, setComercioSelecionado] = useState(null);
   const [categorias, setCategorias] = useState({});
-  const [avaliarAberto, setAvaliarAberto] = useState(false);
-  const [novaAvaliacao, setNovaAvaliacao] = useState(0);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -110,32 +104,6 @@ function Comercio() {
     setAbertos((prev) => ({ ...prev, [cat]: !prev[cat] }));
   };
 
-   const abrirModalAvaliacao = (comercio) => {
-    setComercioSelecionado(comercio);
-    setAvaliarAberto(true);
-  };
-
-  const fecharModalAvaliacao = () => {
-    setComercioSelecionado(null);
-    setNovaAvaliacao(0);
-    setAvaliarAberto(false);
-  };
-
-  const enviarAvaliacao = async () => {
-    if (!comercioSelecionado || novaAvaliacao === 0) return;
-    try {
-      await axios.post("https://manaus-conectada.onrender.com/api/avaliar", {
-        id: comercioSelecionado._id,
-        rating: novaAvaliacao
-      });
-      alert("Obrigado pela sua avaliação!");
-      fecharModalAvaliacao();
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao enviar avaliação.");
-    }
-  };
-
   const renderCategoriaComBotao = (chave, lista) => (
     <div key={chave} style={{ marginBottom: "2rem" }}>
       <Stack direction="row" justifyContent="center" mb={2} px={2}>
@@ -158,27 +126,6 @@ function Comercio() {
           {tituloCategoria[chave] || chave}
         </Button>
       </Stack>
-       <div style={{ marginBottom: "2rem" }}>
-      <Stack direction="row" justifyContent="center" mb={2} px={2}>
-        <Button
-          variant="contained"
-          onClick={() => toggleCategoria(chave)}
-          sx={{
-            width: { xs: "100%", sm: "80%", md: "60%", lg: "50%" },
-            textAlign: "left",
-            justifyContent: "flex-start",
-            py: 1.5,
-            borderRadius: 2,
-            background: "#1943b8",
-            color: "#fff",
-            fontWeight: "bold",
-            boxShadow: "0px 4px 10px rgba(25, 67, 184, 0.2)",
-            "&:hover": { backgroundColor: "#12359c" }
-          }}
-        >
-          {chave}
-        </Button>
-      </Stack>
       <Collapse in={abertos[chave] || false} timeout="auto" unmountOnExit>
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
@@ -186,7 +133,7 @@ function Comercio() {
               <Card
                 sx={{
                   width: 300,
-                  height: 510,
+                  height: 480,
                   borderRadius: 3,
                   boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
                   display: "flex",
@@ -212,31 +159,71 @@ function Comercio() {
                 )}
 
                 <CardHeader
-                  avatar={<Avatar sx={{ bgcolor: "#25D366" }}><StoreIcon /></Avatar>}
-                  title={<Typography variant="h6" noWrap sx={{ fontWeight: "bold", fontSize: "1.1rem" }} title={item.nome}>{item.nome}</Typography>}
+                  avatar={
+                    <Avatar sx={{ bgcolor: "#25D366" }}>
+                      <StoreIcon />
+                    </Avatar>
+                  }
+                  title={
+                    <Typography
+                      variant="h6"
+                      noWrap
+                      sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      title={item.nome}
+                    >
+                      {item.nome}
+                    </Typography>
+                  }
                   subheader="Comércio local"
                   sx={{ pb: 1 }}
                 />
 
                 <CardContent sx={{ flexGrow: 1, overflowY: "auto", paddingRight: 1 }}>
-                  <Typography variant="body2" color="text.secondary" gutterBottom><PhoneIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.numero}</Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom><AccessTimeIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.horario}</Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom><LocalShippingIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.entrega}</Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <PhoneIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.numero}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <AccessTimeIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.horario}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <LocalShippingIcon fontSize="small" sx={{ mr: 0.5 }} /> {item.entrega}
+                  </Typography>
                   {item.localizacao && (
-                    <Typography variant="body2" color="text.secondary" gutterBottom sx={{ cursor: "pointer", textDecoration: "underline" }} onClick={() => window.open(item.localizacao, "_blank")}>
-                      <LocationOnIcon fontSize="small" sx={{ mr: 0.5 }} /> Localização
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                      sx={{ cursor: "pointer", textDecoration: "underline" }}
+                      onClick={() => window.open(item.localizacao, "_blank")}
+                    >
+                      <LocationOnIcon fontSize="small" sx={{ mr: 0.5 }} />
+                      Localização
                     </Typography>
                   )}
-
                   <Box display="flex" alignItems="center" mt={1}>
                     <Rating name={`read-${item._id}`} value={item.rating || 0} precision={0.5} readOnly />
-                    <Typography variant="body2" color="text.secondary" ml={1}>({item.ratingCount || 0})</Typography>
+                    <Typography variant="body2" color="text.secondary" ml={1}>
+                      ({item.ratingCount || 0})
+                    </Typography>
                   </Box>
-
                   <Box mt={1}>
-                    <Button variant="text" size="small" onClick={() => abrirModalAvaliacao(item)}>
-                      Avaliar este comércio
-                    </Button>
+                    <Typography variant="body2">Avaliar:</Typography>
+                    <Rating
+                      name={`rate-${item._id}`}
+                      value={0}
+                      onChange={async (event, newValue) => {
+                        if (!newValue) return;
+                        try {
+                          await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
+                            id: item._id,
+                            rating: newValue
+                          });
+                          alert("Obrigado pela sua avaliação!");
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    />
                   </Box>
                 </CardContent>
 
@@ -251,7 +238,6 @@ function Comercio() {
                   >
                     WhatsApp
                   </Button>
-
                   <Button
                     fullWidth
                     variant="outlined"
@@ -267,24 +253,6 @@ function Comercio() {
           ))}
         </Grid>
       </Collapse>
-
-      {/* Modal de avaliação */}
-      <Dialog open={avaliarAberto} onClose={fecharModalAvaliacao}>
-        <DialogTitle>Avaliar {comercioSelecionado?.nome}</DialogTitle>
-        <DialogContent>
-          <Rating
-            name="nova-avaliacao"
-            value={novaAvaliacao}
-            precision={1}
-            onChange={(e, newValue) => setNovaAvaliacao(newValue)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={fecharModalAvaliacao}>Cancelar</Button>
-          <Button variant="contained" onClick={enviarAvaliacao}>Enviar</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
     </div>
   );
 
