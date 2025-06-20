@@ -14,6 +14,8 @@ import {
   CardMedia,
   Rating,
   Box,
+  Modal,
+  TextField
 } from "@mui/material";
 import axios from "axios";
 import StoreIcon from "@mui/icons-material/Store";
@@ -32,6 +34,10 @@ function Comercio() {
   const [abertos, setAbertos] = useState({});
   const [comercioSelecionado, setComercioSelecionado] = useState(null);
   const [categorias, setCategorias] = useState({});
+   const [avaliacaoModalAberto, setAvaliacaoModalAberto] = useState(false);
+  const [avaliarItem, setAvaliarItem] = useState(null);
+  const [nota, setNota] = useState(0);
+
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -104,6 +110,34 @@ function Comercio() {
     setAbertos((prev) => ({ ...prev, [cat]: !prev[cat] }));
   };
 
+
+    const abrirModalAvaliacao = (item) => {
+    setAvaliarItem(item);
+    setNota(0);
+    setAvaliacaoModalAberto(true);
+  };
+
+  const fecharModalAvaliacao = () => {
+    setAvaliacaoModalAberto(false);
+    setAvaliarItem(null);
+  };
+
+  const enviarAvaliacao = async () => {
+    if (!nota) return;
+    try {
+      await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
+        id: avaliarItem._id,
+        rating: nota
+      });
+      alert("Obrigado pela sua avaliação!");
+      fecharModalAvaliacao();
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao enviar avaliação");
+    }
+  };
+
+
   const renderCategoriaComBotao = (chave, lista) => (
     <div key={chave} style={{ marginBottom: "2rem" }}>
       <Stack direction="row" justifyContent="center" mb={2} px={2}>
@@ -126,6 +160,7 @@ function Comercio() {
           {tituloCategoria[chave] || chave}
         </Button>
       </Stack>
+
       <Collapse in={abertos[chave] || false} timeout="auto" unmountOnExit>
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
@@ -133,7 +168,7 @@ function Comercio() {
               <Card
                 sx={{
                   width: 300,
-                  height: 480,
+                  height: 495,
                   borderRadius: 3,
                   boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
                   display: "flex",
@@ -200,11 +235,24 @@ function Comercio() {
                       Localização
                     </Typography>
                   )}
+
+
+                  <Typography
+                  variant="body2"
+                  color="primary"
+                  sx={{ cursor: "pointer", textDecoration: "underline", mt: 0.5, fontWeight: "500" }}
+                  onClick={() => abrirModalAvaliacao(item)}
+                >
+                  Avaliar este comércio
+                </Typography>
+
+
                   <Box display="flex" alignItems="center" mt={1}>
                     <Rating name={`read-${item._id}`} value={item.rating || 0} precision={0.5} readOnly />
                     <Typography variant="body2" color="text.secondary" ml={1}>
                       ({item.ratingCount || 0})
                     </Typography>
+
                   </Box>
                   <Box mt={1}>
                     <Typography variant="body2">Avaliar:</Typography>
@@ -224,6 +272,7 @@ function Comercio() {
                         }
                       }}
                     />
+
                   </Box>
                 </CardContent>
 
@@ -253,6 +302,47 @@ function Comercio() {
           ))}
         </Grid>
       </Collapse>
+
+
+      {/* MODAL DE AVALIAÇÃO */}
+      <Modal
+        open={avaliacaoModalAberto}
+        onClose={fecharModalAvaliacao}
+        aria-labelledby="modal-titulo"
+        aria-describedby="modal-descricao"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 320,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 2,
+            outline: "none"
+          }}
+        >
+          <Typography id="modal-titulo" variant="h6" component="h2" mb={2}>
+            Avaliar {avaliarItem?.nome}
+          </Typography>
+          <Rating
+            name="avaliacao-modal"
+            value={nota}
+            precision={1}
+            onChange={(event, newValue) => setNota(newValue)}
+          />
+          <Stack direction="row" spacing={2} justifyContent="flex-end" mt={2}>
+            <Button variant="outlined" onClick={fecharModalAvaliacao}>Cancelar</Button>
+            <Button variant="contained" onClick={enviarAvaliacao} disabled={!nota}>
+              Enviar
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
+
     </div>
   );
 
