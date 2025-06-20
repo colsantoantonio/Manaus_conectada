@@ -12,9 +12,10 @@ import {
   useMediaQuery,
   Collapse,
   CardMedia,
+  Rating,
+  Box,
 } from "@mui/material";
 import axios from "axios";
-import CloseIcon from "@mui/icons-material/Close";
 import StoreIcon from "@mui/icons-material/Store";
 import PhoneIcon from "@mui/icons-material/Phone";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -53,6 +54,11 @@ function Comercio() {
             acc[tipo].push(comercio);
             return acc;
           }, {});
+
+          for (let categoria in agrupado) {
+            agrupado[categoria].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          }
+
           setCategorias(agrupado);
         } else {
           console.error("Formato inesperado dos dados:", response.data);
@@ -127,7 +133,7 @@ function Comercio() {
               <Card
                 sx={{
                   width: 300,
-                  height: 445,
+                  height: 480,
                   borderRadius: 3,
                   boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
                   display: "flex",
@@ -194,8 +200,34 @@ function Comercio() {
                       Localização
                     </Typography>
                   )}
+                  <Box display="flex" alignItems="center" mt={1}>
+                    <Rating name={`read-${item._id}`} value={item.rating || 0} precision={0.5} readOnly />
+                    <Typography variant="body2" color="text.secondary" ml={1}>
+                      ({item.ratingCount || 0})
+                    </Typography>
+                  </Box>
+                  <Box mt={1}>
+                    <Typography variant="body2">Avaliar:</Typography>
+                    <Rating
+                      name={`rate-${item._id}`}
+                      value={0}
+                      onChange={async (event, newValue) => {
+                        if (!newValue) return;
+                        try {
+                          await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
+                            id: item._id,
+                            rating: newValue
+                          });
+                          alert("Obrigado pela sua avaliação!");
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    />
+                  </Box>
                 </CardContent>
-               <Stack spacing={1} mt={1}>
+
+                <Stack spacing={1} mt={1}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -206,7 +238,6 @@ function Comercio() {
                   >
                     WhatsApp
                   </Button>
-
                   <Button
                     fullWidth
                     variant="outlined"
@@ -245,18 +276,14 @@ function Comercio() {
         Guia de Comércios do Bairro
       </Typography>
 
-      {/* Lista de categorias ou busca */}
-      {busca.trim() ? (
-        renderCategoriaComBotao("Busca", comerciosFiltrados)
-      ) : filtro ? (
-        renderCategoriaComBotao(filtro, categorias[filtro])
-      ) : (
-        Object.entries(categorias).map(([chave, lista]) =>
-          renderCategoriaComBotao(chave, lista)
-        )
-      )}
+      {busca.trim()
+        ? renderCategoriaComBotao("Busca", comerciosFiltrados)
+        : filtro
+        ? renderCategoriaComBotao(filtro, categorias[filtro])
+        : Object.entries(categorias).map(([chave, lista]) =>
+            renderCategoriaComBotao(chave, lista)
+          )}
 
-      {/* Botão comerciante */}
       <Stack
         direction="column"
         spacing={1}
@@ -279,7 +306,6 @@ function Comercio() {
         >
           Área exclusiva para Comercios cadastrados.
         </Typography>
-
         <Button
           variant="contained"
           color="primary"
@@ -302,7 +328,6 @@ function Comercio() {
         </Button>
       </Stack>
 
-      {/* Modal Panfleto */}
       <PanfletoModal
         open={modalAberto}
         onClose={fecharModalImagem}
