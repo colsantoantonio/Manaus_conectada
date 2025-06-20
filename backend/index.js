@@ -276,6 +276,33 @@ const produtosRoute = require('./routes/produtos');
 app.use('/api/produtos', produtosRoute);
 
 
+app.post('/api/avaliar', async (req, res) => {
+  const { id, rating } = req.body;
+
+  if (!id || typeof rating !== 'number') {
+    return res.status(400).json({ message: 'Dados inválidos' });
+  }
+
+  try {
+    const estabelecimento = await Estabelecimento.findById(id);
+    if (!estabelecimento) {
+      return res.status(404).json({ message: 'Estabelecimento não encontrado' });
+    }
+
+    // Atualizar a média da avaliação
+    const novaSoma = (estabelecimento.rating * estabelecimento.ratingCount) + rating;
+    const novoCount = estabelecimento.ratingCount + 1;
+    estabelecimento.rating = Number((novaSoma / novoCount).toFixed(2));
+    estabelecimento.ratingCount = novoCount;
+
+    await estabelecimento.save();
+    res.status(200).json({ message: 'Avaliação registrada com sucesso', rating: estabelecimento.rating });
+  } catch (error) {
+    console.error('Erro ao registrar avaliação:', error);
+    res.status(500).json({ message: 'Erro interno ao registrar avaliação' });
+  }
+});
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
 });

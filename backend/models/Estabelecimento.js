@@ -10,7 +10,7 @@ const produtoSchema = new mongoose.Schema({
 });
 
 const estabelecimentoSchema = new mongoose.Schema({
-  tipo: String, 
+  tipo: String,
   nome: String,
   numero: String,
   horario: String,
@@ -19,8 +19,17 @@ const estabelecimentoSchema = new mongoose.Schema({
   panfleto: String,
   localizacao: String,
   categorias: [String],
-  produtos: [produtoSchema]
+  produtos: [produtoSchema],
+  rating: {
+    type: Number,
+    default: 0
+  },
+  ratingCount: {
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = mongoose.model('Estabelecimento', estabelecimentoSchema, 'Mercados');
+
 
