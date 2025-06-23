@@ -26,6 +26,8 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PanfletoModal from '../../Components/PanfletoModal/PanfletoModal';
 import LoginIcon from '@mui/icons-material/Login';
+import { SnackbarProvider } from "notistack";
+import Swal from 'sweetalert2';
 
 function Comercio() {
   const [busca, setBusca] = useState("");
@@ -92,15 +94,18 @@ function Comercio() {
     setModalAberto(false);
   };
 
-  const tituloCategoria = {
-    mercadinhos: "🛒 Mercadinhos",
-    lanchonetes: "🍔 Lanchonetes",
-    farmacias: "💊 Farmácias",
-    saloes: "✂️ Salões de Beleza",
-    igrejas: "⛪ Igrejas",
-    escolas: "🏫 Escolas",
-    outros: "📌 Outros",
-  };
+ const tituloCategoria = {
+  mercadinhos: "🛒 Mercadinhos",
+  lanchonetes: "🍔 Lanchonetes",
+  farmacias: "💊 Farmácias",
+  materialdeconstrucao: "🏗️ Material de Construção",
+  saloes: "✂️ Salões de Beleza",
+  igrejas: "⛪ Igrejas",
+  escolas: "🏫 Escolas",
+  outros: "📌 Outros"
+};
+
+
 
   const irParaLogin = () => {
     window.location.href = "/LoginComercio";
@@ -122,20 +127,38 @@ function Comercio() {
     setAvaliarItem(null);
   };
 
-  const enviarAvaliacao = async () => {
-    if (!nota) return;
-    try {
-      await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
-        id: avaliarItem._id,
-        rating: nota
-      });
-      alert("Obrigado pela sua avaliação!");
-      fecharModalAvaliacao();
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao enviar avaliação");
-    }
-  };
+  
+
+const enviarAvaliacao = async () => {
+  if (!nota) return;
+
+  try {
+    await axios.post(`https://manaus-conectada.onrender.com/api/avaliar`, {
+      id: avaliarItem._id,
+      rating: nota
+    });
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Obrigado!',
+      text: 'Sua avaliação foi enviada com sucesso.',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Fechar'
+    });
+
+    fecharModalAvaliacao();
+
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Erro',
+      text: 'Não foi possível enviar sua avaliação. Tente novamente mais tarde.',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Fechar'
+    });
+  }
+};
 
 
   const renderCategoriaComBotao = (chave, lista) => (
@@ -248,7 +271,13 @@ function Comercio() {
 
 
                   <Box display="flex" alignItems="center" mt={1}>
-                    <Rating name={`read-${item._id}`} value={item.rating || 0} precision={0.5} readOnly />
+                   <Rating
+                      name={`read-${item._id}`}
+                      value={isNaN(Number(item.rating)) ? 0 : Number(item.rating)}
+                      precision={0.5}
+                      readOnly
+                    />
+
                     <Typography variant="body2" color="text.secondary" ml={1}>
                       ({item.ratingCount || 0})
                     </Typography>
@@ -328,6 +357,7 @@ function Comercio() {
           <Typography id="modal-titulo" variant="h6" component="h2" mb={2}>
             Avaliar {avaliarItem?.nome}
           </Typography>
+          
           <Rating
             name="avaliacao-modal"
             value={nota}
@@ -347,6 +377,11 @@ function Comercio() {
   );
 
   return (
+     <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      autoHideDuration={3000}
+    >
     <div style={{ padding: "2rem 1rem", backgroundColor: "#f3f3f3f3", minHeight: "100vh" }}>
       <Typography
         variant="h4"
@@ -424,6 +459,7 @@ function Comercio() {
         comercio={comercioSelecionado}
       />
     </div>
+    </SnackbarProvider>
   );
 }
 
