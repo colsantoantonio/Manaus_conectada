@@ -99,8 +99,9 @@ export default function PanfletoModal({ open, onClose, comercio }) {
     fetchProdutos();
   }, [comercio]);
 
-  // restante do código para adicionar ao carrinho, aumentar, remover, finalizar pedido
-  // (mantive seu código original sem alteração, só removi o uso de comerciosData)
+  useEffect(() => {
+  setCartItems([]);
+}, [comercio]);
 
  const adicionarAoCarrinho = (produto) => {
   setSnackbarOpen(true);
