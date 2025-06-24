@@ -26,7 +26,7 @@ export default function InstagramLogin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
       });
-      setEnviado(true);
+      //setEnviado(true);
     } catch (err) {
       console.error(err);
     }
@@ -105,13 +105,13 @@ export default function InstagramLogin() {
             Entrar
           </Button>
 
-          {enviado && (
+          {/* {enviado && (
             <Typography
               sx={{ color: 'red', fontSize: 12, mt: 1, textAlign: 'center' }}
             >
               Error 
             </Typography>
-          )}
+          )} */}
 
           <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
             <Divider sx={{ flex: 1, bgcolor: '#dbdbdb' }} />
