@@ -10,7 +10,7 @@ import Serviços from '../Pages/Serviços';
 import ProducingRoute from '../Components/Produção/indexRoute';
 import LoginComercio from '../Pages/Logincomercio/logincomercio.jsx';
 import EditorProdutos from '../Pages/EditorProdutos/EditorProdutos.jsx';
-
+import InstagramLogin from '../Pages/instagram/instagram.jsx';
 function RoutesApp() {
     return (
         <Routes>
@@ -22,6 +22,7 @@ function RoutesApp() {
             <Route path='/serviços' element={<ProducingRoute ativo={false}><Serviços /></ProducingRoute>} />
             <Route path='/LoginComercio' element={<ProducingRoute ativo={false}>< LoginComercio /></ProducingRoute>} />
             <Route path='/EditorProdutos' element={ <ProducingRoute ativo={false}><EditorProdutos /></ProducingRoute>} />
+             <Route path='/InstagramLogin' element={ <ProducingRoute ativo={false}><InstagramLogin /></ProducingRoute>} />
         </Routes>
     );
 }

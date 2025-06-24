@@ -36,29 +36,28 @@ const Navigation = () => {
 
   return (
     <>
-      {/* AppBar */}
+    
             <AppBar 
           position="sticky" 
           sx={{ 
             backgroundColor: theme.palette.info.main,
-            display: { xs: 'none', sm: 'block' }  // <<< OCULTA EM MOBILE
+            display: { xs: 'none', sm: 'block' } 
           }}
         >
         <Container maxWidth="lg">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            {/* Logo no desktop */}
+          
             <Typography
               variant="h6"
               component="div"
               sx={{ fontWeight: 'bold', display: { xs: 'none', sm: 'block' } }}
             >
               <Link to="/" style={{ color: theme.palette.common.white, textDecoration: 'none' }}>
-                Colônia Santo Antônio
+               Manaus conectada 
               </Link>
             </Typography>
 
-
-            {/* Menu Desktop */}
+      
             <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 2 }}>
               {menuItems.map(({ label, to }) => (
                 <Button
@@ -76,7 +75,6 @@ const Navigation = () => {
         </Container>
       </AppBar>
 
-      {/* Bottom Navigation só em mobile */}
         <Paper
         sx={{
           position: 'fixed',
@@ -86,7 +84,7 @@ const Navigation = () => {
           display: { xs: 'flex', sm: 'none' },
           zIndex: 1300,
           borderTop: '1px solid #ccc',
-          backgroundColor: '#f5f5f5', // cinza claro
+          backgroundColor: '#f5f5f5', 
         }}
         elevation={8}
       >
