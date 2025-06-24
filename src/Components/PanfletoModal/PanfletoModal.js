@@ -102,35 +102,36 @@ export default function PanfletoModal({ open, onClose, comercio }) {
   // restante do código para adicionar ao carrinho, aumentar, remover, finalizar pedido
   // (mantive seu código original sem alteração, só removi o uso de comerciosData)
 
-  const adicionarAoCarrinho = (produto) => {
-    setSnackbarOpen(true);
-    setCartItems((prev) => {
-      const existe = prev.find((item) => item.id === produto.id);
-      return existe
-        ? prev.map((item) =>
-            item.id === produto.id ? { ...item, quantidade: item.quantidade + 1 } : item
-          )
-        : [...prev, { ...produto, quantidade: 1 }];
-    });
-  };
-
-  const aumentarQuantidade = (produto) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === produto.id ? { ...item, quantidade: item.quantidade + 1 } : item
-      )
-    );
-  };
-
-  const removerItem = (produto) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) =>
-          item.id === produto.id ? { ...item, quantidade: item.quantidade - 1 } : item
+ const adicionarAoCarrinho = (produto) => {
+  setSnackbarOpen(true);
+  setCartItems((prev) => {
+    const existe = prev.find((item) => item._id === produto._id);
+    return existe
+      ? prev.map((item) =>
+          item._id === produto._id ? { ...item, quantidade: item.quantidade + 1 } : item
         )
-        .filter((item) => item.quantidade > 0)
-    );
-  };
+      : [...prev, { ...produto, quantidade: 1 }];
+  });
+};
+
+const aumentarQuantidade = (produto) => {
+  setCartItems((prev) =>
+    prev.map((item) =>
+      item._id === produto._id ? { ...item, quantidade: item.quantidade + 1 } : item
+    )
+  );
+};
+
+const removerItem = (produto) => {
+  setCartItems((prev) =>
+    prev
+      .map((item) =>
+        item._id === produto._id ? { ...item, quantidade: item.quantidade - 1 } : item
+      )
+      .filter((item) => item.quantidade > 0)
+  );
+};
+
 
   const limparCarrinho = () => setCartItems([]);
 
@@ -155,7 +156,7 @@ export default function PanfletoModal({ open, onClose, comercio }) {
 
     const endereco = `Endereço: Rua ${rua}, Nº ${numeroCasa}`;
     const pagamento = `Forma de pagamento: ${formaPagamento}`    
-    const recebedor = `Receberá: ${nomeRecebedor}`;
+    const recebedor = `Cliente: ${nomeRecebedor}`;
 
     const texto = `Olá! Gostaria de fazer o pedido:\n${mensagem}\n\n${endereco}\n\n${pagamento}\n\n${recebedor}\n\nTotal: R$ ${valorTotal.toFixed(2)}`;
 
@@ -186,7 +187,15 @@ export default function PanfletoModal({ open, onClose, comercio }) {
       >
         {/* Header */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h6" fontWeight="bold" color="blue">Meu Food</Typography>
+                    <Typography
+            variant="h6"
+            fontWeight="bold"
+            color="blue"
+            noWrap
+            sx={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          >
+            {comercio?.nome || 'Comércio'}
+          </Typography>
           <Box>
             <IconButton onClick={() => setMostrarCarrinho(!mostrarCarrinho)}>
               <Badge badgeContent={cartItems.length} color="secondary">
@@ -273,9 +282,10 @@ export default function PanfletoModal({ open, onClose, comercio }) {
                       xs={12}
                       sm={6}
                       md={4}
-                      key={produto.id}
+                      key={produto._id}
                       sx={{ display: 'flex', justifyContent: 'center' }}
-                    >
+                        >
+
                       <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}

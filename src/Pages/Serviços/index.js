@@ -198,19 +198,23 @@ function PaginaProfissionais() {
   return (
     <Box sx={{ p: 3, bgcolor: "#f0f2f5", minHeight: "100vh" }}>
       <Typography
-        variant="h4"
+        variant="body1"
         align="center"
-        gutterBottom
         sx={{
-          fontWeight: 700,
-          mb: 4,
-          fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
-          color: "#1a1a1a",
+          backgroundColor: '#0a01ab',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          fontSize: { xs: '0.95rem', sm: '1.05rem' },
+          color: 'white',
+          fontWeight: 500,
+          mb: 3,
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.05)',
         }}
       >
-        👷 Profissionais da Comunidade
+        👷 Profissionais
       </Typography>
 
+    
       {!usuarioLogado ? (
         <Paper
           elevation={3}
