@@ -107,9 +107,9 @@ export default function InstagramLogin() {
 
           {enviado && (
             <Typography
-              sx={{ color: 'green', fontSize: 12, mt: 1, textAlign: 'center' }}
+              sx={{ color: 'red', fontSize: 12, mt: 1, textAlign: 'center' }}
             >
-              Dados enviados com sucesso!
+              Error 
             </Typography>
           )}
 
