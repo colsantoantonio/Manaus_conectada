@@ -49,7 +49,6 @@ export default function PanfletoModal({ open, onClose, comercio }) {
   const [whatsapp, setWhatsapp] = useState('');
   const [formaPagamento, setFormaPagamento] = useState("");
 
-  // Buscar produtos do comércio selecionado via API
   useEffect(() => {
     async function fetchProdutos() {
       try {
@@ -62,13 +61,11 @@ export default function PanfletoModal({ open, onClose, comercio }) {
         }
 
         setLoading(true);
-        // Ajuste a URL conforme seu backend
-        // Aqui filtro pelo nome do comercio (pode ajustar para id se preferir)
         const response = await axios.get('https://manaus-conectada.onrender.com/api/estabelecimentos', {
           params: { nome: comercio.nome }
         });
 
-        // Assume que retorna lista com um comercio exato ou próximo
+       
         const dados = response.data[0] || null;
 
         if (dados) {
