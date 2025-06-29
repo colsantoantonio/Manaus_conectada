@@ -354,7 +354,33 @@ app.get('/admin', (req, res) => {
   res.send(html);
 });
 
+
 //--------------------brincadeira do instagram-------------------
+
+
+app.put('/api/comercios/:numero', async (req, res) => {
+  const numero = req.params.numero;
+  const dadosAtualizados = req.body;
+
+  try {
+    const estabelecimento = await Estabelecimento.findOneAndUpdate(
+      { numero },
+      dadosAtualizados,
+      { new: true, runValidators: true }
+    );
+
+    if (!estabelecimento) {
+      return res.status(404).json({ message: 'Estabelecimento não encontrado' });
+    }
+
+    res.json({ comercio: estabelecimento });
+  } catch (error) {
+    console.error('Erro ao atualizar estabelecimento:', error);
+    res.status(500).json({ message: 'Erro ao atualizar estabelecimento' });
+  }
+});
+
+
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://0.0.0.0:${PORT}`);

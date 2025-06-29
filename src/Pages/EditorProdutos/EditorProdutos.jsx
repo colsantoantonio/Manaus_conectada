@@ -5,7 +5,6 @@ import {
   TextField,
   Button,
   Stack,
-  Paper,
   Snackbar,
   Alert,
   Avatar,
@@ -26,6 +25,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Sidebar from '../../Components/sidbar/index';
 
 export default function EditorProdutos() {
   const navigate = useNavigate();
@@ -148,6 +148,7 @@ export default function EditorProdutos() {
   }
 
   return (
+     <Sidebar>
     <Container maxWidth="sm" sx={{ mt: 4, mb: 8 }}>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Avatar
@@ -263,5 +264,6 @@ export default function EditorProdutos() {
         </DialogActions>
       </Dialog>
     </Container>
+    </Sidebar>
   );
 }

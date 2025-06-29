@@ -94,109 +94,70 @@ function Home() {
       <CarroselComponent />
 
       <Container maxWidth="lg" sx={{ mt: 4, marginTop: "-5px" }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-           <Grid item xs={12} md={6}>
-              <Box className="todos">
-                <Container maxWidth="md" sx={{ mt: { xs: 2, md: 4 } }}>
-                  {nomeUsuario && (
+        <Grid container justifyContent="center">
+          <Grid item xs={12} md={8}>
+            <Box className="todos">
+              <Container maxWidth="md" sx={{ mt: { xs: 2, md: 4 } }}>
+                {nomeUsuario && (
+                  <Box
+                    sx={{
+                      bgcolor: "#fff",
+                      p: { xs: 2, sm: 3, md: 4 },
+                      borderRadius: 3,
+                      boxShadow: 2,
+                      textAlign: "center",
+                      mb: { xs: 3, md: 5 },
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: { xs: "1.3rem", sm: "1.5rem" },
+                        mb: 1,
+                        color: "#333",
+                      }}
+                    >
+                      👋 Olá, {nomeUsuario}!
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: { xs: "0.95rem", sm: "1.05rem" },
+                        color: "#555",
+                      }}
+                    >
+                      Seja bem-vindo ao <strong>Manaus Conectada</strong> — o app que conecta moradores, comércios e serviços do seu bairro!
+                    </Typography>
+
                     <Box
                       sx={{
-                        bgcolor: "#fff",
-                        p: { xs: 2, sm: 3, md: 4 },
-                        borderRadius: 3,
-                        boxShadow: 2,
-                        textAlign: "center",
-                        mb: { xs: 3, md: 5 },
+                        mt: 2,
+                        textAlign: "left",
+                        bgcolor: "#f9f9f9",
+                        borderRadius: 2,
+                        p: { xs: 1.5, sm: 2 },
                       }}
                     >
                       <Typography
-                        variant="h5"
+                        variant="subtitle2"
                         sx={{
                           fontWeight: "bold",
-                          fontSize: { xs: "1.3rem", sm: "1.5rem" },
                           mb: 1,
-                          color: "#333",
+                          fontSize: "1rem",
                         }}
                       >
-                        👋 Olá, {nomeUsuario}!
+                        O que você encontra aqui:
                       </Typography>
-
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          fontSize: { xs: "0.95rem", sm: "1.05rem" },
-                          color: "#555",
-                        }}
-                      >
-                        Seja bem-vindo ao <strong>Manaus Conectada</strong> — o app que conecta moradores, comércios e serviços do seu bairro!
-                      </Typography>
-
-                      {/* Lista compacta */}
-                      <Box
-                        sx={{
-                          mt: 2,
-                          textAlign: "left",
-                          bgcolor: "#f9f9f9",
-                          borderRadius: 2,
-                          p: { xs: 1.5, sm: 2 },
-                        }}
-                      >
-                        <Typography
-                          variant="subtitle2"
-                          sx={{
-                            fontWeight: "bold",
-                            mb: 1,
-                            fontSize: "1rem",
-                          }}
-                        >
-                          O que você encontra aqui:
-                        </Typography>
-                        <ul style={{ paddingLeft: "20px", margin: 0 }}>
-                          <li>🛒 Ofertas de comércios locais</li>
-                          <li>👷‍♂️ Profissionais perto de você</li>
-                         <li>📰 Notícias atualizadas da cidade</li>
-                        </ul>
-                      </Box>
-
-                      {/* Ações principais com boa responsividade */}
-                      {/* <Box
-                        sx={{
-                          mt: 3,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 1.5,
-                        }}
-                      >
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        sx={{
-                          fontSize: { xs: "0.9rem", sm: "1rem" },
-                          py: 1.2,
-                        }}
-                        onClick={() => navigate("/mercadao")} // <- Aqui define o caminho da nova página
-                      >
-                        Comercios
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        sx={{
-                          fontSize: { xs: "0.9rem", sm: "1rem" },
-                          py: 1.2,
-                        }}
-                        onClick={() => navigate("/serviços")} // <- Aqui define o caminho da nova página
-                      >
-                        Profissionaisf
-                      </Button>
-                      </Box> */}
+                      <ul style={{ paddingLeft: "20px", margin: 0 }}>
+                        <li>🛒 Ofertas de comércios locais</li>
+                        <li>👷‍♂️ Profissionais perto de você</li>
+                        <li>📰 Notícias atualizadas da cidade</li>
+                      </ul>
                     </Box>
-                  )}
-               
-                </Container>
+                  </Box>
+                )}
 
                 {/* Notícias e Formulário */}
                 <Box className="segunda" sx={{ px: { xs: 1, sm: 2 } }}>
@@ -272,8 +233,8 @@ function Home() {
                     🚀 Enviar
                   </Button>
                 </Box>
-              </Box>
-            </Grid>
+              </Container>
+            </Box>
           </Grid>
         </Grid>
       </Container>
