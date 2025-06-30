@@ -16,12 +16,10 @@ import {
   CardMedia,
   Rating,
   Box,
-  Modal,
-  TextField
+  Modal
 } from "@mui/material";
 import axios from "axios";
 import StoreIcon from "@mui/icons-material/Store";
-import PhoneIcon from "@mui/icons-material/Phone";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -31,7 +29,6 @@ import LoginIcon from '@mui/icons-material/Login';
 import { SnackbarProvider } from "notistack";
 import Swal from 'sweetalert2';
 import ShareIcon from '@mui/icons-material/Share';
-
 
 function Comercio() {
   const [busca, setBusca] = useState("");
@@ -54,40 +51,63 @@ function Comercio() {
   };
 
   const compartilharNoWhatsApp = (comercio) => {
-    const link = `https://meusite.com/estabelecimento/${comercio._id}`;
+    const link = `https://manaus-conectada.vercel.app/mercadao#${comercio._id}`;
     const mensagem = `Confira este comércio no Guia do Bairro: ${comercio.nome} - ${link}`;
     const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
     window.open(url, "_blank");
   };
 
   useEffect(() => {
-    const fetchComercios = async () => {
-      try {
-        const response = await axios.get("https://manaus-conectada.onrender.com/api/estabelecimentos");
+  const fetchComercios = async () => {
+    try {
+      const response = await axios.get("https://manaus-conectada.onrender.com/api/estabelecimentos");
 
-        if (Array.isArray(response.data)) {
-          const agrupado = response.data.reduce((acc, comercio) => {
-            const tipo = comercio.categoriaTipo || "outros";
-            if (!acc[tipo]) acc[tipo] = [];
-            acc[tipo].push(comercio);
-            return acc;
-          }, {});
+      if (Array.isArray(response.data)) {
+        const agrupado = response.data.reduce((acc, comercio) => {
+          const tipo = comercio.categoriaTipo || "outros";
+          if (!acc[tipo]) acc[tipo] = [];
+          acc[tipo].push(comercio);
+          return acc;
+        }, {});
 
-          for (let categoria in agrupado) {
-            agrupado[categoria].sort((a, b) => (b.rating || 0) - (a.rating || 0));
-          }
-
-          setCategorias(agrupado);
-        } else {
-          console.error("Formato inesperado dos dados:", response.data);
+        for (let categoria in agrupado) {
+          agrupado[categoria].sort((a, b) => (b.rating || 0) - (a.rating || 0));
         }
-      } catch (error) {
-        console.error("Erro ao buscar estabelecimentos:", error);
-      }
-    };
 
-    fetchComercios();
-  }, []);
+        setCategorias(agrupado);
+
+        // Scroll baseado no hash (ex: #6859aaf4e306935d201b50ea)
+        const hashId = window.location.hash ? window.location.hash.substring(1) : null;
+
+        if (hashId) {
+          const comercioEncontrado = response.data.find(item => item._id === hashId);
+          if (comercioEncontrado?.categoriaTipo) {
+            setAbertos((prev) => ({ ...prev, [comercioEncontrado.categoriaTipo]: true }));
+
+            // Espera o Collapse renderizar antes de rolar
+            setTimeout(() => {
+              const target = document.getElementById(hashId);
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "center" });
+                target.style.boxShadow = "0 0 0 4px #4caf50";
+                setTimeout(() => {
+                  target.style.boxShadow = "none";
+                }, 2500);
+              }
+            }, 1000); // tempo para o Collapse abrir
+          }
+        }
+      } else {
+        console.error("Formato inesperado dos dados:", response.data);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar estabelecimentos:", error);
+    }
+  };
+
+  fetchComercios();
+}, []);
+
 
   const todosComercios = Object.values(categorias).flat();
   const comerciosFiltrados = todosComercios.filter((item) =>
@@ -215,7 +235,7 @@ function Comercio() {
       <Collapse in={abertos[chave] || false} timeout={400} unmountOnExit>
         <Grid container spacing={3} justifyContent="center" mt={2}>
           {lista.map((item, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid item xs={12} sm={6} md={4} key={index} id={item._id}>
               <Card
                 sx={{
                   width: 300,
