@@ -26,16 +26,24 @@ const ModalBoasVindas = () => {
 
   useEffect(() => {
     const savedName = localStorage.getItem('userFirstName');
+    const lastShown = localStorage.getItem('modalBoasVindasTimestamp');
+
+    const now = Date.now();
+    const hours24 = 24 * 60 * 60 * 1000;
+
     if (savedName) {
       setFirstName(savedName);
       setSubmitted(true);
     }
 
-    const timer = setTimeout(() => {
-      setOpen(true);
-    }, 1000);
+    if (!lastShown || now - Number(lastShown) > hours24) {
+      const timer = setTimeout(() => {
+        setOpen(true);
+        localStorage.setItem('modalBoasVindasTimestamp', now.toString());
+      }, 1000);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const handleClose = () => {
@@ -176,3 +184,4 @@ const ModalBoasVindas = () => {
 };
 
 export default ModalBoasVindas;
+
